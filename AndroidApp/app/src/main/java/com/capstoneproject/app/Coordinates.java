@@ -365,6 +365,81 @@ public class Coordinates
                 new LatLng(39.029990, -84.464316)).strokeColor(Color.BLACK).fillColor(Color.RED);
 
 
+    private PolygonOptions kentonGarage = new PolygonOptions()
+            .add(new LatLng(39.030651, -84.467264),
+                new LatLng(39.029667, -84.467259),
+                new LatLng(39.029653, -84.467267),
+                new LatLng(39.029639, -84.467290),
+                new LatLng(39.029650, -84.467320),
+                new LatLng(39.029665, -84.467334),
+                new LatLng(39.029685, -84.467335),
+                new LatLng(39.029794, -84.467705),
+                new LatLng(39.029838, -84.467701),
+                new LatLng(39.029839, -84.467744),
+                new LatLng(39.029789, -84.467746),
+                new LatLng(39.029912, -84.468171),
+                new LatLng(39.030697, -84.468169),
+                new LatLng(39.030708, -84.468192),
+                new LatLng(39.030781, -84.468193),
+                new LatLng(39.030648, -84.467745),
+                new LatLng(39.030604, -84.467743),
+                new LatLng(39.030601, -84.467700),
+                new LatLng(39.030650, -84.467698),
+                new LatLng(39.030647, -84.467341),
+                new LatLng(39.030668, -84.467329),
+                new LatLng(39.030678, -84.467303),
+                new LatLng(39.030667, -84.467273)).strokeColor(Color.BLACK).fillColor(Color.BLUE);
+
+    private PolygonOptions studentParkingLotM = new PolygonOptions()
+            .add(new LatLng(39.032897, -84.467141),
+                new LatLng(39.033683, -84.466151),
+                new LatLng(39.034137, -84.466618),
+                new LatLng(39.034178, -84.466765),
+                new LatLng(39.034274, -84.466873),
+                new LatLng(39.034234, -84.466951),
+                new LatLng(39.033686, -84.467678),
+                new LatLng(39.033649, -84.467640),
+                new LatLng(39.033587, -84.467656),
+                new LatLng(39.033322, -84.467568),
+                new LatLng(39.032956, -84.467340)).strokeColor(Color.BLACK).fillColor(Color.BLUE);
+
+    private PolygonOptions facultyParkingLotD = new PolygonOptions()
+            .add(new LatLng(39.032701, -84.461397),
+                new LatLng(39.032506, -84.461394),
+                new LatLng(39.032358, -84.461371),
+                new LatLng(39.032302, -84.461100),
+                new LatLng(39.031794, -84.461075),
+                new LatLng(39.031789, -84.461346),
+                new LatLng(39.031616, -84.461430),
+                new LatLng(39.031653, -84.461763),
+                new LatLng(39.031819, -84.462258),
+                new LatLng(39.032342, -84.462292),
+                new LatLng(39.032501, -84.462183),
+                new LatLng(39.032512, -84.461809),
+                new LatLng(39.032672, -84.461817)).strokeColor(Color.BLACK).fillColor(Color.BLUE);
+
+    private PolygonOptions facultyParkingLotV = new PolygonOptions()
+            .add(new LatLng(39.028991, -84.463699),
+                new LatLng(39.028615, -84.463687),
+                new LatLng(39.028512, -84.463753),
+                new LatLng(39.028331, -84.463762),
+                new LatLng(39.028323, -84.463894),
+                new LatLng(39.028973, -84.463914)).strokeColor(Color.BLACK).fillColor(Color.BLUE);
+
+    private PolygonOptions studentParkingLotI = new PolygonOptions()
+            .add(new LatLng(39.033839, -84.46375),
+                new LatLng(39.034043, -84.462909),
+                new LatLng(39.033492, -84.462903),
+                new LatLng(39.033425, -84.462886),
+                new LatLng(39.033394, -84.463158),
+                new LatLng(39.033167, -84.463158),
+                new LatLng(39.033147, -84.463094),
+                new LatLng(39.032875, -84.463061),
+                new LatLng(39.032847, -84.463153),
+                new LatLng(39.032781, -84.463178),
+                new LatLng(39.032803, -84.463381),
+                new LatLng(39.032878, -84.463725)).strokeColor(Color.BLACK).fillColor(Color.BLUE);
+
 
     public void loadCoordinates(GoogleMap map)
     {
@@ -383,15 +458,19 @@ public class Coordinates
         map.addPolygon(studentUnion);
         map.addPolygon(steelyLibrary);
         map.addPolygon(universityCenter);
+        map.addPolygon(kentonGarage);
+        map.addPolygon(studentParkingLotM);
+        map.addPolygon(facultyParkingLotD);
+        map.addPolygon(facultyParkingLotV);
+        map.addPolygon(studentParkingLotI);
     }
 
     public void insertMarkers (GoogleMap map)
     {
-        //
         map.addMarker(new MarkerOptions().position(new LatLng(39.030969, -84.466807)).title("Griffin Hall").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         map.addMarker(new MarkerOptions().position(new LatLng(39.030194, -84.465240)).title("Student Union").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         map.addMarker(new MarkerOptions().position(new LatLng(39.032428, -84.466249)).title("Science Building").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.030190, -84.465594)).title("Albright Health Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.029202, -84.466399)).title("Albright Health Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         map.addMarker(new MarkerOptions().position(new LatLng(39.029340, -84.465122)).title("Regents Hall").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         map.addMarker(new MarkerOptions().position(new LatLng(39.033249, -84.464401)).title("Baptist Student Union").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         map.addMarker(new MarkerOptions().position(new LatLng(39.030963, -84.464851)).title("Nunn Hall").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
@@ -403,5 +482,10 @@ public class Coordinates
         map.addMarker(new MarkerOptions().position(new LatLng(39.031115, -84.461619)).title("Business Academic Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         map.addMarker(new MarkerOptions().position(new LatLng(39.031244, -84.463695)).title("Fine Arts Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         map.addMarker(new MarkerOptions().position(new LatLng(39.030169, -84.463950)).title("University Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.030244, -84.467783)).title("Visitor Parking Lot 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.033594, -84.466871)).title("Student Parking Lot 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.033190, -84.463529)).title("Student Parking Lot 2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.031957, -84.461786)).title("Faculty Parking Lot 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.028773, -84.463701)).title("Faculty Parking Lot 2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
     }
 }

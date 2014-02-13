@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 public class MainActivity extends ActionBarActivity
 {
     private GoogleMap map;
-    static final LatLng CENTER_OF_MAP = new LatLng(39.030953, -84.465487);
+    static final LatLng CENTER_OF_MAP = new LatLng(39.031136, -84.464629);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity
         map = mapFrag.getMap();
 
         map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(CENTER_OF_MAP, 15));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(CENTER_OF_MAP, 16));
 
         loadBuildingImages();
 
@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity
         switch (item.getItemId())
         {
             case R.id.login:
-                Intent loginIntent = new Intent(MainActivity.this, Account.class);
+                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
                 break;
             default:
