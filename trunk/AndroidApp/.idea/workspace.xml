@@ -12,20 +12,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="2c945cbf-749f-4e6f-9a14-7ec8baa0fdd1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/pin_marker.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/Account.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/Coordinates.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/login_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/pre-dexed/debug/classes-0017e58de6c8af02a10efff661ba212a8355be04.jar" afterPath="$PROJECT_DIR$/app/build/pre-dexed/debug/classes-0017e58de6c8af02a10efff661ba212a8355be04.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/pre-dexed/debug/classes-e4977454841309fdfb18150964c0573e2b23f7c0.jar" afterPath="$PROJECT_DIR$/app/build/pre-dexed/debug/classes-e4977454841309fdfb18150964c0573e2b23f7c0.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/19_0_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/4_1_32.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__19_0_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__4_1_32.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/LoginActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings_activity_login.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/dex/debug/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/pre-dexed/debug/support-v4-19.0.1-b60945e373bff6e01a22ddd6aa6758219752d3dc.jar" afterPath="$PROJECT_DIR$/app/build/pre-dexed/debug/support-v4-19.0.1-b60945e373bff6e01a22ddd6aa6758219752d3dc.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/Coordinates.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/Coordinates.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/app/build/source/r/debug/android/support/v7/appcompat/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/source/r/debug/com/capstoneproject/app/R.java" afterPath="$PROJECT_DIR$/app/build/source/r/debug/com/capstoneproject/app/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/app/build/source/r/debug/com/google/android/gms/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ParkingApplication.iws" />
@@ -89,7 +94,17 @@
     <favorites_list name="ParkingApplication" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Coordinates.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/Coordinates.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="457" column="37" selection-start="23219" selection-end="23219" vertical-scroll-proportion="0.13333334" vertical-offset="7548" max-vertical-offset="8313">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -510,12 +525,13 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/menu/main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/login_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/menu/main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/menu/login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/Account.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/Coordinates.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/Coordinates.java" />
       </list>
     </option>
   </component>
@@ -532,7 +548,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="1" id="Remove" />
   </component>
   <component name="ProjectReloadState">
@@ -551,8 +567,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -659,6 +675,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="values-large" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ParkingApplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ParkingApplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="values" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -720,36 +766,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ParkingApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ParkingApplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1022,41 +1038,45 @@
       <created>1391524173224</created>
       <updated>1391524173224</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="I have added the map overlay for the buildings. I also added the log in screen view for the user to enter the username and the password.&#10;Next step now is to work on the map overlay for the parking lots, and more on the design of the application. We will talk more about the app during our meeting on Thursday.">
+      <created>1392084317183</created>
+      <updated>1392084317183</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-135" width="1936" height="1096" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32864583" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987553" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1960581" sideWeight="0.36197916" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17946059" sideWeight="0.36197916" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987553" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21576764" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1960581" sideWeight="0.6380208" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17946059" sideWeight="0.6380208" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16979167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15885417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32883817" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987553" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1074,21 +1094,13 @@
     </option>
     <MESSAGE value="First code for the project.&#10;Map is loaded." />
     <MESSAGE value="I have added the map overlay for the buildings. I also added the log in screen view for the user to enter the username and the password.&#10;Next step now is to work on the map overlay for the parking lots, and more on the design of the application. We will talk more about the app during our meeting on Thursday." />
-    <option name="LAST_COMMIT_MESSAGE" value="I have added the map overlay for the buildings. I also added the log in screen view for the user to enter the username and the password.&#10;Next step now is to work on the map overlay for the parking lots, and more on the design of the application. We will talk more about the app during our meeting on Thursday." />
+    <MESSAGE value="I have not added the parking lots. There are 5 of them marked by the blue color compared to the red colors of the buildings.&#10;Also, I deleted my custom login Intent and then used the one that is provided in android. It has a lot of OOB features built into it." />
+    <option name="LAST_COMMIT_MESSAGE" value="I have not added the parking lots. There are 5 of them marked by the blue color compared to the red colors of the buildings.&#10;Also, I deleted my custom login Intent and then used the one that is provided in android. It has a lot of OOB features built into it." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="0" selection-start="1780" selection-end="1780" vertical-scroll-proportion="0.0" vertical-offset="461" max-vertical-offset="1666">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="0" selection-start="331" selection-end="331" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="238">
@@ -1101,30 +1113,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="33" selection-start="2050" selection-end="2050" vertical-scroll-proportion="0.0" vertical-offset="466" max-vertical-offset="1717">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="331" selection-end="331" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="238">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="5" selection-start="1836" selection-end="1836" vertical-scroll-proportion="0.0" vertical-offset="850" max-vertical-offset="1615">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="50" column="5" selection-start="1836" selection-end="1836" vertical-scroll-proportion="0.0" vertical-offset="850" max-vertical-offset="1615" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
@@ -1139,11 +1128,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="0" selection-start="1483" selection-end="1483" vertical-scroll-proportion="0.0" vertical-offset="422" max-vertical-offset="1615">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="38" column="0" selection-start="1483" selection-end="1483" vertical-scroll-proportion="0.0" vertical-offset="422" max-vertical-offset="1615" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
@@ -1158,21 +1143,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="32" selection-start="8" selection-end="32" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1445">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="0" column="32" selection-start="8" selection-end="32" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1445" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="38" column="18" selection-start="1790" selection-end="1790" vertical-scroll-proportion="0.0" vertical-offset="646" max-vertical-offset="799">
           <folding>
-            <element signature="e#1093#1111#0" expanded="true" />
-            <element signature="e#1391#1409#0" expanded="true" />
-            <element signature="e#1741#1759#0" expanded="true" />
-            <element signature="e#2158#2197#0" expanded="true" />
+            <element signature="e#1126#1144#0" expanded="false" />
+            <element signature="e#1448#1466#0" expanded="false" />
+            <element signature="e#1803#1833#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1189,32 +1169,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="32" selection-start="8" selection-end="32" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1445">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="0" column="32" selection-start="8" selection-end="32" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1445" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="38" column="18" selection-start="1790" selection-end="1790" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="799">
           <folding>
-            <element signature="e#1093#1111#0" expanded="true" />
-            <element signature="e#1391#1409#0" expanded="true" />
-            <element signature="e#1741#1759#0" expanded="true" />
-            <element signature="e#2158#2197#0" expanded="true" />
+            <element signature="e#1126#1144#0" expanded="false" />
+            <element signature="e#1448#1466#0" expanded="false" />
+            <element signature="e#1803#1833#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="8" selection-start="1307" selection-end="1307" vertical-scroll-proportion="0.0" vertical-offset="507" max-vertical-offset="2159">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="39" column="8" selection-start="1307" selection-end="1307" vertical-scroll-proportion="0.0" vertical-offset="507" max-vertical-offset="2159" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml">
@@ -1239,11 +1210,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="10" selection-start="1669" selection-end="1669" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2108">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="48" column="10" selection-start="1669" selection-end="1669" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2108" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
@@ -1258,11 +1225,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="67" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1054">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="22" column="67" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1054" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
@@ -1279,10 +1242,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="68" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.0" vertical-offset="111" max-vertical-offset="799">
           <folding>
-            <element signature="e#1093#1111#0" expanded="true" />
-            <element signature="e#1391#1409#0" expanded="true" />
-            <element signature="e#1741#1759#0" expanded="true" />
-            <element signature="e#2158#2197#0" expanded="true" />
+            <element signature="e#1126#1144#0" expanded="false" />
+            <element signature="e#1448#1466#0" expanded="false" />
+            <element signature="e#1803#1833#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1299,11 +1261,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="67" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1054">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="22" column="67" selection-start="752" selection-end="752" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1054" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
@@ -1320,10 +1278,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="68" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.0" vertical-offset="111" max-vertical-offset="799">
           <folding>
-            <element signature="e#1093#1111#0" expanded="true" />
-            <element signature="e#1391#1409#0" expanded="true" />
-            <element signature="e#1741#1759#0" expanded="true" />
-            <element signature="e#2158#2197#0" expanded="true" />
+            <element signature="e#1126#1144#0" expanded="false" />
+            <element signature="e#1448#1466#0" expanded="false" />
+            <element signature="e#1803#1833#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1340,11 +1297,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="9" selection-start="793" selection-end="793" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1054">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="24" column="9" selection-start="793" selection-end="793" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1054" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
@@ -1361,10 +1314,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="68" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.0" vertical-offset="111" max-vertical-offset="799">
           <folding>
-            <element signature="e#1093#1111#0" expanded="true" />
-            <element signature="e#1391#1409#0" expanded="true" />
-            <element signature="e#1741#1759#0" expanded="true" />
-            <element signature="e#2158#2197#0" expanded="true" />
+            <element signature="e#1126#1144#0" expanded="false" />
+            <element signature="e#1448#1466#0" expanded="false" />
+            <element signature="e#1803#1833#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1381,21 +1333,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1207">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1207" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="27" selection-start="1529" selection-end="1529" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="799">
           <folding>
-            <element signature="e#1093#1111#0" expanded="true" />
-            <element signature="e#1391#1409#0" expanded="true" />
-            <element signature="e#1741#1759#0" expanded="true" />
-            <element signature="e#2158#2197#0" expanded="true" />
+            <element signature="e#1126#1144#0" expanded="false" />
+            <element signature="e#1448#1466#0" expanded="false" />
+            <element signature="e#1803#1833#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1453,60 +1400,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="331" selection-end="331" vertical-scroll-proportion="0.16646267" vertical-offset="0" max-vertical-offset="817">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="39" selection-start="582" selection-end="582" vertical-scroll-proportion="0.30285037" vertical-offset="0" max-vertical-offset="842">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="76" selection-start="1836" selection-end="1836" vertical-scroll-proportion="0.6174334" vertical-offset="153" max-vertical-offset="1037">
-          <folding>
-            <element signature="e#1093#1111#0" expanded="true" />
-            <element signature="e#1391#1409#0" expanded="true" />
-            <element signature="e#1741#1759#0" expanded="true" />
-            <element signature="e#2158#2197#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/Account.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="4" selection-start="335" selection-end="335" vertical-scroll-proportion="0.3292978" vertical-offset="0" max-vertical-offset="826">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/login_main.xml">
-      <provider editor-type-id="text-editor">
-        <state line="43" column="34" selection-start="1664" selection-end="1664" vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="1309">
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/pin_marker.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_launcher.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -1526,18 +1420,95 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="1" selection-start="2748" selection-end="2748" vertical-scroll-proportion="1.9973298" vertical-offset="0" max-vertical-offset="1598">
+        <state line="49" column="68" selection-start="2070" selection-end="2070" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1003">
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1126#1144#0" expanded="false" />
+            <element signature="e#1448#1466#0" expanded="false" />
+            <element signature="e#1803#1833#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/login.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="1" selection-start="324" selection-end="324" vertical-scroll-proportion="0.14183553" vertical-offset="0" max-vertical-offset="839">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="0" selection-start="231" selection-end="231" vertical-scroll-proportion="0.08104887" vertical-offset="0" max-vertical-offset="839">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-large/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="839">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1275">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="230" column="13" selection-start="8227" selection-end="8227" vertical-scroll-proportion="0.6654366" vertical-offset="3148" max-vertical-offset="3961">
+          <folding>
+            <element signature="e#2056#2417#0" expanded="false" />
+            <element signature="e#2406#2407#0" expanded="false" />
+            <element signature="e#2685#2836#0" expanded="false" />
+            <element signature="e#2825#2826#0" expanded="false" />
+            <element signature="e#3816#3856#0" expanded="false" />
+            <element signature="e#4005#4047#0" expanded="false" />
+            <element signature="e#4244#4284#0" expanded="false" />
+            <element signature="e#4426#4465#0" expanded="false" />
+            <element signature="e#4900#4934#0" expanded="false" />
+            <element signature="e#5830#6109#0" expanded="false" />
+            <element signature="e#6086#6087#0" expanded="false" />
+            <element signature="e#6328#6605#0" expanded="false" />
+            <element signature="e#6582#6583#0" expanded="false" />
+            <element signature="e#8121#8165#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="9" selection-start="1121" selection-end="1121" vertical-scroll-proportion="-0.31111112" vertical-offset="646" max-vertical-offset="1411">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="331" selection-end="331" vertical-scroll-proportion="0.18378378" vertical-offset="0" max-vertical-offset="740">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/capstoneproject/app/Coordinates.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="265" column="51" selection-start="13579" selection-end="13579" vertical-scroll-proportion="0.7095436" vertical-offset="3873" max-vertical-offset="6902">
+        <state line="457" column="37" selection-start="23219" selection-end="23219" vertical-scroll-proportion="0.13333334" vertical-offset="7548" max-vertical-offset="8313">
           <folding />
         </state>
       </provider>
