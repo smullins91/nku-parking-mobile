@@ -41,7 +41,7 @@ public class Coordinates
                  new LatLng(39.030595, -84.466688),
                  new LatLng(39.030590, -84.466773),
                  new LatLng(39.030550, -84.466782),
-                 new LatLng(39.030555, -84.466917)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                 new LatLng(39.030555, -84.466917)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions scienceBuilding = new PolygonOptions()
             .add(new LatLng(39.032554, -84.466865),
@@ -90,7 +90,7 @@ public class Coordinates
                 new LatLng(39.032480, -84.466935),
                 new LatLng(39.032482, -84.466955),
                 new LatLng(39.032515, -84.466955),
-                new LatLng(39.032516, -84.466871)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.032516, -84.466871)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions landrumHall = new PolygonOptions()
             .add(new LatLng(39.032422, -84.464614),
@@ -109,7 +109,7 @@ public class Coordinates
                 new LatLng(39.032556, -84.464114),
                 new LatLng(39.032489, -84.464111),
                 new LatLng(39.032489, -84.464147),
-                new LatLng(39.032428, -84.464142)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.032428, -84.464142)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions fineArts = new PolygonOptions()
             .add(new LatLng(39.030773, -84.463538),
@@ -152,7 +152,7 @@ public class Coordinates
                 new LatLng(39.031147, -84.464063),
                 new LatLng(39.031117, -84.464057),
                 new LatLng(39.030974, -84.463857),
-                new LatLng(39.030773, -84.463853)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.030773, -84.463853)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions albrightHealthCenter = new PolygonOptions()
             .add(new LatLng(39.029443, -84.466784),
@@ -173,7 +173,7 @@ public class Coordinates
                     new LatLng(39.028887, -84.465535),
                     new LatLng(39.028886, -84.466218),
                     new LatLng(39.028808, -84.466232),
-                    new LatLng(39.028811, -84.466779)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                    new LatLng(39.028811, -84.466779)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions baptistStudentUnion = new PolygonOptions()
             .add(new LatLng(39.033402, -84.464325),
@@ -187,7 +187,7 @@ public class Coordinates
                 new LatLng(39.033044, -84.464402),
                 new LatLng(39.033130, -84.464251),
                 new LatLng(39.033160, -84.464272),
-                new LatLng(39.033224, -84.464161)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.033224, -84.464161)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions mathEducationPsychologyCenter = new PolygonOptions()
             .add(new LatLng(39.029908, -84.463128),
@@ -209,7 +209,7 @@ public class Coordinates
                 new LatLng(39.030005, -84.462146),
                 new LatLng(39.029943, -84.462272),
                 new LatLng(39.029901, -84.462405),
-                new LatLng(39.029904, -84.463130)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.029904, -84.463130)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions businessAcademicCenter = new PolygonOptions()
             .add(new LatLng(39.030544, -84.461444),
@@ -224,7 +224,7 @@ public class Coordinates
                 new LatLng(39.031189, -84.461461),
                 new LatLng(39.031181, -84.461353),
                 new LatLng(39.030731, -84.461349),
-                new LatLng(39.030744, -84.461458)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.030744, -84.461458)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions lucasAdministrativeCenter = new PolygonOptions()
             .add(new LatLng(39.029481, -84.463652),
@@ -238,7 +238,7 @@ public class Coordinates
                 new LatLng(39.029452, -84.463504),
                 new LatLng(39.029419, -84.463500),
                 new LatLng(39.029421, -84.463555),
-                new LatLng(39.029477, -84.463560)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.029477, -84.463560)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions foundersHall = new PolygonOptions()
             .add(new LatLng(39.032054, -84.465296),
@@ -260,7 +260,7 @@ public class Coordinates
                 new LatLng(39.031731, -84.465460),
                 new LatLng(39.031849, -84.465623),
                 new LatLng(39.031997, -84.465433),
-                new LatLng(39.031977, -84.465408)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.031977, -84.465408)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions nunnHall = new PolygonOptions()
             .add(new LatLng(39.030575, -84.464974),
@@ -274,7 +274,7 @@ public class Coordinates
                 new LatLng(39.031125, -84.464633),
                 new LatLng(39.031038, -84.464630),
                 new LatLng(39.031045, -84.464678),
-                new LatLng(39.030583, -84.464678)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.030583, -84.464678)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions regentsHall = new PolygonOptions()
             .add(new LatLng(39.029486, -84.465594),
@@ -295,7 +295,7 @@ public class Coordinates
                 new LatLng(39.029170, -84.464782),
                 new LatLng(39.029176, -84.465287),
                 new LatLng(39.029197, -84.465300),
-                new LatLng(39.029201, -84.465580)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.029201, -84.465580)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions studentUnion = new PolygonOptions()
             .add(new LatLng(39.029928, -84.465838),
@@ -323,7 +323,7 @@ public class Coordinates
                 new LatLng(39.029890, -84.464911),
                 new LatLng(39.029921, -84.464921),
                 new LatLng(39.029911, -84.465283),
-                new LatLng(39.029943, -84.465283)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.029943, -84.465283)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions steelyLibrary = new PolygonOptions()
             .add(new LatLng(39.032049, -84.463232),
@@ -346,7 +346,7 @@ public class Coordinates
                 new LatLng(39.031699, -84.463758),
                 new LatLng(39.031705, -84.463675),
                 new LatLng(39.031782, -84.463672),
-                new LatLng(39.031762, -84.463672)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.031762, -84.463672)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
     private PolygonOptions universityCenter = new PolygonOptions()
             .add(new LatLng(39.030002, -84.464518),
@@ -362,7 +362,7 @@ public class Coordinates
                 new LatLng(39.029989, -84.464099),
                 new LatLng(39.029922, -84.464100),
                 new LatLng(39.029920, -84.464313),
-                new LatLng(39.029990, -84.464316)).strokeColor(Color.BLACK).fillColor(Color.RED);
+                new LatLng(39.029990, -84.464316)).strokeColor(Color.BLACK).fillColor(0x7F636363);
 
 
     private PolygonOptions kentonGarage = new PolygonOptions()
@@ -388,7 +388,7 @@ public class Coordinates
                 new LatLng(39.030647, -84.467341),
                 new LatLng(39.030668, -84.467329),
                 new LatLng(39.030678, -84.467303),
-                new LatLng(39.030667, -84.467273)).strokeColor(Color.BLACK).fillColor(Color.BLUE);
+                new LatLng(39.030667, -84.467273)).strokeColor(Color.BLACK).fillColor(0x7Fffa500);
 
     private PolygonOptions studentParkingLotM = new PolygonOptions()
             .add(new LatLng(39.032897, -84.467141),
@@ -401,7 +401,7 @@ public class Coordinates
                 new LatLng(39.033649, -84.467640),
                 new LatLng(39.033587, -84.467656),
                 new LatLng(39.033322, -84.467568),
-                new LatLng(39.032956, -84.467340)).strokeColor(Color.BLACK).fillColor(Color.BLUE);
+                new LatLng(39.032956, -84.467340)).strokeColor(Color.BLACK).fillColor(0x7Fffa500);
 
     private PolygonOptions facultyParkingLotD = new PolygonOptions()
             .add(new LatLng(39.032701, -84.461397),
@@ -416,7 +416,7 @@ public class Coordinates
                 new LatLng(39.032342, -84.462292),
                 new LatLng(39.032501, -84.462183),
                 new LatLng(39.032512, -84.461809),
-                new LatLng(39.032672, -84.461817)).strokeColor(Color.BLACK).fillColor(Color.BLUE);
+                new LatLng(39.032672, -84.461817)).strokeColor(Color.BLACK).fillColor(0x7Fffa500);
 
     private PolygonOptions facultyParkingLotV = new PolygonOptions()
             .add(new LatLng(39.028991, -84.463699),
@@ -424,7 +424,7 @@ public class Coordinates
                 new LatLng(39.028512, -84.463753),
                 new LatLng(39.028331, -84.463762),
                 new LatLng(39.028323, -84.463894),
-                new LatLng(39.028973, -84.463914)).strokeColor(Color.BLACK).fillColor(Color.BLUE);
+                new LatLng(39.028973, -84.463914)).strokeColor(Color.BLACK).fillColor(0x7Fffa500);
 
     private PolygonOptions studentParkingLotI = new PolygonOptions()
             .add(new LatLng(39.033839, -84.46375),
@@ -438,7 +438,7 @@ public class Coordinates
                 new LatLng(39.032847, -84.463153),
                 new LatLng(39.032781, -84.463178),
                 new LatLng(39.032803, -84.463381),
-                new LatLng(39.032878, -84.463725)).strokeColor(Color.BLACK).fillColor(Color.BLUE);
+                new LatLng(39.032878, -84.463725)).strokeColor(Color.BLACK).fillColor(0x7Fffa500);
 
 
     public void loadCoordinates(GoogleMap map)
