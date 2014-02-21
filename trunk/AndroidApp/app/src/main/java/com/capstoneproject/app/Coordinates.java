@@ -467,25 +467,25 @@ public class Coordinates
 
     public void insertMarkers (GoogleMap map)
     {
-        map.addMarker(new MarkerOptions().position(new LatLng(39.030969, -84.466807)).title("Griffin Hall").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.030194, -84.465240)).title("Student Union").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.032428, -84.466249)).title("Science Building").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.029202, -84.466399)).title("Albright Health Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.029340, -84.465122)).title("Regents Hall").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.033249, -84.464401)).title("Baptist Student Union").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.030963, -84.464851)).title("Nunn Hall").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.031749, -84.465122)).title("Founder's Hall").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.031932, -84.463835)).title("Steely Library").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.032542, -84.464618)).title("Landrum Hall").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.029688, -84.463459)).title("Lucas Administrative Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.030140, -84.462360)).title("Math, Education, Psychology Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.031115, -84.461619)).title("Business Academic Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.031244, -84.463695)).title("Fine Arts Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.030169, -84.463950)).title("University Center").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.030244, -84.467783)).title("Visitor Parking Lot 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.033594, -84.466871)).title("Student Parking Lot 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.033190, -84.463529)).title("Student Parking Lot 2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.031957, -84.461786)).title("Faculty Parking Lot 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.028773, -84.463701)).title("Faculty Parking Lot 2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.030969, -84.466807)).title("Griffin Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.030194, -84.465240)).title("Student Union").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.032428, -84.466249)).title("Science Building").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.029202, -84.466399)).title("Albright Health Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.029340, -84.465122)).title("Regents Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.033249, -84.464401)).title("Baptist Student Union").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.030963, -84.464851)).title("Nunn Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.031749, -84.465122)).title("Founder's Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.031932, -84.463835)).title("Steely Library").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.032542, -84.464618)).title("Landrum Hall").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.029688, -84.463459)).title("Lucas Administrative Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.030140, -84.462360)).title("Math, Education, Psychology Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.031115, -84.461619)).title("Business Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.031244, -84.463695)).title("Fine Arts Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.030169, -84.463950)).title("University Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.030244, -84.467783)).title("Visitor Parking Lot 1").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.033594, -84.466871)).title("Student Parking Lot 1").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.033190, -84.463529)).title("Student Parking Lot 2").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.031957, -84.461786)).title("Faculty Parking Lot 1").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        map.addMarker(new MarkerOptions().position(new LatLng(39.028773, -84.463701)).title("Faculty Parking Lot 2").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
     }
 }
