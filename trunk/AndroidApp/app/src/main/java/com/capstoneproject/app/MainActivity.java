@@ -3,6 +3,7 @@ package com.capstoneproject.app;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -19,6 +20,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
+        SettingsHelper settings = new SettingsHelper(this);
+        String key = settings.getSessionKey();
+
+        if(key == null || key.length() == 0) {
+
+            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+
+            finish();
+        }
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
