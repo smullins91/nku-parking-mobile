@@ -4,6 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +17,12 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -130,11 +139,11 @@ public class LoginActivity extends Activity {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!mEmail.contains("@")) {
+        } /*else if (!mEmail.contains("@")) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
-        }
+        }*/
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -145,9 +154,63 @@ public class LoginActivity extends Activity {
             // perform the user login attempt.
             mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
             showProgress(true);
-            mAuthTask = new UserLoginTask();
-            mAuthTask.execute((Void) null);
+
+            login();
         }
+    }
+
+
+    private void login() {
+
+        NetworkHelper.login(getApplicationContext(), mEmail, mPassword, new JsonHttpResponseHandler() {
+
+
+            @Override
+            public void onFailure(Throwable e, JSONObject errorResponse) {
+                showProgress(false);
+
+                try {
+                    String error = errorResponse.getString("error");
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setTitle("Error").setMessage(error);
+                    builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.create().show();
+
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onSuccess(JSONObject response) {
+
+                try {
+                    String key = response.getString("key");
+                    SettingsHelper settings = new SettingsHelper(getApplicationContext());
+                    settings.setSessionKey(key);
+
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+
+                    finish();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+
+        });
     }
 
     /**
