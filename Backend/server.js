@@ -5,15 +5,12 @@ var bcrypt = require('bcryptjs');
 var crypto = require('crypto');
 var app = express();
 
-//Possibly use a connection pool instead.
-var db = mysql.createConnection({
+var db = mysql.createPool({
   host     : 'ec2-54-200-98-161.us-west-2.compute.amazonaws.com',
   database : 'app',
   user     : 'app',
   password : 'u5zwwmGh8MVzanp!'
 });
-
-db.connect();
 
 app.configure(function() {
 	//app.use(express.bodyParser())
@@ -178,6 +175,10 @@ app.post('/space', function (request, response) {
     response.send(200, {space:{}});
 });
 
+/**
+ * HTTP GET /verify
+ * Returns: A boolean that tells whether or not a session key is valid.
+ */
 app.get('/verify', function (request, response) {
 
 	var key = request.headers['authorization'];
@@ -189,10 +190,17 @@ app.get('/verify', function (request, response) {
 
 });
 
+
+/**
+ * HTTP POST /register
+ * Returns: A session key if successful.
+ */
 app.post('/register', function (request, response) {
 
     var username = request.body.username;
     var password = request.body.password;
+
+    //To-do: Validate username and password.
 
 	bcrypt.genSalt(10, function(err, salt) {
 
@@ -264,7 +272,6 @@ function verifySessionKey(key, callback) {
 	db.query("SELECT SessionId FROM UsersSessions WHERE SessionKey = ?", key, function(err, rows, fields) {
 
 		if(err || rows.length === 0) {
-			console.log(err);
 			callback(false); 
 		} else {
 			callback(true);
