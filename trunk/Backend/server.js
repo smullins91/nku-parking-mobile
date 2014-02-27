@@ -18,6 +18,10 @@ app.configure(function() {
     app.use(express.urlencoded());
 });
 
+process.on('uncaughtException', function(err) {
+    console.log(err);
+});
+
 /**
  * HTTP GET /
  * Returns:
@@ -92,30 +96,40 @@ app.post('/login', function (request, response) {
  */
 app.get('/lots', function (request, response) {
 
-	var key = request.headers['authorization'];
+	
+	verifySessionKey(request.headers['authorization'], function(valid) {
 
-	//to-do: Verify the session key is valid, and if so, return a list of all lots. Otherwise, 403.
+		if(!valid) {
 
-
-	db.query("SELECT * FROM ParkingLots", function(err, rows, fields) {
-
-		if(err) {
-
-			console.log(err);
-			response.send(500, {error: "An error has occured."});
+			response.send(403, {error: "Your session has expired. Please login."});
 
 		} else {
 
-			var lots = [];
+			db.query('SELECT ParkingLots.*, concat("[", group_concat(concat("{""lat"":", Latitude, ",""lng"":", Longitude, "}")), "]") AS points FROM ParkingLots' 
+				+ ' LEFT JOIN ParkingCoordinates ON ParkingLots.LotId = ParkingCoordinates.LotId GROUP BY ParkingLots.LotId;', function(err, rows, fields) {
 
-			for(var i = 0; i < rows.length; i++) {
-				lots.push( { lotNumber: rows[i].LotNumber } );
-			}
+				if(err) {
+					
+					console.log(err);
+					response.send(500, {error: "An error has occured."});
 
-			response.send(200, {lots: lots});
+				} else {
+
+					var lots = [];
+
+					for(var i = 0; i < rows.length; i++) {
+						lots.push( { lotNumber: rows[i].LotNumber, type: rows[i].TypeId, active: rows[i].Active[0], points: JSON.parse(rows[i].points) } );
+					}
+
+					response.json(lots);
+				}
+
+			});
+
 		}
 
 	});
+
 
 });
 
@@ -269,14 +283,18 @@ function generateSessionKey(username) {
 
 function verifySessionKey(key, callback) {
 
-	db.query("SELECT SessionId FROM UsersSessions WHERE SessionKey = ?", key, function(err, rows, fields) {
+	if(typeof key != 'undefined' && key != null && key.length > 0) {
+		db.query("SELECT SessionId FROM UsersSessions WHERE SessionKey = ?", key, function(err, rows, fields) {
 
-		if(err || rows.length === 0) {
-			callback(false); 
-		} else {
-			callback(true);
-		}
+			if(err || rows.length === 0) {
+				callback(false); 
+			} else {
+				callback(true);
+			}
 
-	});
+		});
+
+	} else
+		callback(false);
 
 }
