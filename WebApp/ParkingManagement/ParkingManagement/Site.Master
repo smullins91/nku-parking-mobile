@@ -4,7 +4,7 @@
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> NKU Parking Management</title>
     <asp:PlaceHolder runat="server">     
           <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>  
@@ -12,11 +12,31 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+   
+    <style type="text/css">
+        #menu {
+            margin-top: 20px;
+        }
+        #menu a
+        {
+            text-decoration:none;
+            color:white;
+            background-color:black;
+            padding:10px 20px; 
+            border-radius:10px;
+            font-weight:bold;
+            font-size:14px;
+        }
+
+        #menu a:hover {
+            color:yellow;
+        }
+        
+    </style>
+   
 </head>
 <body>
-     <div class="content-wrapper">
-        <img src="images/banner.jpg" alt=""/>
-    </div>
+    
                    
     <form runat="server">
     <asp:ScriptManager runat="server">
@@ -38,56 +58,39 @@
         </Scripts>
     </asp:ScriptManager>
     
-        <div class="content-wrapper">
-            <div class="float-left">
-      
-        </div>
-        <div class="float-right">
-            <section id="login">
-                <asp:LoginView runat="server" ViewStateMode="Disabled">
-                    <AnonymousTemplate>
-                        <ul>
-                            <li><a id="registerLink" runat="server" href="~/Account/Register.aspx">Register</a></li>
-                            <li><a id="loginLink" runat="server" href="~/Account/Login.aspx">Log in</a></li>
-                        </ul>
-                    </AnonymousTemplate>
-                    <LoggedInTemplate>
-                        <p>
-                            Hello, <a runat="server" class="username" href="~/Account/Manage.aspx" title="Manage your account">
-                                <asp:LoginName runat="server" CssClass="username" /></a>!
-                            <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
-                        </p>
-                    </LoggedInTemplate>
-                </asp:LoginView>
-            </section>
-                
-        </div>
-
-        <div>
-            <ul  class="horizontal-nav">
-                <a href="/default.aspx"><li id="home" tabindex="1">Home</li></a>
-                <a href="/Contact.aspx"><li id="contact" tabindex="2">Contact</li></a>
-                <a href="/Account/Login.aspx"><li id="Login" tabindex="3">Login</li></a>
-                    
-            </ul>
-        </div>
-
-    </div>
     
 
     <div id="body">
+         <div class="header-image">
+          
+             <asp:Image ID="Banner" runat="server" ImageUrl="~/Images/banner.jpg"/>
+        </div>
+        
+          <div id="menu">
+           
+                
+                 <asp:HyperLink ID="hplMap" runat="server" NavigateUrl="~/WebContent/Map/Map.aspx">Map</asp:HyperLink>
+                  <asp:HyperLink ID="hplParking" runat="server" NavigateUrl="~/WebContent/ParkingManagement/ParkingManagement.aspx">Parking</asp:HyperLink>
+                 <asp:HyperLink ID="hplUsers" runat="server" NavigateUrl="~/WebContent/UsersManagement/UsersManagement.aspx">Users</asp:HyperLink>
+                 <asp:HyperLink ID="hplReports" runat="server" NavigateUrl="~/WebContent/Reports/Reports.aspx">Reports</asp:HyperLink>
+             
+                
+        </div>
+  
         <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
         <section class="content-wrapper main-content clear-fix">
             <asp:ContentPlaceHolder runat="server" ID="MainContent">
                 
             </asp:ContentPlaceHolder>
         </section>
+
+       
     </div>
 
     <footer>
         <div class="content-wrapper">
             <div class="float-left">
-                <p>&copy; <%: DateTime.Now.Year %> - Team 3 Parking Lot Application</p>
+                <p>&copy; <%: DateTime.Now.Year %> - Team 3 NKU Parking Managemnt Application</p>
             </div>
         </div>
     </footer>
