@@ -3,6 +3,8 @@ var express = require('express');
 var mysql = require('mysql');
 var bcrypt = require('bcryptjs');
 var crypto = require('crypto');
+var https = require("https");
+var qs = require('querystring');
 var app = express();
 
 var db = mysql.createPool({
@@ -90,6 +92,80 @@ app.post('/login', function (request, response) {
 
 });
 
+
+/**
+ * HTTP POST /login-nku
+ * Returns: A session key if successful, or an error message.
+ */
+app.post('/login-nku', function (request, response) {
+
+    var username = request.body.username;
+    var password = request.body.password;
+
+    //var headers = {'Host': 'https://mobilefeeds.nku.edu', 'Connection': 'close', 'Content-Type': 'application/x-www-form-urlencoded'};
+
+
+	var postData = qs.stringify({
+	  'user': username,
+	  'pass': password,
+	  'enc': 'JSON',
+	  'action': 'authenticate',
+	  'tokenDuration': '600'
+	});
+
+    var options = {
+		hostname: 'mobilefeeds.nku.edu',
+		port: 443,
+		path: '/request_auth_hash.php',
+		method: 'POST',
+		headers: {
+			'Connection': 'close', 
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Content-Length': postData.length
+		}
+	};
+
+    var body = "";
+    var req = https.request(options, function(resp) {
+
+
+	    resp.on('data', function (chunk) {
+	        body += chunk;
+	    });
+
+	    resp.on('end',function() {
+	        //Do Something with the data
+
+	        try {
+
+	        	body = JSON.parse(body);
+		        if(typeof body.authData != 'undefined' && body.authData != null) {
+		        	response.send(200, {key: '000'});
+		        } else {
+		        	response.send(500, {error: "Invalid username or password."});
+		        }
+	    	} catch(err) {
+	    		response.send(500, {error: "Invalid username or password."});
+	    	}
+
+
+
+	    });
+
+	});
+
+	req.on('error', function(e) {
+	  console.log('Request error: ' + e.message);
+	  console.log(postData);
+	});
+
+	req.write(postData);
+	req.end();
+
+});
+
+
+
 /**
  * HTTP GET /lots
  * Returns: A list of all the lots
@@ -97,7 +173,7 @@ app.post('/login', function (request, response) {
 app.get('/lots', function (request, response) {
 
 	
-	verifySessionKey(request.headers['authorization'], function(valid) {
+	verifySessionKey(request, function(valid) {
 
 		if(!valid) {
 
@@ -161,20 +237,6 @@ app.get('/space/:id', function (request, response) {
     response.send(200, {space:{}});
 });
 
-
-/**
- * HTTP GET /space
- * Returns: Information about a particular space
- */
-app.get('/space/:id', function (request, response) {
-
-	var key = request.headers['authorization'];
-
-	//to-do: Verify the session key is valid, and if so, return space info. Otherwise, 403.
-
-    response.send(200, {space:{}});
-});
-
 /**
  * HTTP POST /space
  * Returns: Space status and possibly an error if space it not available.
@@ -195,12 +257,9 @@ app.post('/space', function (request, response) {
  */
 app.get('/verify', function (request, response) {
 
-	var key = request.headers['authorization'];
-
-	if(typeof key != 'undefined' && key != null)
-		verifySessionKey(key, function(valid) {
-			response.send(200, {valid:valid});
-		});
+	verifySessionKey(request, function(valid) {
+		response.send(200, {valid:valid});
+	});
 
 });
 
@@ -268,6 +327,70 @@ app.post('/register', function (request, response) {
 }); //app.post
 
 
+app.delete('/users/:id', function (request, response) {
+
+	verifyAdminSession(request, function (valid) {
+
+		if(!valid) {
+			response.send(403, {error: "You are not authorized to complete this request."});
+		} else {
+
+			var id = request.params.id;
+
+			db.query("UPDATE Users SET Active = 0 WHERE UserId = ? LIMIT 1", id, function(err) {
+
+				if(err) {
+					console.log(err);
+					response.send(500, {error: "An error has occured."});
+				} else {
+					response.send(200, {message: "User has been deleted."});
+				}		
+
+			});
+
+
+		}
+
+	});
+
+});
+
+
+
+app.get('/users', function (request, response) {
+
+	verifyAdminSession(request, function (valid) {
+
+		if(valid) {
+
+			db.query("SELECT * FROM Users", key, function(err, rows, fields) {
+
+				if(err) {
+					
+					console.log(err);
+					response.send(500, {error: "An error has occured."});
+
+				} else {
+
+					var users = [];
+
+					for(var i = 0; i < rows.length; i++) {
+						users.push( { id: rows[i].UserId, username: rows[i].UserName, role: rows[i].RoleId, admin: rows[i].IsAdmin[0] } );
+					}
+
+					response.json(users);
+				}
+
+			});
+
+		} else
+			response.send(403, {error: "Access denied."});
+
+	});
+
+});
+
+
 app.listen(port, function() {
     console.log("Server listening on port " + port);
 });
@@ -281,7 +404,9 @@ function generateSessionKey(username) {
 	return sha.digest('hex');
 }
 
-function verifySessionKey(key, callback) {
+function verifySessionKey(request, callback) {
+
+	var key = request.headers['authorization'];
 
 	if(typeof key != 'undefined' && key != null && key.length > 0) {
 		db.query("SELECT SessionId FROM UsersSessions WHERE SessionKey = ?", key, function(err, rows, fields) {
@@ -298,3 +423,24 @@ function verifySessionKey(key, callback) {
 		callback(false);
 
 }
+
+function verifyAdminSession(request, callback) {
+
+	var key = request.headers['authorization'];
+
+	if(typeof key != 'undefined' && key != null && key.length > 0) {
+		db.query("SELECT IsAdmin FROM UsersSessions LEFT JOIN Users ON UsersSessions.UserId = Users.UserId AND IsAdmin = 1 WHERE SessionKey = ?", key, function(err, rows, fields) {
+
+			if(err || rows.length === 0) {
+				callback(false); 
+			} else {
+				callback(true);
+			}
+
+		});
+
+	} else
+		callback(false);
+
+}
+
