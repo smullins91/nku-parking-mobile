@@ -13,5 +13,10 @@ namespace ParkingManagement.WebContent.ParkingManagement
         {
 
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Button4.Visible = true;
+        }
     }
 }
