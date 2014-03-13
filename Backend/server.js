@@ -44,7 +44,7 @@ app.post('/login', function (request, response) {
     var username = request.body.username;
     var password = request.body.password;
 
-    db.query("SELECT UserId, Password, Salt FROM Users WHERE UserName = ?", username, function(err, rows, fields) {
+    db.query("SELECT UserId, Password, Salt FROM Users WHERE UserName = ? AND Active = 1", username, function(err, rows, fields) {
 
     	if(err) {
 
@@ -327,6 +327,10 @@ app.post('/register', function (request, response) {
 }); //app.post
 
 
+/**
+ * HTTP DELETE /users/ID
+ * Returns: A message if successful.
+ */
 app.delete('/users/:id', function (request, response) {
 
 	verifyAdminSession(request, function (valid) {
@@ -356,7 +360,85 @@ app.delete('/users/:id', function (request, response) {
 });
 
 
+/**
+ * HTTP POST /users/ID
+ * Returns: A message if successful.
+ */
+app.post('/users/:id', function (request, response) {
 
+	verifyAdminSession(request, function (valid) {
+
+		if(!valid) {
+			response.send(403, {error: "You are not authorized to complete this request."});
+		} else {
+
+			var id = request.params.id;
+			var json = request.body;
+
+			if(typeof json.Password !== 'undefined' && json.Password !== null && json.Password.length > 0) {
+
+				bcrypt.genSalt(10, function(err, salt) {
+
+		   			bcrypt.hash(password, salt, function(err2, hash) {	
+
+		   				if(err || err2) {
+		   					console.log(err);
+		   					console.log(err2);
+
+		   					response.send(500, {error: "An error has occured."});
+
+		   				} else {
+
+			   				json.Password = hash;
+			   				json.Salt = salt;
+
+							db.query("UPDATE Users SET ? WHERE UserId = ? LIMIT 1", [json, id], function(err) {
+
+								if(err) {
+									console.log(err);
+									response.send(500, {error: "An error has occured."});
+								} else {
+									response.send(200, {message: "User has been updated."});
+								}		
+
+							});
+
+						}
+
+		   			});
+
+	   			});			
+
+			} else {
+
+				delete json.Password; //Make sure the password doesn't get set.
+				delete json.Salt; //Make sure the salt doesn't get set.
+
+				db.query("UPDATE Users SET ? WHERE UserId = ? LIMIT 1", [json, id], function(err) {
+
+					if(err) {
+						console.log(err);
+						response.send(500, {error: "An error has occured."});
+					} else {
+						response.send(200, {message: "User has been updated."});
+					}		
+
+				});
+
+			}
+
+
+		}
+
+	});
+
+});
+
+
+/**
+ * HTTP GET /users
+ * Returns: A list of all the users.
+ */
 app.get('/users', function (request, response) {
 
 	verifyAdminSession(request, function (valid) {
@@ -409,7 +491,7 @@ function verifySessionKey(request, callback) {
 	var key = request.headers['authorization'];
 
 	if(typeof key != 'undefined' && key != null && key.length > 0) {
-		db.query("SELECT SessionId FROM UsersSessions WHERE SessionKey = ?", key, function(err, rows, fields) {
+		db.query("SELECT SessionId FROM UsersSessions JOIN Users ON UsersSessions.UserId = Users.UserId AND Active = 1 WHERE SessionKey = ?", key, function(err, rows, fields) {
 
 			if(err || rows.length === 0) {
 				callback(false); 
@@ -429,7 +511,7 @@ function verifyAdminSession(request, callback) {
 	var key = request.headers['authorization'];
 
 	if(typeof key != 'undefined' && key != null && key.length > 0) {
-		db.query("SELECT IsAdmin FROM UsersSessions LEFT JOIN Users ON UsersSessions.UserId = Users.UserId AND IsAdmin = 1 WHERE SessionKey = ?", key, function(err, rows, fields) {
+		db.query("SELECT IsAdmin FROM UsersSessions JOIN Users ON UsersSessions.UserId = Users.UserId AND IsAdmin = 1 AND Active = 1 WHERE SessionKey = ?", key, function(err, rows, fields) {
 
 			if(err || rows.length === 0) {
 				callback(false); 
