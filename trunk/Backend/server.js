@@ -379,7 +379,7 @@ app.post('/users/:id', function (request, response) {
 
 				bcrypt.genSalt(10, function(err, salt) {
 
-		   			bcrypt.hash(password, salt, function(err2, hash) {	
+		   			bcrypt.hash(json.Password, salt, function(err2, hash) {	
 
 		   				if(err || err2) {
 		   					console.log(err);
@@ -405,9 +405,9 @@ app.post('/users/:id', function (request, response) {
 
 						}
 
-		   			});
+		   			}); //hash
 
-	   			});			
+	   			});	//genSalt	
 
 			} else {
 
