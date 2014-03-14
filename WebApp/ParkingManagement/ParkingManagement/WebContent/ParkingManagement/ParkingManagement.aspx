@@ -11,7 +11,7 @@
                      <li>
                          <asp:Label ID="Label1" runat="server" Font-Size="Medium" Height="30px" Text="Manage Users"></asp:Label>
                          <br />
-                         <asp:Button ID="Button1" runat="server" Text="Add" />
+                         <asp:Button ID="Button1" runat="server" Text="Add" OnClick="Button1_Click" />
                          <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Edit" />
                          <asp:Button ID="Button3" runat="server" Text="Delete" />
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -21,15 +21,15 @@
                          <br />
                      </li>
                      <li>-----User information (if needed)----<br />
-&nbsp;<br />
-&nbsp;<br />
+&nbsp;--any additional info--<br />
+&nbsp;--and more info--<br />
                      </li>
                      <li></li>
                      <li>
                          <br />
                          <asp:Label ID="Label2" runat="server" Font-Size="Medium" Height="32px" Text="Manage Parking"></asp:Label>
                          <br />
-                         <asp:DropDownList ID="DropDownList1" runat="server">
+                         <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
                          </asp:DropDownList>
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                          <asp:DropDownList ID="DropDownList2" runat="server">
@@ -50,7 +50,7 @@
                      <li></li>
                      <li>
                          <br />
-                         <asp:Button ID="Button5" runat="server" Text="Insert New Lot:" />
+                         <asp:Button ID="Button5" runat="server" Text="Insert New Lot:" OnClick="Button5_Click" />
                      </li>
                      <li>------MAP GOES HERE------<br />
 &nbsp;</li>
