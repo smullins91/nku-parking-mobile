@@ -375,6 +375,8 @@ app.post('/users/:id', function (request, response) {
 			var id = request.params.id;
 			var json = request.body;
 
+			delete json.UserId; //Make sure the User ID doesn't get updated.
+
 			if(typeof json.Password !== 'undefined' && json.Password !== null && json.Password.length > 0) {
 
 				bcrypt.genSalt(10, function(err, salt) {
@@ -424,6 +426,78 @@ app.post('/users/:id', function (request, response) {
 					}		
 
 				});
+
+			}
+
+
+		}
+
+	});
+
+});
+
+
+/**
+ * HTTP POST /users
+ * Returns: A message if successful.
+ */
+app.post('/users', function (request, response) {
+
+	verifyAdminSession(request, function (valid) {
+
+		if(!valid) {
+			response.send(403, {error: "You are not authorized to complete this request."});
+		} else {
+
+			var id = request.params.id;
+			var json = request.body;
+
+			delete json.UserId; //Make sure the User ID doesn't get set manually.
+
+			if(typeof json.RoleId === "undefined")
+				json.RoleId = 4;
+
+			if(typeof json.Active === "undefined")
+				json.Active = 1;
+
+			if(typeof json.Password !== 'undefined' && json.Password !== null && json.Password.length > 0
+				&& typeof json.UserName !== 'undefined' && json.UserName !== null && json.UserName.length > 0) {
+
+				bcrypt.genSalt(10, function(err, salt) {
+
+		   			bcrypt.hash(json.Password, salt, function(err2, hash) {	
+
+		   				if(err || err2) {
+		   					console.log(err);
+		   					console.log(err2);
+
+		   					response.send(500, {error: "An error has occured."});
+
+		   				} else {
+
+			   				json.Password = hash;
+			   				json.Salt = salt;
+
+							db.query("INSERT INTO Users SET ?", json, function(err) {
+
+								if(err) {
+									console.log(err);
+									response.send(500, {error: "An error has occured."});
+								} else {
+									response.send(200, {message: "The user, " + json.UserName + ", has been added."});
+								}		
+
+							});
+
+						}
+
+		   			}); //hash
+
+	   			});	//genSalt	
+
+			} else {
+
+				response.send(500, {error: "Please provide a username and password."});
 
 			}
 
