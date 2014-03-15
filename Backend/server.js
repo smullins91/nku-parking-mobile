@@ -251,6 +251,46 @@ app.post('/space', function (request, response) {
     response.send(200, {space:{}});
 });
 
+
+/**
+ * HTTP GET /roles
+ * Returns: A list of the available roles.
+ */
+app.get('/roles', function (request, response) {
+
+	verifyAdminSession(request, function (valid) {
+
+		if(valid) {
+
+			db.query("SELECT * FROM Roles", function(err, rows, fields) {
+
+				if(err) {
+					
+					console.log(err);
+					response.send(500, {error: "An error has occured."});
+
+				} else {
+
+					var roles = [];
+
+					for(var i = 0; i < rows.length; i++) {
+						rows[i].Active = rows[i].Active[0];
+						roles.push(rows[i]);
+					}
+
+					response.json(roles);
+				}
+
+			});
+
+		} else
+			response.send(403, {error: "Access denied."});
+
+	});
+
+});
+
+
 /**
  * HTTP GET /verify
  * Returns: A boolean that tells whether or not a session key is valid.
