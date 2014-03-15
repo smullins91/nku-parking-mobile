@@ -519,7 +519,7 @@ app.get('/users', function (request, response) {
 
 		if(valid) {
 
-			db.query("SELECT * FROM Users", key, function(err, rows, fields) {
+			db.query("SELECT * FROM v_users", function(err, rows, fields) {
 
 				if(err) {
 					
@@ -531,7 +531,8 @@ app.get('/users', function (request, response) {
 					var users = [];
 
 					for(var i = 0; i < rows.length; i++) {
-						users.push( { id: rows[i].UserId, username: rows[i].UserName, role: rows[i].RoleId, admin: rows[i].IsAdmin[0] } );
+						//users.push( { id: rows[i].UserId, username: rows[i].UserName, role: rows[i].RoleId, admin: rows[i].IsAdmin[0] } );
+						users.push(rows[i]);
 					}
 
 					response.json(users);
