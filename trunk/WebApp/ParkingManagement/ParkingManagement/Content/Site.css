@@ -373,7 +373,6 @@ fieldset {
     input[type="submit"],
     input[type="button"],
     button {
-        background-color: #d3dce0;
         border: 1px solid #787878;
         cursor: pointer;
         font-size: 1.2em;
@@ -451,13 +450,12 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
     margin-top: 0.75em;
-    border: 0 none;
-}
+   }
 
 th {
-	font-size: 1.2em;
+	font-size: 14px;
     text-align: left;
-    border: none 0px;
+   
     padding-left: 0;
 }
 
@@ -500,7 +498,7 @@ th {
 
 td {
     padding: 0.25em 2em 0.25em 0em;
-    border: 0 none;
+    
 }
 
 tr.pager td {
@@ -664,7 +662,7 @@ body, html {
 .btn, .btn:hover
 {
     background-color:black;
-    width:100px;
+    min-width:50px;
     border-color:black;
 }
 
