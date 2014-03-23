@@ -92,6 +92,34 @@ app.post('/login', function (request, response) {
 
 });
 
+/**
+ * HTTP GET /logout
+ * Returns: A message if successful
+ */
+app.get('/logout', function (request, response) {
+
+	verifySessionKey(request, function (valid, key) {
+
+		if(valid) {
+
+			db.query("DELETE FROM UsersSessions WHERE SessionKey = ? LIMIT 1", key, function(err, result) {
+
+				if(err) {
+					console.log(err);
+					//response.send(500, {error: "An error has occured."});
+				}
+
+				response.send(200, {message: "You have been logged out."});
+
+			});
+
+		} else
+			response.send(403, {error: "You are not logged in."});
+
+	});
+
+});
+
 
 /**
  * HTTP POST /login-nku
@@ -611,7 +639,7 @@ function verifySessionKey(request, callback) {
 			if(err || rows.length === 0) {
 				callback(false); 
 			} else {
-				callback(true);
+				callback(true, key);
 			}
 
 		});
@@ -631,7 +659,7 @@ function verifyAdminSession(request, callback) {
 			if(err || rows.length === 0) {
 				callback(false); 
 			} else {
-				callback(true);
+				callback(true, key);
 			}
 
 		});
