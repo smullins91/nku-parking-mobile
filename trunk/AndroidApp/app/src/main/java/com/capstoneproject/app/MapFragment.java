@@ -1,6 +1,7 @@
 package com.capstoneproject.app;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,5 +37,15 @@ public class MapFragment extends SupportMapFragment
         Coordinates coordinates = new Coordinates();
         coordinates.loadCoordinates(map);
         coordinates.insertMarkers(map);
+    }
+
+    public GoogleMap getMyMap()
+    {
+        GoogleMap myMap = this.map;
+        myMap = getMap();
+        myMap.setMyLocationEnabled(true);
+        myMap.moveCamera(CameraUpdateFactory.newLatLngZoom(CENTER_OF_MAP, 16));
+
+        return myMap;
     }
 }

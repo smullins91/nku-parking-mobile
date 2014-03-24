@@ -3,7 +3,6 @@ package com.capstoneproject.app;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -20,19 +19,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
         SettingsHelper settings = new SettingsHelper(this);
         String key = settings.getSessionKey();
 
-        if(key == null || key.length() == 0) {
-
+        if(key == null || key.length() == 0)
+        {
             Intent i = new Intent(getApplicationContext(), LoginActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
 
             finish();
         }
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -47,7 +44,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(mAdapter);
-        //actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         for (String tab_name : tabNames)
@@ -61,13 +57,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             @Override
             public void onPageSelected(int position)
             {
-                // on changing the page make respected tab selected
-                actionBar.setSelectedNavigationItem(position);
+                actionBar.setSelectedNavigationItem(position); // on changing the page make respected tab selected
             }
 
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2)
             {
+
             }
 
             @Override
@@ -91,17 +87,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
         //int id = item.getItemId();
 
-        switch (item.getItemId())
-        {
-            case R.id.login:
-                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
-                break;
-            default:
-                break;
-        }
 
-        return super.onOptionsItemSelected(item);
+        return true;
+        //return super.onOptionsItemSelected(item);
     }
 
     @Override
