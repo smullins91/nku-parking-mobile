@@ -3,6 +3,7 @@ package com.capstoneproject.app;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -90,10 +91,11 @@ public class ParkingNavigationFragment extends Fragment {
                 break;
 
             case R.id.DirectionToLot:
-                Toast.makeText(getActivity(), "Item 2 has been selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Direction to lot has been selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ReserveASpot:
-                Toast.makeText(getActivity(), "Item 3 has been selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), ParkingSpaces.class);
+                startActivity(intent);
                 break;
             default:
                 break;
