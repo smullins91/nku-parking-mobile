@@ -36,10 +36,10 @@
         }
         
         #body{
-            height: 3000px;
+            height: auto;
         }
         #body a {
-            height: 3000px;
+            height: auto;
         }
         
         /*
