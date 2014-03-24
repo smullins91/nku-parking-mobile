@@ -3,9 +3,13 @@
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
      <section class="featured">
          <div class="content-wrapper">
-           <h1>Reports under construction</h1>
+           <h1>Reports</h1>
          <ul>
-             <li>Please, place other pages needed in the reports under Reports Folder</li>
+             <li>To include:<ul>
+                 <li>Usage: Available space percentage of lot</li>
+                 <li>User report: how long user has been parked in a particular spot</li>
+                 </ul>
+             </li>
          </ul>
         </div>
     </section>
