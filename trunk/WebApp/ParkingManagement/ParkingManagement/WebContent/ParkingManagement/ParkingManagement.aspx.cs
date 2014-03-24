@@ -8,11 +8,14 @@ using System.Text;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json;
+using GoogleMapsApi;
 
 namespace ParkingManagement.WebContent.ParkingManagement
 {
     public partial class ParkingManagement : System.Web.UI.Page
     {
+        //YOU MAY NEED TO DOWNLOAD GoogleMapsAPI from NuGet to make this work
+
         string[] gotNames;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -25,22 +28,21 @@ namespace ParkingManagement.WebContent.ParkingManagement
             {
                 DropDownList1.Items.Add(gotNames[i].ToString());
             }
+
+            //THIS IS A HACK TO MAKE THE MAP PANEL LARGE ENOUGH, so the rest of the page formats correctly too.
+           // Panel1.Height = 460;
+             
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
-        {
-            Button4.Visible = true;
-        }
+        
+
 
         protected void Button1_Click(object sender, EventArgs e)
         {
 
         }
 
-        protected void Button4_Click(object sender, EventArgs e)
-        {
-            
-        }
+       
 
         protected void Button5_Click(object sender, EventArgs e)
         {
@@ -51,6 +53,8 @@ namespace ParkingManagement.WebContent.ParkingManagement
         {
 
         }
+
+        
 
 
     }
