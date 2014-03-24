@@ -10,6 +10,9 @@
 
     <string name="parking_spaces_view">Parking Spaces View</string>
 
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+
     <string-array name="navigation_items">
         <item>Search for a parking lot</item>
         <item>Get Directions</item>

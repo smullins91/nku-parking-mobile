@@ -70,7 +70,21 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
         }
         else
         {
-            Toast.makeText(this, "No match, the real text was " + buttonText, Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(this).setTitle("Reserve a spot")
+                    .setMessage("Are you sure that you want to reserve spot " + buttonText + " ?")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            Toast.makeText(getBaseContext(), "You have reserved a spot. Your reservation is valid for 1 hour. Thank you!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            //No selected. So, do nothing, go back to the activity
+                        }
+
+            }).setIcon(R.drawable.ic_launcher).show();
         }
     }
 }
