@@ -16,7 +16,9 @@ namespace ParkingManagement.WebContent.UsersManagement
             if (!Page.IsPostBack)
             {
                 populateGridview();
-                populateUserRoles();
+                populateUserRoles(ddlUserRoles );
+             
+              
             }
            
         }
@@ -36,13 +38,13 @@ namespace ParkingManagement.WebContent.UsersManagement
         /// <summary>
         /// Populate userRoles
         /// </summary>
-        private void populateUserRoles()
+        private void populateUserRoles(DropDownList ddlTarget)
         {
             List<ManageUsers.UserRoles> dtRoles = ManageUsers.getUserRoles();
-            ddlUserRoles.DataSource = dtRoles;
-            ddlUserRoles.DataTextField = "Description";
-            ddlUserRoles.DataValueField = "RoleId";
-            ddlUserRoles.DataBind();
+            ddlTarget.DataSource = dtRoles;
+            ddlTarget.DataTextField = "Description";
+            ddlTarget.DataValueField = "RoleId";
+            ddlTarget.DataBind();
         }
       
         /// <summary>
@@ -69,10 +71,10 @@ namespace ParkingManagement.WebContent.UsersManagement
         protected void gvUsers_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int index = Convert.ToInt32(e.CommandArgument);
+            string strUserId = gvUsers.DataKeys[index].Value.ToString();
+            hfUserId.Value = strUserId;
             if ( e.CommandName.Equals("deleteUser"))
             {
-                string code = gvUsers.DataKeys[index].Value.ToString();
-                hfCode.Value = code;
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append(@"<script type='text/javascript'>");
                 sb.Append("$('#deleteModal').modal('show');");
@@ -80,13 +82,74 @@ namespace ParkingManagement.WebContent.UsersManagement
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteModalScript", sb.ToString(), false);
         
             }
+            else if ( e.CommandName.Equals("editUser"))
+            {
+                populateUserRoles(ddlUserRoles1);
+                //populate form
+                getData(index);
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#editModal').modal('show');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditModalScript", sb.ToString(), false);
+                
+            }
+            else if (e.CommandName.Equals("resetPassword"))
+            {
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#resetModal').modal('show');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ResetModalScript", sb.ToString(), false);
+            }
+        }
+
+
+        /// <summary>
+        /// Populate user form
+        /// </summary>
+        /// <param name="index"></param>
+        private void getData( int index)
+        {
+            GridViewRow gvrow = gvUsers.Rows[index];
+            // Get the user info
+            txtUserName1.Text = gvrow.Cells[0].Text;
+            txtLastName1.Text = gvrow.Cells[1].Text;
+            txtFirstName1.Text = gvrow.Cells[2].Text;
+            txtEmail1.Text = gvrow.Cells[3].Text;
+            chkIsAdmin1.Checked = false;
+
+            string Admin = gvrow.Cells[6].Text;
+            if (Admin.Equals("Yes"))
+                chkIsAdmin1.Checked = true;
+
+        }
+
+        /// <summary>
+        /// To add a new user in the database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnSave1_Click(object sender, EventArgs e)
+        {
+            int isAdmin = 0;
+            if (chkIsAdmin1.Checked)
+                isAdmin = 1;
+
+            // get the update user info
+            ManageUsers.editUser u = new ManageUsers.editUser(Convert.ToInt32(hfUserId.Value), txtUserName1.Text.Trim(), Convert.ToInt32(ddlUserRoles1.SelectedValue) ,
+                   txtFirstName1.Text.Trim(), txtLastName1.Text.Trim(), txtEmail1.Text.Trim(), isAdmin,string.Empty);
+
+            ManageUsers.updateUser(u);
+
+            // go to the ManagerUsers page
+            Response.Redirect("UsersManagement.aspx");
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            //ManageUsers.deleteUser(8);
-            // go to the ManagerUsers page
-           // Response.Redirect("UsersManagement.aspx");
+           ManageUsers.deleteUser(Convert.ToInt32(hfUserId.Value));
+           Response.Redirect("UsersManagement.aspx");
 
         }
 
@@ -113,6 +176,13 @@ namespace ParkingManagement.WebContent.UsersManagement
             gvUsers.DataBind();
 
         }
+
+        protected void btnSavePassword_Click(object sender, EventArgs e)
+        {
+
+        }
+
+      
        
     }
 }

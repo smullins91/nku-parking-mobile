@@ -54,6 +54,13 @@
             margin-top:10px;
             text-align:center;
         }
+        .errorMessage
+        {
+            color:red;
+            font-weight:bold;
+            font-size:12px;
+            margin-left: 100px;
+        }
     </style>
 </head>
 <body>
@@ -65,17 +72,21 @@
             <asp:Label ID="lblError" runat="server" Text="Invalid Username or Password!" Visible="false"></asp:Label>
             <div class="form-group">
                <label class="sr-only">*Username:</label>
-                <asp:TextBox ID="txtUsername" runat="server" class="form-control" placeholder="Username"></asp:TextBox>
+                <asp:TextBox ID="txtUsername" runat="server" class="form-control" placeholder="Username" ></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvUserName" runat="server" ErrorMessage="RequiredFieldValidator" ControlToValidate="txtUserName" Text="Username is required!" CssClass="errorMessage"></asp:RequiredFieldValidator>
+
              </div>
 
             <div class="form-group">
                 <label class="sr-only">*Password:</label>
-                <asp:TextBox ID="txtPassword" runat="server" class="form-control" placeholder="Password" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="txtPassword" runat="server" class="form-control" placeholder="Password" TextMode="Password" ControlToValidate="txtPassword"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ErrorMessage="RequiredFieldValidator" Display="Dynamic" Text="Password is required!" CssClass="errorMessage" ControlToValidate="txtPassword"></asp:RequiredFieldValidator>
             </div>
             <div style="clear:none"></div> 
             <div style="width:100%; text-align:center;margin-top:20px;">
                  <asp:Button ID="btnLogin" runat="server" Text="Sign in"  class="btn"  OnClick="btnLogin_Click"
                     />
+   
             </div>
                
                 

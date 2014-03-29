@@ -45,7 +45,7 @@ namespace ParkingManagement.WebContent.UsersManagement
             public string firstName { get; set; }
             public string lastName { get; set; }
             public string email { get; set; }
-
+           
             public User(){}
 
                      /// <summary>
@@ -67,19 +67,53 @@ namespace ParkingManagement.WebContent.UsersManagement
                 this.email = email;
 
             }
+
+            
         };
+
+        public class editUser
+        {
+            public int userId { get; set; }
+            public string userName { get; set; }
+            public int roleId { get; set; }
+            public string firstName { get; set; }
+            public string lastName { get; set; }
+            public string email { get; set; }
+            public int isAdmin { get; set; }
+            public string Password { get; set; }
+   
+            public editUser(int userId, string userName, int roleId, string firstName, string lastName, string email, int isAdmin, string Password)
+            {
+                this.userId = userId;
+                this.userName = userName;
+                this.roleId = roleId;
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.email = email;
+                this.isAdmin = isAdmin;
+                this.Password = Password;
+            }
+
+         };
 
         public class SuperUser:User
         {
             public int UserId { get; set; }
             public string Role { get; set; }
+            public string Admin { get; set; }
 
             public SuperUser() { }
-            public SuperUser(string userName, string password, int roleId, string firstName, string lastName, string email)
+            public SuperUser(int UserId, string userName, int roleId, string firstName, string lastName, string email)
             {
-
+                this.UserId = UserId;
+                this.UserName = userName;
+               this.RoleId = roleId;
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.email = email;
             }
         }
+
 
         public class UserRoles
         {
@@ -175,14 +209,14 @@ namespace ParkingManagement.WebContent.UsersManagement
         /// Edit user to the database
         /// </summary>
         /// <param name="newUser"></param>
-        public static void editUser(SuperUser newUser)
+        public static void updateUser(editUser newUser)
         {
-            HttpWebRequest req = WebRequest.Create(serverAddress + "/users/:" + newUser.UserId) as HttpWebRequest;
+            HttpWebRequest req = WebRequest.Create(serverAddress + "/users/" + newUser.userId) as HttpWebRequest;
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Post;
 
             //TODO: api key should be replaced by the session info when the user log in
-            req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
+            req.Headers.Add("Authorization", API_KEY);
 
             using (var streamWriter = new StreamWriter(req.GetRequestStream()))
             {
@@ -206,13 +240,11 @@ namespace ParkingManagement.WebContent.UsersManagement
         /// <param name="userId"></param>
         public static void deleteUser( int userId )
         {
-            HttpWebRequest req = WebRequest.Create(serverAddress + "/users/:" + userId.ToString()) as HttpWebRequest;
+            HttpWebRequest req = WebRequest.Create(serverAddress + "/users/" + userId.ToString()) as HttpWebRequest;
             req.ContentType = "application/json";
             req.Method = "DELETE";
 
-            //TODO: api key should be replaced by the session info when the user log in
-            req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
-
+            req.Headers.Add("Authorization", API_KEY);
             HttpWebResponse httpResponse = (HttpWebResponse)req.GetResponse();
             
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
