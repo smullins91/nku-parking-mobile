@@ -9,7 +9,7 @@
                      <h4>Users Management</h4>
                  </div>
                   <div style="float:right; margin-top:20px" >
-                      <a data-toggle="modal" href="#addModal" class="btn btn-info" 
+                      <a data-toggle="modal" href="#addModal" class="btn" 
                      style="margin-right:20px; color:white; font-weight:bold; margin-top:15px;padding:10px">Add New User</a>
                      
                   </div>
@@ -28,18 +28,20 @@
                               <asp:BoundField DataField="FirstName" HeaderText="First Name" />
                               <asp:BoundField DataField="Email" HeaderText="Email" />
                               <asp:BoundField DataField="Role" HeaderText="Role" />
+                              <asp:BoundField DataField="RoleId" HeaderText="RoleId"  Visible="false"/>
+                              <asp:BoundField DataField="Admin" HeaderText="Admin" />
                               <asp:ButtonField CommandName="editUser" ControlStyle-CssClass="btn btn-info"
                                 ButtonType="Button" Text="Edit" HeaderText="Edit User">
-                                <ControlStyle CssClass="btn btn-info"></ControlStyle>
+                                <ControlStyle CssClass="btn"></ControlStyle>
                               </asp:ButtonField>
                              <asp:ButtonField CommandName="deleteUser" ControlStyle-CssClass="btn btn-info"
                                 ButtonType="Button" Text="Delete" HeaderText="Delete User">
-                                <ControlStyle CssClass="btn btn-info"></ControlStyle>
+                                <ControlStyle CssClass="btn"></ControlStyle>
                                 
                             </asp:ButtonField>
                              <asp:ButtonField CommandName="resetPassword" ControlStyle-CssClass="btn btn-info"
                                 ButtonType="Button" Text="Reset Password" HeaderText="Reset Password">
-                                <ControlStyle CssClass="btn btn-info"></ControlStyle>
+                                <ControlStyle CssClass="btn"></ControlStyle>
                             </asp:ButtonField>
                          </Columns>
 
@@ -131,7 +133,7 @@
                     <ContentTemplate>
                         <div class="modal-body">
                             Are you sure you want to delete the record?
-                            <asp:HiddenField ID="hfCode" runat="server" />
+                            <asp:HiddenField ID="hfUserId" runat="server" />
                         </div>
                         <div class="modal-footer">
                             <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn btn-info" OnClick="btnDelete_Click" />
@@ -143,7 +145,135 @@
                     </Triggers>
                 </asp:UpdatePanel>
             </div>
-         <!-- Delete User ends here-->     
+         <!-- Delete User ends here-->  
+             
+         <!-- Edit new user begins--> 
+          <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+            >
+
+         <div class="modal-dialog" style="margin-top:0">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="editModalLabel">Edit User</h4>
+              </div>
+            <asp:UpdatePanel ID="upEdit" runat="server">
+                    <ContentTemplate> 
+
+                         <div class="modal-body">
+                                      
+                        <div class="form-group">
+                            <asp:Label ID="lblUserGroup" runat="server" Text="User Group:*" class="col-sm-4 control-label"></asp:Label>
+                            <div class="col-sm-8">
+                                
+                                <asp:DropDownList ID="ddlUserRoles1" runat="server" class="form-control">
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+
+                          <div class="form-group">
+                            <asp:Label ID="lblFirstName1" runat="server" Text="FirstName:*" class="col-sm-4 control-label"></asp:Label>
+                            <div class="col-sm-8">
+                                 <asp:TextBox ID="txtFirstName1" runat="server" class="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <asp:Label ID="lblLastName1" runat="server" Text="Last Name:*" class="col-sm-4 control-label"></asp:Label>
+                             <div class="col-sm-8">
+                                <asp:TextBox ID="txtLastName1" runat="server" class="form-control"></asp:TextBox>
+                            </div>
+                         </div>
+
+                        <div class="form-group">
+                            <asp:Label ID="lblUserName1" runat="server" Text="Username:*" class="col-sm-4 control-label"></asp:Label>
+                            <div class="col-sm-8">
+                                <asp:TextBox ID="txtUserName1" runat="server" class="form-control"></asp:TextBox>
+                            </div>
+                         </div>
+               
+                          <div class="form-group">
+                            <asp:Label ID="lblEmail1" runat="server" Text="Email:*" class="col-sm-4 control-label"></asp:Label>
+                            <div class="col-sm-8">
+                                <asp:TextBox ID="txtEmail1" runat="server" class="form-control"></asp:TextBox>
+                             </div>
+                         </div>
+
+                        <div class="form-group">
+                            <asp:CheckBox ID="chkIsAdmin1" runat="server"  class="control-label"/>
+                            <asp:Label ID="lblAdmin1" runat="server" Text="Administrator" class="col-sm-4 control-label"></asp:Label>
+                          
+                         </div>
+
+                
+                          <div class="modal-footer">
+                              <asp:Button ID="btnSave1" type="button" runat="server" Text="Save"
+                                  class="btn" OnClick="btnSave1_Click"/>
+                             <asp:Button ID="btnCancel1"  type="button" runat="server" Text="Cancel" class="btn" data-dismiss="modal" />
+
+                        </div>
+             
+                 </div>
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="gvUsers" EventName="RowCommand" />
+                        <asp:AsyncPostBackTrigger ControlID="btnSave1" EventName="Click" />
+                    </Triggers>
+          </asp:UpdatePanel>       
+                </div> 
+            </div> 
+        </div>
+         <!-- Edit new user ends-->      
+         
+         <!-- Reset user password begins--> 
+          <div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+            >
+
+         <div class="modal-dialog" style="margin-top:0">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="resetModalLabel">Reset User Password</h4>
+              </div>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate> 
+
+                         <div class="modal-body">
+                                      
+                        <div class="form-group">
+                            <asp:Label ID="lblNewPassword1" runat="server" Text="New Password:*" class="col-sm-4 control-label"></asp:Label>
+                             <div class="col-sm-8">
+                                <asp:TextBox ID="txtPassword1" runat="server" class="form-control" TextMode="Password"></asp:TextBox>
+                            </div>
+                         </div>
+
+                        <div class="form-group">
+                            <asp:Label ID="lblConfPassword1" runat="server" Text="Confirm Password:*" class="col-sm-4 control-label"></asp:Label>
+                            <div class="col-sm-8">
+                                <asp:TextBox ID="txtConfPassword1" runat="server" class="form-control" TextMode="Password"></asp:TextBox>
+                            </div>
+                         </div>
+               
+                             
+                          <div class="modal-footer">
+                              <asp:Button ID="btnSavePassword" type="button" runat="server" Text="Save"
+                                  class="btn" OnClick="btnSavePassword_Click"/>
+                             <asp:Button ID="cancelPassword"  type="button" runat="server" Text="Cancel" class="btn" data-dismiss="modal" />
+
+                        </div>
+             
+                 </div>
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="gvUsers" EventName="RowCommand" />
+                        <asp:AsyncPostBackTrigger ControlID="btnSavePassword" EventName="Click" />
+                    </Triggers>
+          </asp:UpdatePanel>       
+                </div> 
+            </div> 
+        </div>
+         <!-- Reset user password end-->            
+                       
         
                  </div>
     </section>
