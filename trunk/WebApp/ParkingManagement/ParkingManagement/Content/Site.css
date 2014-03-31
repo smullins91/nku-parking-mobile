@@ -444,17 +444,15 @@ input[type="checkbox"].input-validation-error {
     font-size: 1.1em;
 }
 
-.v
+.validation-summary-valid {
+    display: none;
+}
 
 /* tables
 ----------------------------------------------------------*/
 table {
     border-collapse: collapse;
     border-spacing: 0;
-    margin-top: 0.75em;
-   }
-
-r-spacing: 0;
     margin-top: 0.75em;
    }
 
