@@ -1,6 +1,7 @@
 package com.capstoneproject.app;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -33,7 +34,8 @@ public class NetworkHelper {
     public static final String API_LOGIN = "login";
     public static final String API_REGISTER = "register";
     public static final String API_VERIFY = "verify";
-    public static final String HEADER_AUTH = "Authentication";
+    public static final String API_LOTS = "lots";
+    public static final String HEADER_AUTH = "Authorization";
     public static final String TYPE_JSON = "application/json";
     public static final String USER_AGENT = "ParkingApp v1.0";
 
@@ -49,6 +51,11 @@ public class NetworkHelper {
             e.printStackTrace();
         }
 
+    }
+
+
+    public static void getLots(Context context, AsyncHttpResponseHandler callback) {
+        get(API_LOTS, context, null, callback);
     }
 
     private static void get(String api, Context context, RequestParams params, AsyncHttpResponseHandler callback) {
@@ -71,12 +78,13 @@ public class NetworkHelper {
 
     private static AsyncHttpClient createClient(Context context) {
 
-        SettingsHelper settings = new SettingsHelper(context);
+        SettingsHelper settings = new SettingsHelper(context.getApplicationContext());
         String key = settings.getSessionKey();
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.setUserAgent(USER_AGENT);
-        client.addHeader(HEADER_AUTH, key);
+        if(key != null)
+            client.addHeader(HEADER_AUTH, key);
         client.setTimeout(10 * 1000);
 
         try {

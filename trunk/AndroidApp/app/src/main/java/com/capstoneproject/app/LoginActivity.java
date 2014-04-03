@@ -162,35 +162,16 @@ public class LoginActivity extends Activity {
 
     private void login() {
 
-        NetworkHelper.login(getApplicationContext(), mEmail, mPassword, new JsonHttpResponseHandler() {
-
+        NetworkHelper.login(getApplicationContext(), mEmail, mPassword, new HttpResponse(this) {
 
             @Override
             public void onFailure(Throwable e, JSONObject errorResponse) {
                 showProgress(false);
-
-                try {
-                    String error = errorResponse.getString("error");
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setTitle("Error").setMessage(error);
-                    builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    builder.create().show();
-
-                } catch (JSONException e1) {
-                    e1.printStackTrace();
-                }
-
+                super.onFailure(e, errorResponse);
             }
 
             @Override
             public void onSuccess(JSONObject response) {
-
                 try {
                     String key = response.getString("key");
                     SettingsHelper settings = new SettingsHelper(getApplicationContext());
@@ -205,7 +186,6 @@ public class LoginActivity extends Activity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
             }
 

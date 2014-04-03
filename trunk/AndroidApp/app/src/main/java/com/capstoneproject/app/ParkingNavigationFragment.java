@@ -4,8 +4,10 @@ package com.capstoneproject.app;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,8 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.ScaleInAnimationAdapter;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -39,13 +47,13 @@ public class ParkingNavigationFragment extends Fragment {
 
         CardListView mCardView = (CardListView) v.findViewById(R.id.lot_list);
         mCards = new ArrayList<Card>();
-        CardArrayAdapter mCardAdapter = new CardArrayAdapter(getActivity(), mCards);
+        mCardAdapter = new CardArrayAdapter(getActivity(), mCards);
         ScaleInAnimationAdapter animationAdapter = new ScaleInAnimationAdapter(mCardAdapter);
         animationAdapter.setAbsListView(mCardView);
 
         //initializeCardInformation();
 
-        String[] parkingLotNames = {"Student Parking Lot 1","Student Parking Lot 2","Faculty Parking Lot 1","Faculty Parking Lot 2","Visitor Parking Lot 1"};
+        /*String[] parkingLotNames = {"Student Parking Lot 1","Student Parking Lot 2","Faculty Parking Lot 1","Faculty Parking Lot 2","Visitor Parking Lot 1"};
 
         for(int i = 0; i < parkingLotNames.length; i++)
         {
@@ -65,8 +73,8 @@ public class ParkingNavigationFragment extends Fragment {
             card.addCardHeader(cardHeader);
             mCardAdapter.add(card);
         }
-
-        mCardView.setExternalAdapter(animationAdapter, mCardAdapter);
+*/        mCardView.setExternalAdapter(animationAdapter, mCardAdapter);
+        updateLotInfo();
         //return inflater.inflate(R.layout.fragment_navigation, container, false);
         return v;
     }
@@ -102,5 +110,51 @@ public class ParkingNavigationFragment extends Fragment {
         }
         //Toast.makeText(getActivity(), "Clicked on " + item.getTitle(), Toast.LENGTH_SHORT).show();
         return true;
+    }
+
+    private void updateLotInfo() {
+
+        NetworkHelper.getLots(getActivity(), new HttpResponse(getActivity()) {
+
+            @Override
+            public void onSuccess(JSONArray response) {
+
+                //JSONArray array = new JSONArray();
+
+                try {
+                    // array = response.getJSONArray("lots");
+
+                    for(int i = 0; i < response.length(); i++) {
+
+                        JSONObject lot = (JSONObject) response.get(i);
+                        String num = lot.getString("lotNumber");
+
+                        Card card = new Card(getActivity());
+                        CardHeader cardHeader = new CardHeader(getActivity());
+
+                        cardHeader.setTitle("Parking Lot " + num);
+                        Log.d("Lot", cardHeader.getTitle());
+                        cardHeader.setPopupMenu(R.menu.parking_status, new CardHeader.OnClickCardHeaderPopupMenuListener()
+                        {
+                            @Override
+                            public void onMenuItemClick(BaseCard baseCard, MenuItem item) {
+                                //Toast.makeText(getActivity(), "Clicked on " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                                onMenuOptionSelected(item);
+                            }
+                        });
+
+                        card.addCardHeader(cardHeader);
+                        ParkingNavigationFragment.this.mCardAdapter.add(card);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+        });
+
     }
 }

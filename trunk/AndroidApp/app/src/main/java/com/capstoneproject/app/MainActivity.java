@@ -9,12 +9,13 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener
 {
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
-    private String[] tabNames = {"Map", "Navigate Lot Options"};
+    private String[] tabNames = {"Map", "Parking Lots"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
