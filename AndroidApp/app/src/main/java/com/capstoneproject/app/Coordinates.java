@@ -458,11 +458,11 @@ public class Coordinates
         map.addPolygon(studentUnion);
         map.addPolygon(steelyLibrary);
         map.addPolygon(universityCenter);
-        map.addPolygon(kentonGarage);
-        map.addPolygon(studentParkingLotM);
-        map.addPolygon(facultyParkingLotD);
-        map.addPolygon(facultyParkingLotV);
-        map.addPolygon(studentParkingLotI);
+       // map.addPolygon(kentonGarage);
+       // map.addPolygon(studentParkingLotM);
+       // map.addPolygon(facultyParkingLotD);
+       // map.addPolygon(facultyParkingLotV);
+       // map.addPolygon(studentParkingLotI);
     }
 
     public void insertMarkers (GoogleMap map)
@@ -482,10 +482,10 @@ public class Coordinates
         map.addMarker(new MarkerOptions().position(new LatLng(39.031115, -84.461619)).title("Business Academic Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
         map.addMarker(new MarkerOptions().position(new LatLng(39.031244, -84.463695)).title("Fine Arts Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
         map.addMarker(new MarkerOptions().position(new LatLng(39.030169, -84.463950)).title("University Center").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.030244, -84.467783)).title("Visitor Parking Lot 1").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.033594, -84.466871)).title("Student Parking Lot 1").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.033190, -84.463529)).title("Student Parking Lot 2").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.031957, -84.461786)).title("Faculty Parking Lot 1").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
-        map.addMarker(new MarkerOptions().position(new LatLng(39.028773, -84.463701)).title("Faculty Parking Lot 2").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+        //map.addMarker(new MarkerOptions().position(new LatLng(39.030244, -84.467783)).title("Visitor Parking Lot 1").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+       // map.addMarker(new MarkerOptions().position(new LatLng(39.033594, -84.466871)).title("Student Parking Lot 1").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+       // map.addMarker(new MarkerOptions().position(new LatLng(39.033190, -84.463529)).title("Student Parking Lot 2").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+       // map.addMarker(new MarkerOptions().position(new LatLng(39.031957, -84.461786)).title("Faculty Parking Lot 1").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+       // map.addMarker(new MarkerOptions().position(new LatLng(39.028773, -84.463701)).title("Faculty Parking Lot 2").icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
     }
 }
