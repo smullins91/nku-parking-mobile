@@ -45,9 +45,14 @@
                  <br />Use a different map using directions at <a href="https://developers.google.com/maps/documentation/javascript/shapes#polygons">https://developers.google.com/maps/documentation/javascript/shapes#polygons</a>&nbsp; as this includes all the drawing requirements.<br />
                  <br />
                  <br />
+                 
                  <asp:Panel ID="Panel1" runat="server" Height="460px">
+                     <div id="map-canvas"/>
                      <asp:Label ID="Label4" runat="server" Height="450px" Width="5px"></asp:Label>
+
+                     <!--
                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13139.34871349347!2d-84.46062709999998!3d39.03338469999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b06e0b8b16e9%3A0x3ee280bce0f69454!2sNorthern+Kentucky+University!5e1!3m2!1sen!2sus!4v1395693200756" width="600" height="450" frameborder="0" style="border:0"></iframe>
+                     -->
                      <br />
                  </asp:Panel>
                  <br />

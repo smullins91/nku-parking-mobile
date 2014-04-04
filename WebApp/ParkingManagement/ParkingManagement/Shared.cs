@@ -79,8 +79,8 @@ namespace ParkingManagement
     //JSON OBJECTS
     public class Point
     {
-        public int lat { get; set; }
-        public int lng { get; set; }
+        public float lat { get; set; }
+        public float lng { get; set; }
     }
     public class ParkingLot
     {
