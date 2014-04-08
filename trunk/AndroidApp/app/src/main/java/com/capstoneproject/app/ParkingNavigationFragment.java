@@ -126,15 +126,22 @@ public class ParkingNavigationFragment extends Fragment {
 
                     for(int i = 0; i < response.length(); i++) {
 
-                        JSONObject lot = (JSONObject) response.get(i);
-                        String num = lot.getString("lotNumber");
+                        Lot lot = new Lot(response.getJSONObject(i));
+                        String num = lot.getNumber();
 
-                        Card card = new Card(getActivity());
-                        CardHeader cardHeader = new CardHeader(getActivity());
+                        LotCard card = new LotCard(getActivity());
+                        //CardHeader cardHeader = new LotCardHeader(getActivity());
 
-                        cardHeader.setTitle("Parking Lot " + num);
-                        Log.d("Lot", cardHeader.getTitle());
-                        cardHeader.setPopupMenu(R.menu.parking_status, new CardHeader.OnClickCardHeaderPopupMenuListener()
+                        card.setTitle("Parking Lot " + num);
+
+                        if(lot.isActive() && lot.getAvailable() > 0)
+                            card.setStatus(LotCard.Status.OPEN);
+                        else if(!lot.isActive())
+                            card.setStatus(LotCard.Status.CLOSED);
+                        else
+                            card.setStatus(LotCard.Status.FULL);
+
+                       /* cardHeader.setPopupMenu(R.menu.parking_status, new CardHeader.OnClickCardHeaderPopupMenuListener()
                         {
                             @Override
                             public void onMenuItemClick(BaseCard baseCard, MenuItem item) {
@@ -143,7 +150,7 @@ public class ParkingNavigationFragment extends Fragment {
                             }
                         });
 
-                        card.addCardHeader(cardHeader);
+                        card.addCardHeader(cardHeader);*/
                         ParkingNavigationFragment.this.mCardAdapter.add(card);
                     }
 

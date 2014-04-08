@@ -1,13 +1,18 @@
 package com.capstoneproject.app;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import org.json.JSONObject;
 
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener
@@ -86,7 +91,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
-        //int id = item.getItemId();
+        int id = item.getItemId();
+
+        switch(id) {
+            case R.id.menu_settings: break;
+            case R.id.menu_logout: logout(); break;
+        }
 
 
         return true;
@@ -115,5 +125,38 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public static class PlaceholderFragment
     {
 
+    }
+
+
+    public void logout() {
+
+        final ProgressDialog progress = ProgressDialog.show(this, "",
+                "Signing out...", true);
+        progress.show();
+
+        NetworkHelper.logout(this, new HttpResponse(this) {
+
+            @Override
+            public void onFailure(Throwable e, JSONObject result) {
+                progress.dismiss();
+                super.onFailure(e, result);
+            }
+
+            @Override
+            public void onSuccess(JSONObject result) {
+
+                progress.dismiss();
+
+                SettingsHelper settings = new SettingsHelper(MainActivity.this);
+                settings.setSessionKey("");
+
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
+
+            }
+
+        });
     }
 }
