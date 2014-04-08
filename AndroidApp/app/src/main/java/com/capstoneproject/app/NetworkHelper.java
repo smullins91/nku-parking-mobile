@@ -32,6 +32,7 @@ public class NetworkHelper {
 
     public static final String API_URL = "https://ec2-54-200-98-161.us-west-2.compute.amazonaws.com/";
     public static final String API_LOGIN = "login";
+    public static final String API_LOGOUT = "logout";
     public static final String API_REGISTER = "register";
     public static final String API_VERIFY = "verify";
     public static final String API_LOTS = "lots";
@@ -53,6 +54,9 @@ public class NetworkHelper {
 
     }
 
+    public static void logout(Context context, AsyncHttpResponseHandler callback) {
+        get(API_LOGOUT, context, null, callback);
+    }
 
     public static void getLots(Context context, AsyncHttpResponseHandler callback) {
         get(API_LOTS, context, null, callback);
