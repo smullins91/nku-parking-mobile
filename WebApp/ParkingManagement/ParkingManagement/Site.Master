@@ -57,6 +57,8 @@
                 zoom: 16
             };
 
+
+
             var lotA;
 
             var map = new google.maps.Map(document.getElementById("map-canvas"),
@@ -69,6 +71,9 @@
                 new google.maps.LatLng(39.03345, -84.46918),
                 new google.maps.LatLng(39.03344, -84.46781),
             ];
+
+
+
 
             //Construct the polygon for lotA
             lotA = new google.maps.Polygon({
@@ -84,11 +89,21 @@
 
         }
         google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+
+
     </script>
+    
+
    
 </head>
 <body>
     
+
+
+
                    
     <form runat="server">
     <asp:ScriptManager runat="server">
