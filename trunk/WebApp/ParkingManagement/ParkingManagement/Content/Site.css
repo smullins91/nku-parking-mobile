@@ -345,9 +345,7 @@ fieldset {
         font-weight: 600;
     }
 
-    label.checkbox {
-        display: inline;
-    }
+    l
 
     input, textarea {
         border: 1px solid #e2e2e2;
@@ -356,8 +354,11 @@ fieldset {
         font-size: 1.2em;
         margin: 5px 0 6px 0;
         padding: 5px;
-        width: 300px;
-    }
+        }
+
+    6px 0;
+        padding: 5px;
+        }
 
     textarea {
         font-family: inherit;

@@ -7,6 +7,10 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json;
+using System.Data;
+using System.Configuration;
+using System.Data.SqlClient;
+
 
 namespace ParkingManagement.WebContent.Reports
 {
@@ -18,7 +22,26 @@ namespace ParkingManagement.WebContent.Reports
         protected void Page_Load(object sender, EventArgs e)
         {
             populateUserGV();
-            populateLotGV();
+     //       populateLotGV();
+            //try using http://www.aspdotnet-suresh.com/2013/01/show-google-map-with-latitude-and.html as it has a clearer way of storing the coordinates
+
+
+
+            //using http://www.aspsnippets.com/Articles/Show-Google-Maps-using-Latitude-and-Longitude-in-ASPNet.aspx
+            if (!this.IsPostBack)
+            {
+                DataTable dt = this.getData();
+                //rptMarkers.DataSource = dt;
+                //rptMarkers.DataBind();
+            }
+
+
+        }
+
+        private DataTable getData()
+        {
+            DataTable dt = new DataTable();
+            return dt;
         }
 
         public enum ViewSelected
@@ -56,7 +79,15 @@ namespace ParkingManagement.WebContent.Reports
 
 
         // public static List<ParkingLot> getParkingLots()
-         public static AllParkingLots getParkingLots()
+        //USE http://www.aspsnippets.com/Articles/Show-Google-Maps-using-Latitude-and-Longitude-in-ASPNet.aspx TO GET THE COORDINATE DATA INTO THE FORM THAT JAVASCRIPT CAN USE FOR THE MAP
+        
+        
+        
+        
+        
+        
+        
+        public static AllParkingLots getParkingLots()
         {
             HttpWebRequest req = WebRequest.Create(serverAddress + "/lots") as HttpWebRequest;
             req.ContentType = "application/json";
@@ -175,22 +206,32 @@ namespace ParkingManagement.WebContent.Reports
             }
         }
 
+
         #region "business object"
         public class ParkingLot
         {
+            public int id { get; set; }
             public string lotNumber { get; set; }
             public int type { get; set; }
             public int active { get; set; }
+            public int rows { get; set; }
+            public int columns { get; set; }
+            public int available { get; set; }
             public Point[] points { get; set; }
         }
 
-        
+        public class Point
+        {
+            public float lat { get; set; }
+            public float lng { get; set; }
+        }
+
         public class AllParkingLots
         {
             public ParkingLot[] lotList { get; set; }
         }
         
         #endregion
-
+        
     }
 }
