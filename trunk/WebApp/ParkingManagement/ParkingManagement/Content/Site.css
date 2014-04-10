@@ -13,6 +13,14 @@ body {
     padding: 0;
 }
 
+.errorMessage
+        {
+            color:red;
+            font-weight:bold;
+            font-size:12px;
+            margin-left: 100px;
+        }
+
 a {
     color: #333;
     outline: none;
@@ -186,7 +194,7 @@ ul#menu {
         /*  height: auto  */
         height:967px;
         margin-top:30px;
-    width: 883px;
+    width: 950px;
     margin-bottom: 286px;
 }
 
