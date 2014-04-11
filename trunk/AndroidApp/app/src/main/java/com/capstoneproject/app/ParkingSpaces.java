@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,30 +41,39 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
         {
             for (int columns = 0; columns < NUMBER_OF_COLUMNS; columns++)
             {
-                Button button = new Button(getBaseContext());
+                ImageButton button = new ImageButton(getBaseContext());
 
 
                 int key = (Integer.parseInt("" + rows + columns));
                 button.setId(key);
-                button.setText(rows + "," + columns);
+                //button.setText(rows + "," + columns);
                 button.setOnClickListener(this); //calls the onclick method of the interface
-                button.setTextColor(Color.WHITE);
-
-
+               // button.setTextColor(Color.WHITE);
+                int random = (int) (Math.random() * 4);
+                if (random == 0)
+                {
+                    button.setImageResource(R.drawable.available);
+                }
+                else if (random == 1)
+                {
+                    button.setImageResource(R.drawable.closed);
+                }
+                else if (random == 2)
+                {
+                    button.setImageResource(R.drawable.reserved);
+                }
+                else
+                {
+                    button.setImageResource(R.drawable.unavailable);
+                }
 
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                //params.height = 40;
-                //params.width = 70;
 
                 if ((columns != 0) && (columns % 2 != 0))
                 {
                     params.rightMargin = 80;
-                    
                 }
-                else
-                {
-                    params.rightMargin = 3;
-                }
+
                 buttonContainer.addView(button, params);
 
             }
@@ -73,8 +83,8 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
     @Override
     public void onClick(View view)
     {
-        Button button = (Button) view;
-        String buttonText = button.getText().toString();
+        ImageButton button = (ImageButton) view;
+        String buttonText = "" + button.getId();
 
         if (buttonText.equals("0,0") || buttonText.equals("1,1") || buttonText.equals("2,2") || buttonText.equals("3,3") || buttonText.equals("4,4"))
         {
