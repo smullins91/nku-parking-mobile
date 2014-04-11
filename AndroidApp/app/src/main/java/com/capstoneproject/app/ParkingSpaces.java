@@ -5,12 +5,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ParkingSpaces extends Activity implements View.OnClickListener
@@ -40,11 +42,14 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
             {
                 Button button = new Button(getBaseContext());
 
+
                 int key = (Integer.parseInt("" + rows + columns));
                 button.setId(key);
                 button.setText(rows + "," + columns);
                 button.setOnClickListener(this); //calls the onclick method of the interface
-                button.setTextColor(Color.BLACK);
+                button.setTextColor(Color.WHITE);
+
+
 
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 //params.height = 40;
@@ -53,27 +58,14 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
                 if ((columns != 0) && (columns % 2 != 0))
                 {
                     params.rightMargin = 80;
+                    
                 }
                 else
                 {
-                    params.rightMargin = 6;
-                }
-
-                if (rows == columns) //hard coded, get the value from the database.
-                {
-                    //button.setTextColor(Color.RED);
-                    button.setBackgroundColor(Color.RED);
-
-                }
-                else if (rows + 2 == columns)  //hard coded, get the value from the database.
-                {
-                    button.setBackgroundColor(Color.YELLOW);  //hard coded, get the value from the database.
-                }
-                else
-                {
-                    button.setBackgroundColor(Color.GREEN);  //hard coded, get the value from the database.
+                    params.rightMargin = 3;
                 }
                 buttonContainer.addView(button, params);
+
             }
         }
     }
@@ -83,8 +75,6 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
     {
         Button button = (Button) view;
         String buttonText = button.getText().toString();
-
-
 
         if (buttonText.equals("0,0") || buttonText.equals("1,1") || buttonText.equals("2,2") || buttonText.equals("3,3") || buttonText.equals("4,4"))
         {
