@@ -28,7 +28,7 @@
                               <asp:BoundField DataField="FirstName" HeaderText="First Name" />
                               <asp:BoundField DataField="Email" HeaderText="Email" />
                               <asp:BoundField DataField="Role" HeaderText="Role" />
-                              <asp:BoundField DataField="RoleId" HeaderText="RoleId"  Visible="false"/>
+                              <asp:BoundField DataField="RoleId" HeaderText="RoleId" />
                               <asp:BoundField DataField="Admin" HeaderText="Admin" />
                               <asp:ButtonField CommandName="editUser" ControlStyle-CssClass="btn btn-info"
                                 ButtonType="Button" Text="Edit" HeaderText="Edit User">
@@ -107,6 +107,17 @@
                             <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" class="form-control"></asp:TextBox>
                           </div>
                         </div>
+                 <div class="form-group">
+                         <asp:Label ID="lblConfPassword" runat="server" Text="Confirm Password:*" class="col-sm-4 control-label"></asp:Label>
+                          <div class="col-sm-8">
+                            <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" class="form-control"></asp:TextBox>
+                          </div>
+                        </div>
+                 <div class="form-group">
+                            <asp:CheckBox ID="chkAdmin" runat="server"  class="control-label"/>
+                            <asp:Label ID="lblAdministrator" runat="server" Text="Administrator" class="col-sm-4 control-label"></asp:Label>
+                          
+                         </div>
 
            
                           <div class="modal-footer">
@@ -134,6 +145,7 @@
                         <div class="modal-body">
                             Are you sure you want to delete the record?
                             <asp:HiddenField ID="hfUserId" runat="server" />
+                            <asp:HiddenField ID="hfIndex" runat="server" />
                         </div>
                         <div class="modal-footer">
                             <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn" OnClick="btnDelete_Click" />
