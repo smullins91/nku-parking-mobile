@@ -89,7 +89,7 @@ mark {
     .main-content {
         width:953px; /*+ 10 = 963 as the width of the banner*/
         padding-left: 10px;
-        margin-top: 50px;
+        margin-top: 0px;
        
        
     }
@@ -192,10 +192,10 @@ ul#menu {
         border:1px solid black;
         border-radius:5px;
         /*  height: auto  */
-        height:967px;
+        height:500px;
         margin-top:30px;
     width: 950px;
-    margin-bottom: 286px;
+    margin-bottom: 0px;
 }
 
         .featured hgroup.title h1, .featured hgroup.title h2 {
