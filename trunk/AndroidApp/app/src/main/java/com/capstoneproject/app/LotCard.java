@@ -22,6 +22,7 @@ public class LotCard extends Card {
     private Context mContext;
     private LotCardHeader mHeader;
 
+    private Lot mLot;
     private String mTitle;
     private String mStatus;
     private int mColor = 0;
@@ -31,14 +32,15 @@ public class LotCard extends Card {
     private Button mButtonShowMap;
     private Button mButtonViewLot;
 
-    public LotCard(Context context) {
+    public LotCard(Context context, Lot lot) {
         super(context, R.layout.lot_card);
         mContext = context;
+        mLot = lot;
         init();
     }
 
     private void init() {
-        mHeader = new LotCardHeader(mContext);
+       // mHeader = new LotCardHeader(mContext);
        // addCardHeader(mHeader);
 
     }
@@ -97,6 +99,10 @@ public class LotCard extends Card {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, ParkingSpaces.class);
+                intent.putExtra("rows", mLot.getRows());
+                intent.putExtra("columns", mLot.getColumns());
+                intent.putExtra("title", mTitle);
+                intent.putExtra("id", mLot.getId());
                 mContext.startActivity(intent);
             }
         });
