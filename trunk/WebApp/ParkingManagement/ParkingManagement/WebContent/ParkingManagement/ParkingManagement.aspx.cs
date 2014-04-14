@@ -68,7 +68,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         }
 
-        public static Rootobject getParkingLots()
+        public static List<Class1> getParkingLots()
         {
             HttpWebRequest req = WebRequest.Create(serverAddress + "/lots") as HttpWebRequest;
             req.ContentType = "application/json";
@@ -76,21 +76,27 @@ namespace ParkingManagement.WebContent.ParkingManagement
             req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
 
             string result;
-            Rootobject resultObject;
+            //Rootobject resultObject;
+            List<Class1> lotList = new List<Class1>();
             // AllLots resultObject;
+            /*
             using (HttpWebResponse resp = req.GetResponse() as HttpWebResponse)
             {
+                */
+                HttpWebResponse resp = (HttpWebResponse) req.GetResponse();
                 StreamReader reader = new StreamReader(resp.GetResponseStream());
                 result = reader.ReadToEnd();
                 result.Trim();
                 //   string stringResult = result.ToString();
-                string stringResult = result.Substring(1, result.Length - 2);   //We are geting square brackets that make things complicated.
+          //      string stringResult = result.Substring(1, result.Length - 2);   //We are geting square brackets that make things complicated.
                 //When the database has more than 1 lot, it should fix itself.
 
-                resultObject = JsonConvert.DeserializeObject<Rootobject>(stringResult);
+                lotList = JsonConvert.DeserializeObject<List<Class1>>(result);
+             //   resultObject = lotList;
                 // resultObject = JsonConvert.DeserializeObject<AllLots>(stringResult);
-            }
-            return resultObject;
+         /*   }    */
+            //return resultObject;
+                return lotList;
         }
 
 
