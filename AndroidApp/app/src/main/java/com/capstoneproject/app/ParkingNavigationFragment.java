@@ -129,7 +129,7 @@ public class ParkingNavigationFragment extends Fragment {
                         Lot lot = new Lot(response.getJSONObject(i));
                         String num = lot.getNumber();
 
-                        LotCard card = new LotCard(getActivity());
+                        LotCard card = new LotCard(getActivity(), lot);
                         //CardHeader cardHeader = new LotCardHeader(getActivity());
 
                         card.setTitle("Parking Lot " + num);
