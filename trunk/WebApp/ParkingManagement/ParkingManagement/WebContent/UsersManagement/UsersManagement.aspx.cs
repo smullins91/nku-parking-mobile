@@ -54,10 +54,14 @@ namespace ParkingManagement.WebContent.UsersManagement
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-         
-            ManageUsers.User newUser = new ManageUsers.User(txtUserName.Text, txtPassword.Text, Convert.ToInt32(ddlUserRoles.SelectedValue) ,
-               txtFirstName.Text, txtLastName.Text, txtEmail.Text);
+            int isAdmin = 0;
+            if (chkAdmin.Checked)
+                isAdmin = 1;
+
+            ManageUsers.User newUser = new ManageUsers.User(txtUserName.Text,Convert.ToInt32(ddlUserRoles.SelectedValue),
+               txtFirstName.Text, txtLastName.Text, isAdmin, txtEmail.Text,txtPassword.Text);
             ManageUsers.addUser(newUser);
+
 
             // go to the ManagerUsers page
             Response.Redirect("UsersManagement.aspx");
@@ -72,7 +76,9 @@ namespace ParkingManagement.WebContent.UsersManagement
         {
             int index = Convert.ToInt32(e.CommandArgument);
             string strUserId = gvUsers.DataKeys[index].Value.ToString();
+            hfIndex.Value = index.ToString() ; 
             hfUserId.Value = strUserId;
+
             if ( e.CommandName.Equals("deleteUser"))
             {
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -153,16 +159,7 @@ namespace ParkingManagement.WebContent.UsersManagement
 
         }
 
-        private void editUser()
-        {
-            ManageUsers.User newUser = new ManageUsers.User(txtUserName.Text, txtPassword.Text, Convert.ToInt32(ddlUserRoles.SelectedValue),
-               txtFirstName.Text, txtLastName.Text, txtEmail.Text);
-            ManageUsers.addUser(newUser);
-
-            // go to the ManagerUsers page
-            Response.Redirect("UsersManagement.aspx");
-        }
-
+      
         protected void gvUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvUsers.PageIndex = e.NewPageIndex;
@@ -180,6 +177,31 @@ namespace ParkingManagement.WebContent.UsersManagement
         protected void btnSavePassword_Click(object sender, EventArgs e)
         {
            
+            // Validation
+
+            int isAdmin = 0;
+
+            // Get row index
+            int index = Convert.ToInt32(hfIndex.Value);
+            GridViewRow gvrow = gvUsers.Rows[index];
+
+            // Is user Admin?
+            if (gvrow.Cells[6].Text.Equals("Yes"))
+                isAdmin = 1;
+
+            string userName =  gvrow.Cells[0].Text;
+            string lastName = gvrow.Cells[1].Text;
+            string firstName = gvrow.Cells[2].Text;
+            int roleId = Convert.ToInt32(gvrow.Cells[5].Text);
+
+            // get the update user info
+            ManageUsers.editUser u = new ManageUsers.editUser(Convert.ToInt32(hfUserId.Value), gvrow.Cells[0].Text, roleId ,
+                  firstName,lastName, userName, isAdmin,   txtPassword1.Text.Trim());
+
+            ManageUsers.updateUser(u);
+
+            // go to the ManagerUsers page
+            Response.Redirect("UsersManagement.aspx");
 
         }
 

@@ -45,6 +45,7 @@ namespace ParkingManagement.WebContent.UsersManagement
             public string firstName { get; set; }
             public string lastName { get; set; }
             public string email { get; set; }
+            public int isAdmin { get; set; }
            
             public User(){}
 
@@ -57,7 +58,7 @@ namespace ParkingManagement.WebContent.UsersManagement
             /// <param name="firstName"></param>
             /// <param name="lastName"></param>
             /// <param name="email"></param>
-            public User( string userName, string password, int roleId, string firstName, string lastName, string email)
+            public User(string userName,  int roleId, string firstName, string lastName, int isAdmin, string email, string password)
             {
                 this.UserName = userName;
                 this.Password = password;
@@ -65,10 +66,10 @@ namespace ParkingManagement.WebContent.UsersManagement
                 this.firstName = firstName;
                 this.lastName = lastName;
                 this.email = email;
+                this.isAdmin = isAdmin;
 
             }
-
-            
+    
         };
 
         public class editUser
@@ -94,6 +95,7 @@ namespace ParkingManagement.WebContent.UsersManagement
                 this.Password = Password;
             }
 
+          
          };
 
         public class SuperUser:User
