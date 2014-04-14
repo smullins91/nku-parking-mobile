@@ -215,8 +215,7 @@ namespace ParkingManagement.WebContent.UsersManagement
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Post;
 
-            //TODO: api key should be replaced by the session info when the user log in
-            req.Headers.Add("Authorization", API_KEY);
+           req.Headers.Add("Authorization", API_KEY);
 
             using (var streamWriter = new StreamWriter(req.GetRequestStream()))
             {
