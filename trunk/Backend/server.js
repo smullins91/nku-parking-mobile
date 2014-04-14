@@ -209,8 +209,10 @@ app.get('/lots', function (request, response) {
 
 		} else {
 
-			db.query('SELECT ParkingLots.*, concat("[", group_concat(concat("{""lat"":", Latitude, ",""lng"":", Longitude, "}")), "]") AS points FROM ParkingLots' 
-				+ ' LEFT JOIN ParkingCoordinates ON ParkingLots.LotId = ParkingCoordinates.LotId GROUP BY ParkingLots.LotId;', function(err, rows, fields) {
+			db.query('SELECT ParkingLots.*, Rows*Columns - COUNT(ParkingSpaces.SpaceId) AS Available, '
+				+ 'concat("[", group_concat(concat("{""lat"":", Latitude, ",""lng"":", Longitude, "}")), "]") AS points FROM ParkingLots '
+				+ 'LEFT JOIN ParkingCoordinates ON ParkingLots.LotId = ParkingCoordinates.LotId '
+				+ 'LEFT JOIN ParkingSpaces ON ParkingSpaces.LotId = ParkingLots.LotId AND ParkingSpaces.StatusId > 1 GROUP BY ParkingLots.LotId', function(err, rows, fields) {
 
 				if(err) {
 					
@@ -222,7 +224,9 @@ app.get('/lots', function (request, response) {
 					var lots = [];
 
 					for(var i = 0; i < rows.length; i++) {
-						lots.push( { lotNumber: rows[i].LotNumber, type: rows[i].TypeId, active: rows[i].Active[0], points: JSON.parse(rows[i].points) } );
+						lots.push( { id: rows[i].LotId, lotNumber: rows[i].LotNumber, 
+							type: rows[i].TypeId, active: rows[i].Active[0], rows: rows[i].Rows,
+							columns: rows[i].Columns, available: rows[i].Available, points: JSON.parse(rows[i].points) } );
 					}
 
 					response.json(lots);
@@ -239,10 +243,10 @@ app.get('/lots', function (request, response) {
 
 
 /**
- * HTTP GET /lot
+ * HTTP GET /lots
  * Returns: Information about a particular lot, such as all the spaces.
  */
-app.get('/lot/:id', function (request, response) {
+app.get('/lots/:id', function (request, response) {
 
 	var key = request.headers['authorization'];
 
@@ -250,6 +254,145 @@ app.get('/lot/:id', function (request, response) {
 
     response.send(200, {lot:{}});
 });
+
+
+/**
+ * HTTP POST /lots
+ * Returns: A message if successful
+ */
+app.post('/lots', function (request, response) {
+
+	
+	verifySessionKey(request, function(valid) {
+
+		if(!valid) {
+
+			response.send(403, {error: "You are not authorized to complete this request."});
+
+		} else {
+
+			var num = request.body.LotNumber;
+			var type = request.body.TypeId;
+			var rows = request.body.Rows;
+			var columns = request.body.Columns;
+			var active = request.body.Active;
+
+			var lot = {LotNumber: num, TypeId: type, Rows: rows, Columns: columns, Active: active};
+
+			db.query('INSERT INTO ParkingLots SET ?', lot, function(err, result) {
+
+				if(err) {
+					
+					console.log(err);
+					response.send(500, {error: "An error has occured."});
+
+				} else {
+
+					var id = result.insertId;
+					var points = request.body.Points;
+
+					for(var i = 0; i < points.length; i++)
+						points[i].push(id);
+
+
+					db.query('INSERT INTO ParkingCoordinates (Latitude, Longitude, LotId) VALUES ?', [points], function(err) { 
+
+						if(err) {
+							console.log(err);
+							response.send(500, {error: "An error has occured."});
+						} else
+							response.send(200, {message: "Parking lot created!"});
+
+					});
+
+				}
+
+			});
+
+		}
+
+	});
+
+
+});
+
+/**
+ * HTTP DELETE /lots/ID
+ * Returns: A message if successful.
+ */
+app.delete('/lots/:id', function (request, response) {
+
+	verifyAdminSession(request, function (valid) {
+
+		if(!valid) {
+			response.send(403, {error: "You are not authorized to complete this request."});
+		} else {
+
+			var id = request.params.id;
+
+			db.query("DELETE FROM ParkingCoordinates WHERE LotId = ?", id, function(err) {
+
+				if(err) {
+					console.log(err);
+					response.send(500, {error: "An error has occured."});
+				} else {
+
+					db.query("DELETE FROM ParkingLots WHERE LotId = ? LIMIT 1", id, function(err) {
+
+						if(err) {
+							console.log(err);
+							response.send(500, {error: "An error has occured."});
+						}
+						else
+							response.send(200, {message: "The lot has been deleted."});
+					});
+
+				}		
+
+			});
+
+
+		}
+
+	});
+
+});
+
+
+/**
+ * HTTP POST /lots/id
+ * Returns: A message if successful
+ */
+app.post('/lots/:id', function (request, response) {
+
+	verifyAdminSession(request, function (valid) {
+
+		if(!valid) {
+			response.send(403, {error: "You are not authorized to complete this request."});
+		} else {
+
+			var id = request.params.id;
+			var json = request.body;
+
+			delete json.LotId; //Make sure the Lot ID doesn't get updated.
+
+			db.query("UPDATE ParkingLots SET ? WHERE LotId = ? LIMIT 1", [json, id], function(err) {
+
+				if(err) {
+					console.log(err);
+					response.send(500, {error: "An error has occured."});
+				} else {
+					response.send(200, {message: "The lot has been updated."});
+				}		
+
+			});
+
+		}
+
+	});
+
+});
+
 
 
 /**
@@ -503,7 +646,6 @@ app.post('/users/:id', function (request, response) {
 	});
 
 });
-
 
 /**
  * HTTP POST /users
