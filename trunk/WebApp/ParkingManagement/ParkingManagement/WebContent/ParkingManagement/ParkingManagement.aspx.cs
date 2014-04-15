@@ -19,13 +19,16 @@ namespace ParkingManagement.WebContent.ParkingManagement
         //YOU MAY NEED TO DOWNLOAD GoogleMapsAPI from NuGet to make this work
 
         string[] gotNames;
+        public List<Class1> lotsObject;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             /* load the parking lot names from the database, and then populate the 
              * dropdown list with those names.
              */
+     //       lotsObject = getParkingLots();
 
+            Page.DataBind();
 
 
       //      DropDownList4.Text = "Row";
@@ -55,8 +58,14 @@ namespace ParkingManagement.WebContent.ParkingManagement
         protected void Button6_Click(object sender, EventArgs e)
         {
             MultiViewManage.ActiveViewIndex = (int)ViewSelected.AddLot;
+   //         lotsObject = getParkingLots();
         }
-
+        /*
+        protected void Button6_ClickCS(object sender, EventArgs e)
+        {
+            MultiViewManage.ActiveViewIndex = (int)ViewSelected.AddLot;
+        }
+        */
 
         protected void Button5_Click(object sender, EventArgs e)
         {
@@ -68,7 +77,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         }
 
-        public static List<Class1> getParkingLots()
+        public List<Class1> getParkingLots()
         {
             HttpWebRequest req = WebRequest.Create(serverAddress + "/lots") as HttpWebRequest;
             req.ContentType = "application/json";
