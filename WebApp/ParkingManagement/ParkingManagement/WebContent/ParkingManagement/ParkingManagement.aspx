@@ -4,6 +4,9 @@
 
 
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
+    <section class="featured">
+
+
 
         <script type="text/javascript"
       src="http://maps.google.com/maps/api/js?sensor=false">
@@ -44,6 +47,7 @@
                 
             }
                         
+
 
             var mapOptions = {
                 center: new google.maps.LatLng(39.03149, -84.46408),
@@ -151,7 +155,7 @@
 
 
 
-     <section class="featured">
+
          <div class="content-wrapper">
            <h1>Parking Management</h1>
              <asp:Panel ID="Panel2" runat="server" Height="909px">
@@ -288,7 +292,7 @@
                                      <br />
                                      <asp:TextBox ID="TextBox19" runat="server" Width="180px"></asp:TextBox>
                                      &nbsp;<asp:TextBox ID="TextBox20" runat="server" Width="180px"></asp:TextBox>
-                                     <br />
+                                     <br /> 
                                      <asp:TextBox ID="TextBox21" runat="server" Width="180px"></asp:TextBox>
                                      &nbsp;<asp:TextBox ID="TextBox22" runat="server" Width="180px"></asp:TextBox>
                                  </asp:Panel>
