@@ -41,10 +41,11 @@
 
             //Using my c# code instead!
             var allLots;
+            $('thisWorks') = 'his was NOT reset in CallCodeBehind';
 
             var testingLatValue;
             function CallCodeBehind() {
-                $("#thisWorks") = "the CallCodeBehind method was called";
+                $('#thisWorks') = 'the CallCodeBehind method was called';
                 allLots = '<%=getParkingLots()%>';
                 
               //  testingLatValue = allLots[0].points[0].lat;                
@@ -294,7 +295,7 @@
                                      <br />
                                      <asp:TextBox ID="TextBox19" runat="server" Width="180px"></asp:TextBox>
                                      &nbsp;<asp:TextBox ID="TextBox20" runat="server" Width="180px"></asp:TextBox>
-                                     <br /> <div id="#thisWorks">   </div>
+                                     <br />                                                             <div id="#thisWorks">   </div>
                                      <asp:TextBox ID="TextBox21" runat="server" Width="180px"></asp:TextBox>
                                      &nbsp;<asp:TextBox ID="TextBox22" runat="server" Width="180px"></asp:TextBox>
                                  </asp:Panel>
