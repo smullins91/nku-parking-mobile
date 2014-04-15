@@ -41,10 +41,13 @@
 
             //Using my c# code instead!
             var allLots;
+
+            var testingLatValue;
             function CallCodeBehind() {
                 $("#thisWorks") = "the CallCodeBehind method was called";
-                allLots = '<%=getParkingLotsFake()%>';
+                allLots = '<%=getParkingLots()%>';
                 
+              //  testingLatValue = allLots[0].points[0].lat;                
             }
                         
 
@@ -234,8 +237,7 @@
                          </asp:Panel>
                          <asp:Panel ID="Panel3" runat="server">
                              <br />
-                             <div id="#thisWorks">
-                                 </div>
+                             
                              </div>
                              <br />
                              <asp:Panel ID="Panel4" runat="server" BorderColor="#666666" BorderStyle="Solid">
@@ -292,7 +294,7 @@
                                      <br />
                                      <asp:TextBox ID="TextBox19" runat="server" Width="180px"></asp:TextBox>
                                      &nbsp;<asp:TextBox ID="TextBox20" runat="server" Width="180px"></asp:TextBox>
-                                     <br /> 
+                                     <br /> <div id="#thisWorks">   </div>
                                      <asp:TextBox ID="TextBox21" runat="server" Width="180px"></asp:TextBox>
                                      &nbsp;<asp:TextBox ID="TextBox22" runat="server" Width="180px"></asp:TextBox>
                                  </asp:Panel>
