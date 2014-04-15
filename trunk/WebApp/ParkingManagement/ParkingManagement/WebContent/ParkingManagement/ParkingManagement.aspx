@@ -43,7 +43,7 @@
             var allLots;
             function CallCodeBehind() {
                 $("#thisWorks") = "the CallCodeBehind method was called";
-                allLots = '<%=getParkingLots()%>';
+                allLots = '<%=getParkingLotsFake()%>';
                 
             }
                         
@@ -160,7 +160,7 @@
            <h1>Parking Management</h1>
              <asp:Panel ID="Panel2" runat="server" Height="909px">
                  <asp:Button ID="Button1" runat="server" Text="Edit Lot" BackColor="Black" BorderColor="Black" ForeColor="White" Width="48%" OnClick="Button1_Click" />
-                 <asp:Button ID="Button6" runat="server" BackColor="Black" BorderColor="Black" ForeColor="White" OnClick="Button6_Click" OnClientClick="CallCodeBehind" Text="Add Lot" Width="49%" />
+                 <asp:Button ID="Button6" runat="server" BackColor="Black" BorderColor="Black" ForeColor="White" OnClick="Button6_Click" OnClientClick="CallCodeBehind()" Text="Add Lot" Width="49%" />
                  <asp:MultiView ID="MultiViewManage" runat="server">
                      <asp:View ID="View1" runat="server">
                          <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Width="120px">

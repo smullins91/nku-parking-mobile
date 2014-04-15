@@ -58,7 +58,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
         protected void Button6_Click(object sender, EventArgs e)
         {
             MultiViewManage.ActiveViewIndex = (int)ViewSelected.AddLot;
-   //         lotsObject = getParkingLots();
+            lotsObject = getParkingLots();
         }
         /*
         protected void Button6_ClickCS(object sender, EventArgs e)
@@ -75,6 +75,11 @@ namespace ParkingManagement.WebContent.ParkingManagement
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+        public List<Class1> getParkingLotsFake()
+        {
+            List<Class1> lotList = new List<Class1>();
+            return lotList;
         }
 
         public List<Class1> getParkingLots()
