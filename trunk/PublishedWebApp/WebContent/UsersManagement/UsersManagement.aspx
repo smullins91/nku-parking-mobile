@@ -28,7 +28,7 @@
                               <asp:BoundField DataField="FirstName" HeaderText="First Name" />
                               <asp:BoundField DataField="Email" HeaderText="Email" />
                               <asp:BoundField DataField="Role" HeaderText="Role" />
-                              <asp:BoundField DataField="RoleId" HeaderText="RoleId"  Visible="false"/>
+                              <asp:BoundField DataField="RoleId" HeaderText="RoleId" />
                               <asp:BoundField DataField="Admin" HeaderText="Admin" />
                               <asp:ButtonField CommandName="editUser" ControlStyle-CssClass="btn btn-info"
                                 ButtonType="Button" Text="Edit" HeaderText="Edit User">
@@ -66,35 +66,15 @@
 
                      
                         <div class="form-group">
-                            <asp:Label ID="lblRole" runat="server" Text="Is the user a:*" class="col-sm-4 control-label"></asp:Label>
+                            <asp:Label ID="lblRole" runat="server" Text="User Group*" class="col-sm-4 control-label"></asp:Label>
                             <div class="col-sm-8">
                                 
                                 <asp:DropDownList ID="ddlUserRoles" runat="server" class="form-control">
                                 </asp:DropDownList>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <asp:Label ID="lblUserName" runat="server" Text="Username:*" class="col-sm-4 control-label"></asp:Label>
-                            <div class="col-sm-8">
-                                <asp:TextBox ID="txtUserName" runat="server" class="form-control"></asp:TextBox>
-                            </div>
-                         </div>
-
-                        <div class="form-group">
-                         <asp:Label ID="lblPassword" runat="server" Text="Password:*" class="col-sm-4 control-label"></asp:Label>
-                          <div class="col-sm-8">
-                            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" class="form-control"></asp:TextBox>
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                            <asp:Label ID="lblEmail" runat="server" Text="Email:*" class="col-sm-4 control-label"></asp:Label>
-                            <div class="col-sm-8">
-                                <asp:TextBox ID="txtEmail" runat="server" class="form-control"></asp:TextBox>
-                             </div>
-                         </div>
-                             
+                        
+                              
                         <div class="form-group">
                             <asp:Label ID="lblFirstName" runat="server" Text="FirstName:*" class="col-sm-4 control-label"></asp:Label>
                             <div class="col-sm-8">
@@ -108,11 +88,42 @@
                                 <asp:TextBox ID="txtLastName" runat="server" class="form-control"></asp:TextBox>
                             </div>
                          </div>
-                      
+
+                          <div class="form-group">
+                            <asp:Label ID="lblEmail" runat="server" Text="Email:*" class="col-sm-4 control-label"></asp:Label>
+                            <div class="col-sm-8">
+                                <asp:TextBox ID="txtEmail" runat="server" class="form-control"></asp:TextBox>
+                             </div>
+                         </div>
+                        <div class="form-group">
+                            <asp:Label ID="lblUserName" runat="server" Text="Username:*" class="col-sm-4 control-label"></asp:Label>
+                            <div class="col-sm-8">
+                                <asp:TextBox ID="txtUserName" runat="server" class="form-control"></asp:TextBox>
+                            </div>
+                         </div>
+                    <div class="form-group">
+                         <asp:Label ID="lblPassword" runat="server" Text="Password:*" class="col-sm-4 control-label"></asp:Label>
+                          <div class="col-sm-8">
+                            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" class="form-control"></asp:TextBox>
+                          </div>
+                        </div>
+                 <div class="form-group">
+                         <asp:Label ID="lblConfPassword" runat="server" Text="Confirm Password:*" class="col-sm-4 control-label"></asp:Label>
+                          <div class="col-sm-8">
+                            <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" class="form-control"></asp:TextBox>
+                          </div>
+                        </div>
+                 <div class="form-group">
+                            <asp:CheckBox ID="chkAdmin" runat="server"  class="control-label"/>
+                            <asp:Label ID="lblAdministrator" runat="server" Text="Administrator" class="col-sm-4 control-label"></asp:Label>
+                          
+                         </div>
+
+           
                           <div class="modal-footer">
                               <asp:Button ID="btnSave" type="button" runat="server" Text="Save"
-                                  class="btn btn-info" OnClick="btnSave_Click" />
-                             <asp:Button ID="btnCancel"  type="button" runat="server" Text="Cancel" class="btn btn-info" data-dismiss="modal" />
+                                  class="btn" OnClick="btnSave_Click" />
+                             <asp:Button ID="btnCancel"  type="button" runat="server" Text="Cancel" class="btn" data-dismiss="modal" />
 
                         </div>
              
@@ -127,17 +138,18 @@
             <div id="deleteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="delModalLabel">Delete Record</h3>
+                    <h3 id="delModalLabel">Delete User</h3>
                 </div>
                 <asp:UpdatePanel ID="upDel" runat="server">
                     <ContentTemplate>
                         <div class="modal-body">
                             Are you sure you want to delete the record?
                             <asp:HiddenField ID="hfUserId" runat="server" />
+                            <asp:HiddenField ID="hfIndex" runat="server" />
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn btn-info" OnClick="btnDelete_Click" />
-                            <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn" OnClick="btnDelete_Click" />
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
                         </div>
                     </ContentTemplate>
                     <Triggers>
@@ -251,6 +263,7 @@
                             <asp:Label ID="lblConfPassword1" runat="server" Text="Confirm Password:*" class="col-sm-4 control-label"></asp:Label>
                             <div class="col-sm-8">
                                 <asp:TextBox ID="txtConfPassword1" runat="server" class="form-control" TextMode="Password"></asp:TextBox>
+                             
                             </div>
                          </div>
                

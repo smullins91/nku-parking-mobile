@@ -89,7 +89,7 @@ mark {
     .main-content {
         width:953px; /*+ 10 = 963 as the width of the banner*/
         padding-left: 10px;
-        margin-top: 50px;
+        margin-top: 0px;
        
        
     }
@@ -192,10 +192,10 @@ ul#menu {
         border:1px solid black;
         border-radius:5px;
         /*  height: auto  */
-        height:967px;
+        height:500px;
         margin-top:30px;
     width: 950px;
-    margin-bottom: 286px;
+    margin-bottom: 0px;
 }
 
         .featured hgroup.title h1, .featured hgroup.title h2 {
@@ -353,7 +353,9 @@ fieldset {
         font-weight: 600;
     }
 
-    l
+    label.checkbox {
+        display: inline;
+    }
 
     input, textarea {
         border: 1px solid #e2e2e2;
@@ -361,10 +363,6 @@ fieldset {
         color: #333;
         font-size: 1.2em;
         margin: 5px 0 6px 0;
-        padding: 5px;
-        }
-
-    6px 0;
         padding: 5px;
         }
 
