@@ -12,76 +12,46 @@
       src="http://maps.google.com/maps/api/js?sensor=false">
     </script>
     <script type="text/javascript">
+
+
+
         function initialize() {
-
-            /*
-            //<!-- using jquery, guide at http://api.jquery.com/jquery.getjson/   note that $ is shorthand for jQuery, and http://stackoverflow.com/questions/6025764/how-do-you-call-a-json-web-service-that-requires-basic-authentication-using-jq for how to pass the authentication key with the request  -->
-            var lotsFromJQuery = jQuery.getJSON({
-                'url': 'http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080/lots',
-                'otherSettings': 'othervalues',
-                'beforeSend': function(xhr) {
-                    xhr.setRequestHeader("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c")
-                },
-                sucess: function(result) {
-                    alert('done');
-                }
-            });
-
-           //  <!--   "http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080/lots", { Authorization: "3addbbc3d6a464eba3f57993411144158b0d312c" })         -->
-            
-            //from https://code.google.com/p/jquery-ui-map/wiki/jquery_ui_map_v_3_sample_code
-            $('#map_canvas').gmap().bind('init', function (evt, map) {
-                $.getJSON('http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080/lots', function (data) {
-                    $.each(data.markers, function (i, m) {
-                        $('#map_canvas').gmap('addMarker', { 'position': new google.maps.LatLng(m.latitude, m.longitude), 'bounds': true });
-                    });
-                });
-            });
-            */
-
-            //Using my c# code instead!
-            var allLots;
-                $('#thisWorks').html('this was NOT reset in CallCodeBehind'); 
-
-            var testingLatValue;
-            function CallCodeBehind() {
-                      $('#thisWorks').html('the CallCodeBehind method was called');
-                allLots = '<%=getParkingLots()%>';
-                
-              //  testingLatValue = allLots[0].points[0].lat;                
-            }
-                        
-
-
             var mapOptions = {
                 center: new google.maps.LatLng(39.03149, -84.46408),
                 zoom: 16
             };
-
-
-
-            var lotA;
-            var lotB;
-
             var map = new google.maps.Map(document.getElementById("map-canvas"),
                 mapOptions);
 
-            //Define lotA's coordinates
-            var lotACoords = [
-                new google.maps.LatLng(39.03213, -84.46729),
-                new google.maps.LatLng(39.03247, -84.46926),
-                new google.maps.LatLng(39.03345, -84.46918),
-                new google.maps.LatLng(39.03344, -84.46781),
-            ];
 
-            /*
-            var lotBCoords = [
-                new google.maps.LatLng(lotsFromJQuery.property1[1].points[0].lat, lotsFromJQuery.points[0].lng),
-                new google.maps.LatLng(lotsFromJQuery.property1[1].points[1].lat, lotsFromJQuery.points[1].lng),
-                new google.maps.LatLng(lotsFromJQuery.property1[1].points[2].lat, lotsFromJQuery.points[2].lng),
-            ];
-            */
+            var tempLot = new Array();
+            //VERSION FOR FINAL PROGRAM
+            //using LotCollection, which is the JSON that i receive from codebehind correctly
+            var totalLotHolder = []; //dont think this is needed, but maybe
+            for (var i = 0; i < LotCollection.length; i++)
+            {
+                tempLot[i] = new Array();
+                for (var j = 0; j < LotCollection[i].points.length; j++)
+                {
+                    tempLot[i].push(new google.maps.LatLng(LotCollection[i].points[j].lat, LotCollection[i].points[j].lng)); //make a coordinate point and push onto list
+                }
+            }
+        
 
+
+            for (var i = 0; i < LotCollection.length; i++){
+                totalLotHolder[i] = new google.maps.Polygon({
+                    paths: tempLot[i],      //NOTICE THE i INDEX
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35
+                });
+                totalLotHolder[i].setMap(map)
+            }
+
+            
             var lotBCoords = [
                 new google.maps.LatLng(39.03198, -84.46733),
                 new google.maps.LatLng(39.03221, -84.46927),
@@ -90,18 +60,7 @@
             ];
 
 
-            //Construct the polygon for lotA
-            lotA = new google.maps.Polygon({
-                paths: lotACoords,
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35
-            });
-
-            lotA.setMap(map)
-
+            /*
             //Construct the polygon for lotB
             lotB = new google.maps.Polygon({
                 paths: lotBCoords,
@@ -113,58 +72,25 @@
             });
 
             lotB.setMap(map)
+            */
+            
+
 
         }
+
+        function CallCodeBehind() {
+            }
+
         google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
     
-    <!-- from http://stackoverflow.com/questions/2177548/load-json-into-variable -->
-    
-    <!--
-    <script type="text/javascript">
-        var json = (function () {
-            var json = null
-            $.ajax({
-                'async': false,
-                beforeSend: function (request) {
-                    request.setRequestHeader("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
-                },
-                'global': false,
-                'url': "http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080/lots",
-                'dataType': "json",
-                'success': function (data) {
-                    json = data;
-                }
-            });
-            return json;
-        })();
-        $('#testJSONStuff').html(json);
-    </script>
-        -->
-    <!--
-    <script type="text/javascript">
-        $(function(){
-            var name = '';
-            var jsonstr = '[{"UserName":"Suresh"},{"UserName":"Aspdotnet"},{"UserName":"TestedThisAndItWorks"}]';
-            var obj = $.parseJSON(jsonstr);
-            $.each(obj, function() {
-                name += this['UserName'] + "<br/>";
-            });
-            $('#testJSONStuff').html(name); ;
-        })
-    </script>
-        -->
-
-
-
-
 
          <div class="content-wrapper">
            <h1>Parking Management</h1>
              <asp:Panel ID="Panel2" runat="server" Height="909px">
                  <asp:Button ID="Button1" runat="server" Text="Edit Lot" BackColor="Black" BorderColor="Black" ForeColor="White" Width="48%" OnClick="Button1_Click" />
-                 <asp:Button ID="Button6" runat="server" BackColor="Black" BorderColor="Black" ForeColor="White" OnClick="Button6_Click" OnClientClick="CallCodeBehind()" Text="Add Lot" Width="49%" />
+                 <asp:Button ID="Button6" runat="server" BackColor="Black" BorderColor="Black" ForeColor="White" OnClick="Button6_Click" Text="Add Lot" Width="49%" />
                  <asp:MultiView ID="MultiViewManage" runat="server">
                      <asp:View ID="View1" runat="server">
                          <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Width="120px">
@@ -219,13 +145,7 @@
                          <asp:Button ID="Button10" runat="server" BackColor="Black" ForeColor="White" OnClick="Button10_Click" Text="Undo" Width="100px" />
                      </asp:View>
                      <asp:View ID="View2" runat="server">
-                         <p>
-                             <br />
-                             Use a different map using directions at <a href="https://developers.google.com/maps/documentation/javascript/shapes#polygons">https://developers.google.com/maps/documentation/javascript/shapes#polygons</a>&nbsp; as this includes all the drawing requirements.<br />
-                             <br />
-                             <br />
-                         </p>
-                         <asp:Panel ID="Panel1" runat="server" Height="460px" Width="800px">
+                         <asp:Panel ID="Panel1" runat="server" Height="460px" Width="98%">
                              <div id="map-canvas"/>
                              <asp:Label ID="Label4" runat="server" Height="450px" Width="5px"></asp:Label>
                              <br />
@@ -295,7 +215,7 @@
                                      <br />
                                      <asp:TextBox ID="TextBox19" runat="server" Width="180px"></asp:TextBox>
                                      &nbsp;<asp:TextBox ID="TextBox20" runat="server" Width="180px"></asp:TextBox>
-                                     <br />                                                             <div id="thisWorks">   </div>
+                                     <br />                                  
                                      <asp:TextBox ID="TextBox21" runat="server" Width="180px"></asp:TextBox>
                                      &nbsp;<asp:TextBox ID="TextBox22" runat="server" Width="180px"></asp:TextBox>
                                  </asp:Panel>
@@ -312,7 +232,6 @@
                              <br />
                          </asp:Panel>
                          <p>
-                             <!--           <iframe width="600"  height="450"  frameborder="0" style="border:0"  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCLrr7e84uD7p0aV3fXjSY6mjG7tePIIbk&q=Space+Needle,Seattle+WA"></iframe>    -->&nbsp;</p>
                      </asp:View>
                  </asp:MultiView>
              </asp:Panel>
