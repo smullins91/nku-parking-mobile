@@ -9,6 +9,8 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json;
 using GoogleMapsApi;
+using System.Web.Script.Serialization;
+using System.Web.Services;
 
 namespace ParkingManagement.WebContent.ParkingManagement
 {
@@ -16,32 +18,27 @@ namespace ParkingManagement.WebContent.ParkingManagement
     {
         static string serverAddress = @"http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080";
 
-        //YOU MAY NEED TO DOWNLOAD GoogleMapsAPI from NuGet to make this work
-
         string[] gotNames;
         public List<Class1> lotsObject;
+        //JUST USE http://stackoverflow.com/questions/12133067/load-json-data-for-google-maps-api-v3
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            /* load the parking lot names from the database, and then populate the 
-             * dropdown list with those names.
-             */
-     //       lotsObject = getParkingLots();
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            //using http://sharepointificate.blogspot.com/2011/09/sending-data-from-codebehind-to.html  Works perfectly and I'm going to build the program around it.
+            List<Class1> LotsJSON = getParkingLots();
+            string lotsJSONSerialized = serializer.Serialize(LotsJSON);
+            string script = String.Format("<script type=\"text/javascript\">var LotCollection={0}</script>", lotsJSONSerialized);
+            this.ClientScript.RegisterClientScriptBlock(this.GetType(), "clientScript", script, false);
+
 
             Page.DataBind();
-
-
-      //      DropDownList4.Text = "Row";
-      //      DropDownList5.Text = "Column";
-
-            /*
-            gotNames = Shared.getLotNames();
-            for (int i = 0; i < gotNames.Length; i++)
-            {
-                DropDownList1.Items.Add(gotNames[i].ToString());
-            }
-             */
         }
+
+
+
 
         public enum ViewSelected
         {
@@ -51,14 +48,15 @@ namespace ParkingManagement.WebContent.ParkingManagement
         }
 
 
+
         protected void Button1_Click(object sender, EventArgs e)
         {
             MultiViewManage.ActiveViewIndex = (int)ViewSelected.EditLot;
+            //SEE http://www.codeproject.com/Articles/92600/How-to-pass-ASP-NET-server-side-array-to-client-si for instructions on how to load my drop-downs with correct values (may need to use a selection-by-selection set of onclicks to populate each subsequent array)
         }
         protected void Button6_Click(object sender, EventArgs e)
         {
             MultiViewManage.ActiveViewIndex = (int)ViewSelected.AddLot;
-      //      lotsObject = getParkingLots(); //this is handled by CallCodeBehind in the aspx page
         }
         /*
         protected void Button6_ClickCS(object sender, EventArgs e)
@@ -77,6 +75,8 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         }
 
+
+
         public List<Class1> getParkingLots()
         {
             HttpWebRequest req = WebRequest.Create(serverAddress + "/lots") as HttpWebRequest;
@@ -85,29 +85,16 @@ namespace ParkingManagement.WebContent.ParkingManagement
             req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
 
             string result;
-            //Rootobject resultObject;
             List<Class1> lotList = new List<Class1>();
-            // AllLots resultObject;
-            /*
-            using (HttpWebResponse resp = req.GetResponse() as HttpWebResponse)
-            {
-                */
-                HttpWebResponse resp = (HttpWebResponse) req.GetResponse();
-                StreamReader reader = new StreamReader(resp.GetResponseStream());
-                result = reader.ReadToEnd();
-                result.Trim();
-                //   string stringResult = result.ToString();
-          //      string stringResult = result.Substring(1, result.Length - 2);   //We are geting square brackets that make things complicated.
-                //When the database has more than 1 lot, it should fix itself.
 
-                lotList = JsonConvert.DeserializeObject<List<Class1>>(result);
-             //   resultObject = lotList;
-                // resultObject = JsonConvert.DeserializeObject<AllLots>(stringResult);
-         /*   }    */
-            //return resultObject;
-                return lotList;
+            HttpWebResponse resp = (HttpWebResponse) req.GetResponse();
+            StreamReader reader = new StreamReader(resp.GetResponseStream());
+            result = reader.ReadToEnd();
+            result.Trim();
+
+            lotList = JsonConvert.DeserializeObject<List<Class1>>(result);
+            return lotList;
         }
-
 
 
         public class Rootobject
@@ -152,15 +139,5 @@ namespace ParkingManagement.WebContent.ParkingManagement
         {
 
         }
-
-
-
-
-
     }
-
-
-
-
-
 }
