@@ -4,7 +4,7 @@
 
 
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
-    <section class="featured">
+    <section class="featured" style="height:600px">
 
 
 
@@ -75,11 +75,29 @@
             */
             
 
+            
+        
+            //Great, simple guide for onclick stuff is athttp://vikku.info/programming/google-maps-v3/get-lattitude-longitude-onclick-and-onmouseover-google-map-v3.htm
+            //also using http://stackoverflow.com/questions/19087352/capture-coordinates-in-google-map-on-user-click
+            //TO FIX PROBLEMS UPDATING ANY BOXES: I need to set the ClientIdMode to Static (I've done this with TextBox7)
+            google.maps.event.addListener(map, 'click', function (event) {
+                //Go through the textboxes and find the earliest one that is empty.
+                for (var i = 7; i < 22; i++)
+                {
+                    if (document.getElementById('TextBox' + i.toString()).value == '')  //I'm So Meta, Even This Acronym
+                    {
+                        document.getElementById('TextBox' + i.toString()).value = event.latLng.lat();
+                        document.getElementById('TextBox' + (i + 1).toString()).value = event.latLng.lng();
+                        break;
+                    }
+                }
 
+
+            })
         }
 
-        function CallCodeBehind() {
-            }
+
+
 
         google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -146,7 +164,7 @@
                      </asp:View>
                      <asp:View ID="View2" runat="server">
                          <asp:Panel ID="Panel1" runat="server" Height="460px" Width="98%">
-                             <div id="map-canvas"/>
+                             <div id="map-canvas">
                              <asp:Label ID="Label4" runat="server" Height="450px" Width="5px"></asp:Label>
                              <br />
                              <br />
@@ -155,11 +173,13 @@
                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13139.34871349347!2d-84.46062709999998!3d39.03338469999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b06e0b8b16e9%3A0x3ee280bce0f69454!2sNorthern+Kentucky+University!5e1!3m2!1sen!2sus!4v1395693200756" width="600" height="450" frameborder="0" style="border:0"></iframe>
                      -->
                              <br />
+                             </div>
                          </asp:Panel>
+                        <div style="margin-top:100px">
                          <asp:Panel ID="Panel3" runat="server">
                              <br />
                              
-                             </div>
+                           
                              <br />
                              <asp:Panel ID="Panel4" runat="server" BorderColor="#666666" BorderStyle="Solid">
                                  &nbsp;<asp:Label ID="Label11" runat="server" Font-Size="Small" Text="Name: "></asp:Label>
@@ -184,7 +204,7 @@
                                      <asp:ListItem Value="0">Status</asp:ListItem>
                                      <asp:ListItem>Open</asp:ListItem>
                                      <asp:ListItem>Closed</asp:ListItem>
-                                 </asp:DropDownList>
+                                 </asp:DropDownList> 
                              </asp:Panel>
                              <br />
                              <asp:Panel ID="Panel5" runat="server" Height="345px">
@@ -194,30 +214,30 @@
                                  <asp:Label ID="Label15" runat="server" Font-Size="Small" Text="Longitude:" Width="180px"></asp:Label>
                                  <br />
                                  <asp:Panel ID="Panel6" runat="server" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="2px" CssClass="float-left" Height="165px" Width="395px">
-                                     <asp:TextBox ID="TextBox7" runat="server" Width="180px"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox8" runat="server" Width="180px"></asp:TextBox>
+                                     <asp:TextBox ID="TextBox7" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox8" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
                                      <br />
-                                     <asp:TextBox ID="TextBox9" runat="server" Width="180px"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox10" runat="server" Width="180px"></asp:TextBox>
+                                     <asp:TextBox ID="TextBox9" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox10" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
                                      <br />
-                                     <asp:TextBox ID="TextBox11" runat="server" Width="180px"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox12" runat="server" Width="180px"></asp:TextBox>
+                                     <asp:TextBox ID="TextBox11" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox12" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
                                      <br />
-                                     <asp:TextBox ID="TextBox13" runat="server" Width="180px"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox14" runat="server" Width="180px"></asp:TextBox>
+                                     <asp:TextBox ID="TextBox13" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox14" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
                                  </asp:Panel>
                                  <asp:Panel ID="Panel8" runat="server" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="2px" CssClass="float-left" Height="165px" Width="395px">
-                                     &nbsp;<asp:TextBox ID="TextBox15" runat="server" Width="180px"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox16" runat="server" Width="180px"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox15" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox16" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
                                      <br />
-                                     <asp:TextBox ID="TextBox17" runat="server" Width="180px"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox18" runat="server" Width="180px"></asp:TextBox>
+                                     <asp:TextBox ID="TextBox17" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox18" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
                                      <br />
-                                     <asp:TextBox ID="TextBox19" runat="server" Width="180px"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox20" runat="server" Width="180px"></asp:TextBox>
+                                     <asp:TextBox ID="TextBox19" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox20" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
                                      <br />                                  
-                                     <asp:TextBox ID="TextBox21" runat="server" Width="180px"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox22" runat="server" Width="180px"></asp:TextBox>
+                                     <asp:TextBox ID="TextBox21" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox22" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
                                  </asp:Panel>
                                  <br />
                                  <asp:Button ID="Button11" runat="server" BackColor="Black" CssClass="float-left" Font-Size="Medium" ForeColor="White" Text="Submit" Width="49%" />
@@ -231,7 +251,7 @@
                              <br />
                              <br />
                          </asp:Panel>
-                         <p>
+                        </div>
                      </asp:View>
                  </asp:MultiView>
              </asp:Panel>
