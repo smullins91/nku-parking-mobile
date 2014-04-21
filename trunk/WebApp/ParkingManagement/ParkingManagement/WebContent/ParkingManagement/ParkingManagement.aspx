@@ -80,19 +80,25 @@
             //Great, simple guide for onclick stuff is athttp://vikku.info/programming/google-maps-v3/get-lattitude-longitude-onclick-and-onmouseover-google-map-v3.htm
             //also using http://stackoverflow.com/questions/19087352/capture-coordinates-in-google-map-on-user-click
             //TO FIX PROBLEMS UPDATING ANY BOXES: I need to set the ClientIdMode to Static (I've done this with TextBox7)
+            var temp = [];
+            var tempTracker = 0;
             google.maps.event.addListener(map, 'click', function (event) {
                 //Go through the textboxes and find the earliest one that is empty.
                 for (var i = 7; i < 22; i++)
                 {
+                    
                     if (document.getElementById('TextBox' + i.toString()).value == '')  //I'm So Meta, Even This Acronym
                     {
+                        var subTemp = [event.latLng.lat(), event.latLng.lng()];
+                        temp[tempTracker] = subTemp; //to create the array of coordinate arrays. Tested and it works
+                        tempTracker++;
                         document.getElementById('TextBox' + i.toString()).value = event.latLng.lat();
                         document.getElementById('TextBox' + (i + 1).toString()).value = event.latLng.lng();
                         break;
+                        
                     }
                 }
-
-
+                //TO ADD: have a variable outside this function holding the arrays of coordinates, so we can build that into the new parking lot.
             })
         }
 
@@ -195,15 +201,15 @@
                                  &nbsp;&nbsp;&nbsp;&nbsp;
                                  <asp:DropDownList ID="DropDownList7" runat="server" Height="21px" Width="110px">
                                      <asp:ListItem Value="0">Designation</asp:ListItem>
-                                     <asp:ListItem>Faculty</asp:ListItem>
-                                     <asp:ListItem>Guest</asp:ListItem>
-                                     <asp:ListItem>Student</asp:ListItem>
+                                     <asp:ListItem Value="1">Faculty</asp:ListItem>
+                                     <asp:ListItem Value="2">Guest</asp:ListItem>
+                                     <asp:ListItem Value="3">Student</asp:ListItem>
                                  </asp:DropDownList>
                                  &nbsp;&nbsp;&nbsp;&nbsp;
                                  <asp:DropDownList ID="DropDownList8" runat="server" Width="110px">
-                                     <asp:ListItem Value="0">Status</asp:ListItem>
-                                     <asp:ListItem>Open</asp:ListItem>
-                                     <asp:ListItem>Closed</asp:ListItem>
+                                     <asp:ListItem Value="1">Status</asp:ListItem>
+                                     <asp:ListItem Value="1">Open</asp:ListItem>
+                                     <asp:ListItem Value="0">Closed</asp:ListItem>
                                  </asp:DropDownList> 
                              </asp:Panel>
                              <br />
@@ -240,8 +246,8 @@
                                      &nbsp;<asp:TextBox ID="TextBox22" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
                                  </asp:Panel>
                                  <br />
-                                 <asp:Button ID="Button11" runat="server" BackColor="Black" CssClass="float-left" Font-Size="Medium" ForeColor="White" Text="Submit" Width="49%" />
-                                 <asp:Button ID="Button12" runat="server" BackColor="Black" CssClass="float-right" Font-Size="Medium" ForeColor="White" Text="Clear" Width="49%" />
+                                 <asp:Button ID="Button11" runat="server" BackColor="Black" CssClass="float-left" Font-Size="Medium" ForeColor="White" Text="Submit" Width="49%" ClientIDMode="Static" OnClick="Button11_Click" />
+                                 <asp:Button ID="Button12" runat="server" BackColor="Black" CssClass="float-right" Font-Size="Medium" ForeColor="White" Text="Clear" Width="49%" ClientIDMode="Static" />
                                  <br />
                                  <br />
                                  <br />
