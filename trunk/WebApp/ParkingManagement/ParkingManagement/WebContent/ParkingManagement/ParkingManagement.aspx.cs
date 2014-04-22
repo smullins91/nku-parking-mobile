@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Text;
 using System.IO;
 using System.Net;
+using System.Data;
 using Newtonsoft.Json;
 using GoogleMapsApi;
 using System.Web.Script.Serialization;
@@ -26,17 +27,50 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //FOR MAP VIEW
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-
             //using http://sharepointificate.blogspot.com/2011/09/sending-data-from-codebehind-to.html  Works perfectly and I'm going to build the program around it.
             List<Class1> LotsJSON = getParkingLots();
+            Rootobject rootLots = new Rootobject();
+            rootLots.Property1 = LotsJSON.ToArray();
             lotsObject = LotsJSON; //need to set this, the AddLot function needs to check it
             string lotsJSONSerialized = serializer.Serialize(LotsJSON);
             string script = String.Format("<script type=\"text/javascript\">var LotCollection={0}</script>", lotsJSONSerialized);
             this.ClientScript.RegisterClientScriptBlock(this.GetType(), "clientScript", script, false);
+            
+
+            //FOR EDIT VIEW
+            if (DropDownList1.Items.Count <= 1) //this is needed to prevent multiple entries into the dropdown.
+            {
+                
+                DataTable lotTable = new DataTable(); //make a data table, as we must populate the dropdownlist wth both text and values
+                    lotTable.Columns.Add("name", typeof(string));
+                    lotTable.Columns.Add("value", typeof(int));
+                for (int i = 0; i < lotsObject.Count; i++)
+                {
+                    lotTable.Rows.Add(lotsObject[i].lotNumber, i);
+                }
+                DropDownList1.DataSource = lotTable;
+                DropDownList1.DataTextField = "name";
+                DropDownList1.DataValueField = "value";
+              //      DropDownList1.DataSource = getLotNames(rootLots);
+         //       DropDownList1.DataBind();
+            }
 
 
             Page.DataBind();
+        }
+
+
+
+        public String[] getLotNames(Rootobject inRoot)
+        {
+            List<String> names = new List<String>();
+            for (int i = 0; i < inRoot.Property1.Count(); i++) //Class1 Property1 in inRoot)
+            {
+                names.Add(inRoot.Property1[i].lotNumber);
+            }
+            return names.ToArray();
         }
 
 
@@ -74,7 +108,18 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //I set appenddatabounds = true, which fixes some problems but causes others
+            //I set enableviewstate = false to try to fix that
 
+          //  TextBox1.Text = "test"; // selectedLot.columns.ToString();
+           // TextBox1.DataBind();
+            
+            Class1 selectedLot = lotsObject[Convert.ToInt32(DropDownList1.SelectedItem.Value)];
+            DropDownList2.SelectedIndex = selectedLot.type;    //DropDownList2.Items.IndexOf(DropDownList2.Items.FindByText(selectedLot.type));
+            DropDownList3.SelectedIndex = selectedLot.active; //0 means closed
+            TextBox1.Text = selectedLot.columns.ToString();
+            TextBox2.Text = selectedLot.rows.ToString();
+            
         }
 
 
@@ -267,5 +312,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
             }
             */
         }
+
+
     }
 }
