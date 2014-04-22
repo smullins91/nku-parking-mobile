@@ -88,6 +88,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
         protected void Button1_Click(object sender, EventArgs e)
         {
             MultiViewManage.ActiveViewIndex = (int)ViewSelected.EditLot;
+            DropDownList1_SelectedIndexChanged(null, null); //make it populate with the values for the lot that's selected by default.
             //SEE http://www.codeproject.com/Articles/92600/How-to-pass-ASP-NET-server-side-array-to-client-si for instructions on how to load my drop-downs with correct values (may need to use a selection-by-selection set of onclicks to populate each subsequent array)
         }
         protected void Button6_Click(object sender, EventArgs e)
@@ -120,6 +121,23 @@ namespace ParkingManagement.WebContent.ParkingManagement
             TextBox1.Text = selectedLot.columns.ToString();
             TextBox2.Text = selectedLot.rows.ToString();
             
+            //Populate the boxes for editing a specific space
+            //REMEMBER: These boxes start the numbering at 1, so I'll need to adjust accordingly when changing the space.
+            DropDownList4.Items.Clear();
+            for (int i = 1; i <= selectedLot.columns; i++)
+            {
+                DropDownList4.Items.Add(new ListItem(i.ToString(), i.ToString()));
+               // DropDownList4.DataTextField = i.ToString();
+               // DropDownList4.DataValueField = i.ToString();
+            }
+            DropDownList5.Items.Clear();
+            for (int i = 1; i <= selectedLot.rows; i++)
+            {
+                DropDownList5.Items.Add(new ListItem(i.ToString(), i.ToString()));
+               // DropDownList5.DataTextField = i.ToString();
+               // DropDownList5.DataValueField = i.ToString();
+            }
+
         }
 
 
