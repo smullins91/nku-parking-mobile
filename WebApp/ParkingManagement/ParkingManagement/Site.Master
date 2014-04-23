@@ -84,17 +84,20 @@
 
     <div id="body">
          <div class="header-image">
-          
              <asp:Image ID="Banner" runat="server" ImageUrl="~/Images/banner.jpg"/>
         </div>
+
+        <div style="margin-top:20px">
+            <asp:Button ID="btnLogout" class="btn" runat="server" Text="Logout" style="float:right; color:white" OnClick="btnLogout_Click"/>
+        </div>
         
-          <div id="menu" style="z-index:100; position:relative">
+        <h3 id="welcome">Welcome to NKU Parking Management System!</h3>
+          <div id="menu">
            
-                 <asp:HyperLink ID="hplMap" runat="server" NavigateUrl="~/WebContent/Map/Map.aspx">Map</asp:HyperLink>
-                  <asp:HyperLink ID="hplParking" runat="server" NavigateUrl="~/WebContent/ParkingManagement/ParkingManagement.aspx">Parking</asp:HyperLink>
                  <asp:HyperLink ID="hplUsers" runat="server" NavigateUrl="~/WebContent/UsersManagement/UsersManagement.aspx">Users</asp:HyperLink>
+                  <asp:HyperLink ID="hplParking" runat="server" NavigateUrl="~/WebContent/ParkingManagement/ParkingManagement.aspx">Parking</asp:HyperLink>
                  <asp:HyperLink ID="hplReports" runat="server" NavigateUrl="~/WebContent/Reports/Reports.aspx">Reports</asp:HyperLink>
-             
+                
         </div>
   
         <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
@@ -104,8 +107,7 @@
             </asp:ContentPlaceHolder>
         </section>
 
-       
-    </div>
+      </div>
 
     <footer>
         <div class="content-wrapper">

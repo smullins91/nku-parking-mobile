@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ParkingManagement.WebContent.UsersManagement; 
 
 namespace ParkingManagement
 {
@@ -65,9 +66,11 @@ namespace ParkingManagement
             }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+      
+        protected void btnLogout_Click(object sender, EventArgs e)
         {
-
+            ManageUsers.logout();
+            Response.Redirect(ResolveUrl("login.aspx"));
         }
     }
 }

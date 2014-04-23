@@ -233,6 +233,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Images\accent.png" />
+    <Content Include="Images\background.jpg" />
     <Content Include="Images\banner.jpg" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\heroAccent.png" />
@@ -291,6 +292,9 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="WebContent\UsersManagement\ResetPassword.aspx" />
+    <Content Include="WebContent\UsersManagement\EditUser.aspx" />
+    <Content Include="WebContent\UsersManagement\AddUsers.aspx" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -299,7 +303,6 @@
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
-    <Content Include="WebContent\Map\Map.aspx" />
     <Content Include="WebContent\ParkingManagement\ParkingManagement.aspx" />
     <Content Include="WebContent\Reports\Reports.aspx" />
     <Content Include="WebContent\UsersManagement\UsersManagement.aspx" />
@@ -404,13 +407,6 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="WebContent\Map\Map.aspx.cs">
-      <DependentUpon>Map.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebContent\Map\Map.aspx.designer.cs">
-      <DependentUpon>Map.aspx</DependentUpon>
-    </Compile>
     <Compile Include="WebContent\ParkingManagement\ParkingManagement.aspx.cs">
       <DependentUpon>ParkingManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -425,6 +421,20 @@
     <Compile Include="WebContent\Reports\Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebContent\UsersManagement\ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebContent\UsersManagement\ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebContent\UsersManagement\EditUser.aspx.cs">
+      <DependentUpon>EditUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebContent\UsersManagement\EditUser.aspx.designer.cs">
+      <DependentUpon>EditUser.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebContent\UsersManagement\ManageUsers.cs" />
     <Compile Include="WebContent\UsersManagement\UsersManagement.aspx.cs">
       <DependentUpon>UsersManagement.aspx</DependentUpon>
@@ -432,6 +442,13 @@
     </Compile>
     <Compile Include="WebContent\UsersManagement\UsersManagement.aspx.designer.cs">
       <DependentUpon>UsersManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebContent\UsersManagement\AddUsers.aspx.cs">
+      <DependentUpon>AddUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebContent\UsersManagement\AddUsers.aspx.designer.cs">
+      <DependentUpon>AddUsers.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
