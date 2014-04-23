@@ -13,13 +13,16 @@ namespace ParkingManagement.WebContent.UsersManagement
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Ensure user has logged in!!!
+            string key = ManageUsers.API_KEY;
+            if (key == null || key.Length != 40)
+                Response.Redirect(ResolveUrl("~/login.aspx"));
+
             if (!Page.IsPostBack)
             {
                 populateGridview();
-                populateUserRoles(ddlUserRoles );
-             
-              
-            }
+                    
+             }
            
         }
 
@@ -34,38 +37,7 @@ namespace ParkingManagement.WebContent.UsersManagement
             Cache["User"] = gvUsers.DataSource;
         }
 
-
-        /// <summary>
-        /// Populate userRoles
-        /// </summary>
-        private void populateUserRoles(DropDownList ddlTarget)
-        {
-            List<ManageUsers.UserRoles> dtRoles = ManageUsers.getUserRoles();
-            ddlTarget.DataSource = dtRoles;
-            ddlTarget.DataTextField = "Description";
-            ddlTarget.DataValueField = "RoleId";
-            ddlTarget.DataBind();
-        }
-      
-        /// <summary>
-        /// To add a new user in the database
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            int isAdmin = 0;
-            if (chkAdmin.Checked)
-                isAdmin = 1;
-
-            ManageUsers.User newUser = new ManageUsers.User(txtUserName.Text,Convert.ToInt32(ddlUserRoles.SelectedValue),
-               txtFirstName.Text, txtLastName.Text, isAdmin, txtEmail.Text,txtPassword.Text);
-            ManageUsers.addUser(newUser);
-
-
-            // go to the ManagerUsers page
-            Response.Redirect("UsersManagement.aspx");
-        }
+        
 
         /// <summary>
         /// Depending on the user selection, the appropriate routine will run
@@ -75,6 +47,9 @@ namespace ParkingManagement.WebContent.UsersManagement
         protected void gvUsers_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int index = Convert.ToInt32(e.CommandArgument);
+            if (index >= gvUsers.Rows.Count)
+                return;
+
             string strUserId = gvUsers.DataKeys[index].Value.ToString();
             hfIndex.Value = index.ToString() ; 
             hfUserId.Value = strUserId;
@@ -90,23 +65,14 @@ namespace ParkingManagement.WebContent.UsersManagement
             }
             else if ( e.CommandName.Equals("editUser"))
             {
-                populateUserRoles(ddlUserRoles1);
-                //populate form
-                getData(index);
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append(@"<script type='text/javascript'>");
-                sb.Append("$('#editModal').modal('show');");
-                sb.Append(@"</script>");
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditModalScript", sb.ToString(), false);
+                   getData(index);
+                   Response.Redirect("EditUser.aspx");
                 
             }
             else if (e.CommandName.Equals("resetPassword"))
             {
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append(@"<script type='text/javascript'>");
-                sb.Append("$('#resetModal').modal('show');");
-                sb.Append(@"</script>");
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ResetModalScript", sb.ToString(), false);
+                getData(index);
+                Response.Redirect("ResetPassword.aspx");
             }
         }
 
@@ -118,40 +84,17 @@ namespace ParkingManagement.WebContent.UsersManagement
         private void getData( int index)
         {
             GridViewRow gvrow = gvUsers.Rows[index];
-            // Get the user info
-            txtUserName1.Text = gvrow.Cells[0].Text;
-            txtLastName1.Text = gvrow.Cells[1].Text;
-            txtFirstName1.Text = gvrow.Cells[2].Text;
-            txtEmail1.Text = gvrow.Cells[3].Text;
-            chkIsAdmin1.Checked = false;
-
-            string Admin = gvrow.Cells[6].Text;
-            if (Admin.Equals("Yes"))
-                chkIsAdmin1.Checked = true;
-
+            
+            Session["username"] = gvrow.Cells[0].Text;
+            Session["lastname"] = gvrow.Cells[1].Text;
+            Session["firstname"] = gvrow.Cells[2].Text;
+            Session["email"] = gvrow.Cells[3].Text;
+            Session["roleId"] = gvrow.Cells[5].Text;
+            Session["isAdmin"] = gvrow.Cells[6].Text;
+            Session["userId"] = hfUserId.Value;
         }
 
-        /// <summary>
-        /// To add a new user in the database
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void btnSave1_Click(object sender, EventArgs e)
-        {
-            int isAdmin = 0;
-            if (chkIsAdmin1.Checked)
-                isAdmin = 1;
-
-            // get the update user info
-            ManageUsers.editUser u = new ManageUsers.editUser(Convert.ToInt32(hfUserId.Value), txtUserName1.Text.Trim(), Convert.ToInt32(ddlUserRoles1.SelectedValue) ,
-                   txtFirstName1.Text.Trim(), txtLastName1.Text.Trim(), txtEmail1.Text.Trim(), isAdmin,string.Empty);
-
-            ManageUsers.updateUser(u);
-
-            // go to the ManagerUsers page
-            Response.Redirect("UsersManagement.aspx");
-        }
-
+        
         protected void btnDelete_Click(object sender, EventArgs e)
         {
            ManageUsers.deleteUser(Convert.ToInt32(hfUserId.Value));
@@ -166,6 +109,7 @@ namespace ParkingManagement.WebContent.UsersManagement
             PageChangeData(); 
 
         }
+
         protected void PageChangeData()
         {
             List<ManageUsers.SuperUser> dtUsers = (List<ManageUsers.SuperUser>)Cache["User"];
@@ -174,38 +118,9 @@ namespace ParkingManagement.WebContent.UsersManagement
 
         }
 
-        protected void btnSavePassword_Click(object sender, EventArgs e)
-        {
-           
-            // Validation
+    
 
-            int isAdmin = 0;
-
-            // Get row index
-            int index = Convert.ToInt32(hfIndex.Value);
-            GridViewRow gvrow = gvUsers.Rows[index];
-
-            // Is user Admin?
-            if (gvrow.Cells[6].Text.Equals("Yes"))
-                isAdmin = 1;
-
-            string userName =  gvrow.Cells[0].Text;
-            string lastName = gvrow.Cells[1].Text;
-            string firstName = gvrow.Cells[2].Text;
-            int roleId = Convert.ToInt32(gvrow.Cells[5].Text);
-
-            // get the update user info
-            ManageUsers.editUser u = new ManageUsers.editUser(Convert.ToInt32(hfUserId.Value), gvrow.Cells[0].Text, roleId ,
-                  firstName,lastName, userName, isAdmin,   txtPassword1.Text.Trim());
-
-            ManageUsers.updateUser(u);
-
-            // go to the ManagerUsers page
-            Response.Redirect("UsersManagement.aspx");
-
-        }
-
-      
+                
        
     }
 }

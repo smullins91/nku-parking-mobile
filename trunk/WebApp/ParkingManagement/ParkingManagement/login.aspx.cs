@@ -21,7 +21,7 @@ namespace ParkingManagement
 
             if (ManageUsers.login(newLogin))
             {
-                Response.Redirect( ResolveUrl("~\\WebContent\\Map\\Map.aspx"));
+                Response.Redirect(ResolveUrl("~\\WebContent\\UsersManagement\\UsersManagement.aspx"));
             }
             else lblError.Visible = true;
         }

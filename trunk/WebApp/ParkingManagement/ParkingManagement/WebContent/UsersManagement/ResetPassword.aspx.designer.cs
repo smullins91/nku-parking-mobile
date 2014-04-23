@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ParkingManagement {
+namespace ParkingManagement.WebContent.UsersManagement {
     
     
-    public partial class SiteMaster {
+    public partial class ResetPassword {
         
         /// <summary>
-        /// HeadContent control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
         /// Banner control.
@@ -31,57 +31,84 @@ namespace ParkingManagement {
         protected global::System.Web.UI.WebControls.Image Banner;
         
         /// <summary>
-        /// btnLogout control.
+        /// lblNewPassword1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogout;
+        protected global::System.Web.UI.WebControls.Label lblNewPassword1;
         
         /// <summary>
-        /// hplUsers control.
+        /// txtPassword1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hplUsers;
+        protected global::System.Web.UI.WebControls.TextBox txtPassword1;
         
         /// <summary>
-        /// hplParking control.
+        /// rfvTxtPassword1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hplParking;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTxtPassword1;
         
         /// <summary>
-        /// hplReports control.
+        /// lblConfPassword1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hplReports;
+        protected global::System.Web.UI.WebControls.Label lblConfPassword1;
         
         /// <summary>
-        /// FeaturedContent control.
+        /// txtConfPassword1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder FeaturedContent;
+        protected global::System.Web.UI.WebControls.TextBox txtConfPassword1;
         
         /// <summary>
-        /// MainContent control.
+        /// rfvTxtConfPassword1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTxtConfPassword1;
+        
+        /// <summary>
+        /// cvTxtConfPassword1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvTxtConfPassword1;
+        
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
+        
+        /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancel;
     }
 }

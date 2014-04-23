@@ -20,7 +20,21 @@ body {
             font-size:12px;
             margin-left: 100px;
         }
-
+    .userErrorMessage
+    {
+    color:red;
+    font-weight:bold;
+    font-size:12px;
+    margin-left: 0px;
+    }
+.hiddencol
+  {
+    display: none;
+  }
+#welcome
+{
+    font-size: 24.5px;line-height: 40px
+}
 a {
     color: #333;
     outline: none;

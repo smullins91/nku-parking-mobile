@@ -12,7 +12,7 @@ namespace ParkingManagement.WebContent.UsersManagement
     public static class ManageUsers
     {
         static string serverAddress = @"http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080";
-        static string API_KEY;
+        public static string API_KEY;
 
         public class Login
         {
@@ -160,7 +160,6 @@ namespace ParkingManagement.WebContent.UsersManagement
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Get;
 
-            //TODO: api key should be replaced by the session info when the user log in
             req.Headers.Add("Authorization",API_KEY );
 
             string result;
@@ -282,7 +281,7 @@ namespace ParkingManagement.WebContent.UsersManagement
                 {
                     string result = streamReader.ReadToEnd();
                     Key newKey = (Key)JsonConvert.DeserializeObject(result, typeof(Key));
-                    if (newKey.key.Length > 32)
+                    if (newKey.key.Length == 40)
                     {
                         API_KEY = newKey.key;
                         return true;
@@ -296,6 +295,30 @@ namespace ParkingManagement.WebContent.UsersManagement
                 return false;
             }
             
+        }
+
+        /// <summary>
+        /// Log out the user and delete the session key
+        /// </summary>
+        /// <returns></returns>
+        public static void logout()
+        {
+          
+            HttpWebRequest req = WebRequest.Create(serverAddress + "/logout") as HttpWebRequest;
+            req.ContentType = "application/json";
+            req.Method = WebRequestMethods.Http.Get;
+
+            req.Headers.Add("Authorization", API_KEY);
+
+            HttpWebResponse httpResponse = (HttpWebResponse)req.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                string result = streamReader.ReadToEnd();
+                  
+            }
+            
+           
+
         }
 
     }
