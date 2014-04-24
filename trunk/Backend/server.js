@@ -399,7 +399,7 @@ app.post('/lots/:id', function (request, response) {
  * HTTP GET /space
  * Returns: Information about a particular space
  */
-app.get('/space/:id', function (request, response) {
+app.get('/spaces/:lot/:space', function (request, response) {
 
 	var key = request.headers['authorization'];
 
@@ -409,17 +409,97 @@ app.get('/space/:id', function (request, response) {
 });
 
 /**
- * HTTP POST /space
- * Returns: Space status and possibly an error if space it not available.
+ * HTTP GET /spaces/LOT_ID
+ * Returns: Information about all the spaces of a certian lot.
  */
-app.post('/space', function (request, response) {
+app.get('/spaces/:lot', function (request, response) {
 
-	var key = request.headers['authorization'];
-	var id = request.body.spaceId;
 
-	//to-do: Verify the session key is valid, and if so, update space. Otherwise, 403.
+	verifySessionKey(request, function (valid, key) {
 
-    response.send(200, {space:{}});
+		if(!valid) {
+			response.send(403, {error: "You are not authorized to complete this request."});
+		} else {
+
+			var lot = request.params.lot;
+
+			db.query("SELECT * FROM Reservations WHERE LotId = ? AND TimeOut > NOW()", lot, function(err, rows, fields) {
+
+
+				var spaces = [];
+
+				for(var i = 0; i < rows.length; i++) {
+					delete rows[i].Active;
+					spaces.push(rows[i]);
+				}
+
+				response.json(spaces);
+
+			});
+
+		}
+
+	});
+
+});
+
+
+/**
+ * HTTP POST /spaces/LOT_ID
+ * Returns: A message if successful.
+ */
+app.post('/spaces/:lot', function (request, response) {
+
+
+	verifySessionKey(request, function (valid, key, user) {
+
+		if(!valid) {
+			response.send(403, {error: "You are not authorized to complete this request."});
+		} else {
+
+			var lot = request.params.lot;
+			var space = request.body.space;
+			var time = request.body.time;
+
+			switch(time) {
+				case 0: time = 2; break;
+				case 1: time = 4; break;
+				case 2: time = 6; break;
+				case 3: time = 12; break;
+				case 4: time = 24; break;
+				default: time = 2;
+			}
+
+
+			db.query("SELECT * FROM Reservations WHERE LotId = ? AND SpaceId = ? AND TimeOut > NOW()", [lot, space], function(err, rows, fields) {
+
+
+				if(err || rows.length > 0) {
+					response.send(500, {error: "Space already reserved. Please choose another."});
+				} else {
+
+
+					//Possible issue: It might be possible for clients to reserve the same space.
+
+					db.query("INSERT INTO Reservations (SpaceId, UserId, TimeIn, TimeOut, LotId) VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? HOUR), ?)", 
+						[space, user, time, lot], function(err) {
+
+							if(err) {
+								response.send(500, {error: "Error reserving space."});
+							} else {
+								response.send(200, {message: "Space reserved!"});
+							}
+
+						});
+
+				}
+
+			});
+
+		}
+
+	});
+
 });
 
 
@@ -776,12 +856,12 @@ function verifySessionKey(request, callback) {
 	var key = request.headers['authorization'];
 
 	if(typeof key != 'undefined' && key != null && key.length > 0) {
-		db.query("SELECT SessionId FROM UsersSessions JOIN Users ON UsersSessions.UserId = Users.UserId AND Active = 1 WHERE SessionKey = ?", key, function(err, rows, fields) {
+		db.query("SELECT SessionId, Users.UserId FROM UsersSessions JOIN Users ON UsersSessions.UserId = Users.UserId AND Active = 1 WHERE SessionKey = ?", key, function(err, rows, fields) {
 
 			if(err || rows.length === 0) {
 				callback(false); 
 			} else {
-				callback(true, key);
+				callback(true, key, rows[0].UserId);
 			}
 
 		});
@@ -796,12 +876,12 @@ function verifyAdminSession(request, callback) {
 	var key = request.headers['authorization'];
 
 	if(typeof key != 'undefined' && key != null && key.length > 0) {
-		db.query("SELECT IsAdmin FROM UsersSessions JOIN Users ON UsersSessions.UserId = Users.UserId AND IsAdmin = 1 AND Active = 1 WHERE SessionKey = ?", key, function(err, rows, fields) {
+		db.query("SELECT IsAdmin, Users.UserId FROM UsersSessions JOIN Users ON UsersSessions.UserId = Users.UserId AND IsAdmin = 1 AND Active = 1 WHERE SessionKey = ?", key, function(err, rows, fields) {
 
 			if(err || rows.length === 0) {
 				callback(false); 
 			} else {
-				callback(true, key);
+				callback(true, key, rows[0].UserId);
 			}
 
 		});
