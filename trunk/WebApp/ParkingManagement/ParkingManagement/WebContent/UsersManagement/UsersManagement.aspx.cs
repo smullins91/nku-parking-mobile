@@ -16,7 +16,7 @@ namespace ParkingManagement.WebContent.UsersManagement
             // Ensure user has logged in!!!
             string key = ManageUsers.API_KEY;
             if (key == null || key.Length != 40)
-                Response.Redirect(ResolveUrl("~/login.aspx"));
+                Response.Redirect(ResolveUrl("~/index.aspx"));
 
             if (!Page.IsPostBack)
             {
