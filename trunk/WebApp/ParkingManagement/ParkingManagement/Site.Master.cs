@@ -72,5 +72,13 @@ namespace ParkingManagement
             ManageUsers.logout();
             Response.Redirect(ResolveUrl("login.aspx"));
         }
+
+       protected  void Page_Load(object source, EventArgs e)
+        {
+            // Ensure user has logged in!!!
+            string key = ManageUsers.API_KEY;
+            if (key == null || key.Length != 40)
+                Response.Redirect(ResolveUrl("~/login.aspx"));
+        }
     }
 }
