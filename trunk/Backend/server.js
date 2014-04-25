@@ -393,21 +393,6 @@ app.post('/lots/:id', function (request, response) {
 
 });
 
-
-
-/**
- * HTTP GET /space
- * Returns: Information about a particular space
- */
-app.get('/spaces/:lot/:space', function (request, response) {
-
-	var key = request.headers['authorization'];
-
-	//to-do: Verify the session key is valid, and if so, return space info. Otherwise, 403.
-
-    response.send(200, {space:{}});
-});
-
 /**
  * HTTP GET /spaces/LOT_ID
  * Returns: Information about all the spaces of a certian lot.
@@ -501,6 +486,47 @@ app.post('/spaces/:lot', function (request, response) {
 	});
 
 });
+
+
+/**
+ * HTTP DELETE /spaces/LOT_ID/SPACE_ID
+ * Returns: A message if successful.
+ */
+app.delete('/spaces/:lot/:space', function (request, response) {
+
+
+	verifyAdminSession(request, function (valid, key, user) {
+
+		if(!valid) {
+			response.send(403, {error: "You are not authorized to complete this request."});
+		} else {
+
+			var lot = request.params.lot;
+			var space = request.params.space;
+
+			db.query("UPDATE Reservations SET TimeOut = NOW() WHERE LotId = ? AND SpaceId = ? AND TimeOut > NOW() LIMIT 1", [lot, space], function(err, result) {
+
+				if(err) {
+					console.log(err);
+					response.send(500, {error: "An error has occured."});
+				} else {
+
+					if(result.affectedRows > 0)
+						response.send(200, {message: "Reservation has been deleted."});
+					else
+						response.send(200, {message: "No reservations found."});
+
+				}
+
+			});
+
+
+		}
+
+	});
+
+});
+
 
 
 /**
