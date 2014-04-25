@@ -120,9 +120,9 @@
                          <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Width="120px" AppendDataBoundItems="True" AutoPostBack="True" ClientIDMode="Static">
                          </asp:DropDownList>
                          <asp:DropDownList ID="DropDownList2" runat="server" Width="100px" ClientIDMode="Static">
-                             <asp:ListItem Value="0">Faculty</asp:ListItem>
-                             <asp:ListItem Value="1">Student</asp:ListItem>
-                             <asp:ListItem Value="2">Guest</asp:ListItem>
+                             <asp:ListItem Value="1">Faculty</asp:ListItem>
+                             <asp:ListItem Value="2">Student</asp:ListItem>
+                             <asp:ListItem Value="3">Guest</asp:ListItem>
                          </asp:DropDownList>
                          <asp:DropDownList ID="DropDownList3" runat="server" Width="100px" ClientIDMode="Static">
                              <asp:ListItem Value="1">Open</asp:ListItem>
