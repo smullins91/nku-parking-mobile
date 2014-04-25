@@ -11,7 +11,7 @@
              <p>
                  <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="1">
                      <asp:View ID="View1" runat="server">
-                         <asp:GridView ID="gvLots" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" Height="140px" Width="827px">
+                         <asp:GridView ID="gvLots" runat="server" AutoGenerateColumns="False" DataSourceID="AllLots" Height="140px" Width="827px">
                              <Columns>
                                  <asp:BoundField HeaderText="Lot Name" />
                                  <asp:BoundField HeaderText="Designation" />

@@ -19,6 +19,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
     {
         static string serverAddress = @"http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080";
         static string API_KEY = "3addbbc3d6a464eba3f57993411144158b0d312c";
+        string key;
 
         string[] gotNames;
         public List<Class1> lotsObject; //need to set this, the AddLot function needs to check it
@@ -27,6 +28,14 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
+        //    string key = ManageUsers.API_KEY;
+        //    string key = UsersManagement.ManageUsers.API_KEY;
+            key = UsersManagement.ManageUsers.API_KEY;
+            if (key == null || key.Length != 40)
+                Response.Redirect(ResolveUrl("~/index.aspx"));
+         //       Response.Redirect(ResolveUrl("~/login.aspx"));
+
+
             //FOR MAP VIEW
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             //using http://sharepointificate.blogspot.com/2011/09/sending-data-from-codebehind-to.html  Works perfectly and I'm going to build the program around it.
@@ -180,14 +189,14 @@ namespace ParkingManagement.WebContent.ParkingManagement
         }
 
         public class NewLot  //used because the new lot uploaded to the server cannot have an id; the server gives it that.
-        {
-            public string lotNumber { get; set; }
-            public int type { get; set; }
-            public int active { get; set; }
-            public int rows { get; set; }
-            public int columns { get; set; }
-            public int available { get; set; }
-            public Point[] points { get; set; }
+        { //Apparently these things may all need to be capitalized.
+            public string LotNumber { get; set; }
+            public int TypeId { get; set; }
+            public int Active { get; set; }
+            public int Rows { get; set; }
+            public int Columns { get; set; }
+       //     public int Available { get; set; }
+            public float[][] Points { get; set; }
         }
 
         public class Point
@@ -279,18 +288,76 @@ namespace ParkingManagement.WebContent.ParkingManagement
             return allPoints;
         }
 
+
+        public float[][] getPoints2()
+        {
+            List<float[]> pointList = new List<float[]>();
+            
+            //Must create points as an array of arrays of numbers. The server cannot accept them as objects (which hold 2 numbers each)
+         //   List<Point> pointList = new List<Point>(); //must convert to array and insert into newLot
+            if (TextBox7.Text != "")
+            {
+                pointList.Add(new float[]{Convert.ToSingle(TextBox7.Text), Convert.ToSingle(TextBox8.Text)});
+                /*
+                Point newPoint = new Point();
+                newPoint.lat = float.Parse(TextBox7.Text);
+                newPoint.lng = float.Parse(TextBox8.Text);
+                pointList.Add(newPoint);
+                 */
+            }
+            if (TextBox9.Text != "")
+            {
+                pointList.Add(new float[]{Convert.ToSingle(TextBox9.Text), Convert.ToSingle(TextBox10.Text)});
+                /*
+                Point newPoint = new Point();
+                newPoint.lat = float.Parse(TextBox9.Text);
+                newPoint.lng = float.Parse(TextBox10.Text);
+                pointList.Add(newPoint);
+                */
+            }
+            if (TextBox11.Text != "")
+            {
+                pointList.Add(new float[]{Convert.ToSingle(TextBox11.Text), Convert.ToSingle(TextBox12.Text)});
+            }
+            if (TextBox13.Text != "")
+            {
+                pointList.Add(new float[]{Convert.ToSingle(TextBox13.Text), Convert.ToSingle(TextBox14.Text)});
+            }
+            if (TextBox15.Text != "")
+            {
+                pointList.Add(new float[]{Convert.ToSingle(TextBox15.Text), Convert.ToSingle(TextBox16.Text)});
+            }
+            if (TextBox17.Text != "")
+            {
+                pointList.Add(new float[]{Convert.ToSingle(TextBox17.Text), Convert.ToSingle(TextBox18.Text)});
+            }
+            if (TextBox19.Text != "")
+            {
+                pointList.Add(new float[]{Convert.ToSingle(TextBox19.Text), Convert.ToSingle(TextBox20.Text)});
+            }
+            if (TextBox21.Text != "")
+            {
+                pointList.Add(new float[]{Convert.ToSingle(TextBox21.Text), Convert.ToSingle(TextBox22.Text)});
+            }
+
+            return pointList.ToArray();
+        //    Point[] allPoints = pointList.ToArray();
+        //    return allPoints;
+        }
+
         //Create new lot
         protected void Button11_Click(object sender, EventArgs e)
         {
             //BUILD NEW LOT AND SEND TO SERVER
             NewLot newLot = new NewLot();
-            newLot.points = getPoints();
-            newLot.lotNumber = TextBox4.Text;
-            newLot.type = Convert.ToInt32(DropDownList7.SelectedValue);
-            newLot.active = Convert.ToInt32(DropDownList8.SelectedValue);
-            newLot.rows = Convert.ToInt32(TextBox5.Text);
-            newLot.columns = Convert.ToInt32(TextBox6.Text);
-            newLot.available = newLot.rows * newLot.columns;
+          //  newLot.Points = getPoints();
+            newLot.Points = getPoints2();
+            newLot.LotNumber = TextBox4.Text;
+            newLot.TypeId = Convert.ToInt32(DropDownList7.SelectedValue);
+            newLot.Active = Convert.ToInt32(DropDownList8.SelectedValue);
+            newLot.Rows = Convert.ToInt32(TextBox5.Text);
+            newLot.Columns = Convert.ToInt32(TextBox6.Text);
+        //    newLot.Available = newLot.Rows * newLot.Columns;
 
             InsertLot(newLot);
             //Get all the coordinates, put them in a list, and finally convert to array and insert into newLot
@@ -307,28 +374,33 @@ namespace ParkingManagement.WebContent.ParkingManagement
         }
         protected void InsertLot(NewLot inLot)
         {
+          //  string fakeJSON = "{\"LotNumber\": \"X\",\"Active\": 1,\"TypeId\": 1,\"Rows\": 2,\"Columns\": 3,\"Points\": [[39.03219940027544,-84.46734882210876],[39.032432754013755,-84.46917272423889],[39.033516171991266,-84.46906543587829]]}";
+
+
             //SEE KOMLAVI'S CODE FOR CREATING A NEW USER
             HttpWebRequest req = WebRequest.Create(serverAddress + "/lots") as HttpWebRequest;
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Post;
 
-            req.Headers.Add("Authorization", API_KEY);
+        //    req.Headers.Add("Authorization", API_KEY);
+            req.Headers.Add("Authorization", key);
 
             using (var streamWriter = new StreamWriter(req.GetRequestStream()))
             {
                 string json = JsonConvert.SerializeObject(inLot);
                 streamWriter.Write(json);
+            //    streamWriter.Write(fakeJSON);
                 streamWriter.Flush();
                 streamWriter.Close();
             }
 
-            /*
+            
             HttpWebResponse httpResponse = (HttpWebResponse)req.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
             }
-            */
+            
         }
 
 
