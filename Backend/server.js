@@ -436,7 +436,7 @@ app.get('/spaces/:lot', function (request, response) {
 app.post('/spaces/:lot', function (request, response) {
 
 
-	verifySessionKey(request, function (valid, key, user) {
+	verifySessionKey(request, function (valid, key, user, isAdmin) {
 
 		if(!valid) {
 			response.send(403, {error: "You are not authorized to complete this request."});
@@ -445,6 +445,13 @@ app.post('/spaces/:lot', function (request, response) {
 			var lot = request.params.lot;
 			var space = request.body.space;
 			var time = request.body.time;
+			var userId;
+
+			if(isAdmin && typeof request.body.user !== 'undefined' && request.body.user !== null)
+				userId = request.body.user;
+			else
+				userId = user;
+
 
 			switch(time) {
 				case 0: time = 2; break;
@@ -467,7 +474,7 @@ app.post('/spaces/:lot', function (request, response) {
 					//Possible issue: It might be possible for clients to reserve the same space.
 
 					db.query("INSERT INTO Reservations (SpaceId, UserId, TimeIn, TimeOut, LotId) VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? HOUR), ?)", 
-						[space, user, time, lot], function(err) {
+						[space, userId, time, lot], function(err) {
 
 							if(err) {
 								response.send(500, {error: "Error reserving space."});
@@ -882,12 +889,12 @@ function verifySessionKey(request, callback) {
 	var key = request.headers['authorization'];
 
 	if(typeof key != 'undefined' && key != null && key.length > 0) {
-		db.query("SELECT SessionId, Users.UserId FROM UsersSessions JOIN Users ON UsersSessions.UserId = Users.UserId AND Active = 1 WHERE SessionKey = ?", key, function(err, rows, fields) {
+		db.query("SELECT SessionId, Users.UserId, IsAdmin FROM UsersSessions JOIN Users ON UsersSessions.UserId = Users.UserId AND Active = 1 WHERE SessionKey = ?", key, function(err, rows, fields) {
 
 			if(err || rows.length === 0) {
 				callback(false); 
 			} else {
-				callback(true, key, rows[0].UserId);
+				callback(true, key, rows[0].UserId, rows[0].IsAdmin[0] == 1);
 			}
 
 		});
