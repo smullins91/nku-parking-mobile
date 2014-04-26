@@ -165,44 +165,37 @@
                          <asp:Button ID="Button10" runat="server" BackColor="Black" ForeColor="White" OnClick="Button10_Click" Text="Undo" Width="100px" />
                      </asp:View>
                      <asp:View ID="View2" runat="server">
-                         <asp:Panel ID="Panel1" runat="server" Height="460px" Width="98%">
+                         <asp:Panel ID="Panel1" runat="server" Height="460px" Width="933">
                              <div id="map-canvas">
                              <asp:Label ID="Label4" runat="server" Height="450px" Width="5px"></asp:Label>
                              <br />
                              <br />
                              <br />
-                             <!--
-                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13139.34871349347!2d-84.46062709999998!3d39.03338469999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841b06e0b8b16e9%3A0x3ee280bce0f69454!2sNorthern+Kentucky+University!5e1!3m2!1sen!2sus!4v1395693200756" width="600" height="450" frameborder="0" style="border:0"></iframe>
-                     -->
-                             <br />
                              </div>
                          </asp:Panel>
                         <div style="margin-top:100px">
-                         <asp:Panel ID="Panel3" runat="server">
-                             <br />
-                             
-                           
-                             <br />
+                         <asp:Panel ID="Panel3" runat="server" Width="950px">
                              <asp:Panel ID="Panel4" runat="server" BorderColor="#666666" BorderStyle="Solid">
-                                 &nbsp;<asp:Label ID="Label11" runat="server" Font-Size="Small" Text="Name: "></asp:Label>
                                  &nbsp;&nbsp;
-                                 <asp:TextBox ID="TextBox4" runat="server" Width="130px"></asp:TextBox>
-                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label9" runat="server" Font-Size="Small" Text="Rows:"></asp:Label>
-                                 &nbsp;
-                                 <asp:TextBox ID="TextBox5" runat="server" Width="75px"></asp:TextBox>
+                                 <asp:Label ID="Label11" runat="server" Font-Size="Medium" Text="Name: "></asp:Label>
                                  &nbsp;&nbsp;
-                                 <asp:Label ID="Label10" runat="server" Font-Size="Small" Text="Columns:"></asp:Label>
+                                 <asp:TextBox ID="TextBox4" runat="server" Width="80px"></asp:TextBox>
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label9" runat="server" Font-Size="Medium" Text="Rows:"></asp:Label>
                                  &nbsp;
-                                 <asp:TextBox ID="TextBox6" runat="server" Width="75px"></asp:TextBox>
-                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                 <asp:DropDownList ID="DropDownList7" runat="server" Height="21px" Width="110px">
+                                 <asp:TextBox ID="TextBox5" runat="server" Width="80px"></asp:TextBox>
+                                 &nbsp;&nbsp;
+                                 <asp:Label ID="Label10" runat="server" Font-Size="Medium" Text="Columns:"></asp:Label>
+                                 &nbsp;
+                                 <asp:TextBox ID="TextBox6" runat="server" Width="80px"></asp:TextBox>
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 <asp:DropDownList ID="DropDownList7" runat="server" Height="26px" Width="140px" Font-Size="Medium">
                                      <asp:ListItem Value="0">Designation</asp:ListItem>
                                      <asp:ListItem Value="1">Faculty</asp:ListItem>
                                      <asp:ListItem Value="2">Student</asp:ListItem>
                                      <asp:ListItem Value="3">Guest</asp:ListItem>
                                  </asp:DropDownList>
-                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                 <asp:DropDownList ID="DropDownList8" runat="server" Width="110px">
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                                 <asp:DropDownList ID="DropDownList8" runat="server" Width="140px" Font-Size="Medium" Height="26px">
                                      <asp:ListItem Value="1">Status</asp:ListItem>
                                      <asp:ListItem Value="1">Open</asp:ListItem>
                                      <asp:ListItem Value="0">Closed</asp:ListItem>
@@ -210,43 +203,43 @@
                              </asp:Panel>
                              <br />
                              <asp:Panel ID="Panel5" runat="server" Height="345px">
-                                 &nbsp;<asp:Label ID="Label12" runat="server" Font-Size="Small" Text="Latitude:" Width="198px"></asp:Label>
-                                 <asp:Label ID="Label13" runat="server" Font-Size="Small" Text="Longitude:" Width="205px"></asp:Label>
-                                 <asp:Label ID="Label14" runat="server" Font-Size="Small" Text="Latitude:" Width="195px"></asp:Label>
-                                 <asp:Label ID="Label15" runat="server" Font-Size="Small" Text="Longitude:" Width="180px"></asp:Label>
+                                 &nbsp;<asp:Label ID="Label12" runat="server" Font-Size="Medium" Text="Latitude:" Width="198px"></asp:Label>
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 <asp:Label ID="Label13" runat="server" Font-Size="Medium" Text="Longitude:" Width="205px"></asp:Label>
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 <asp:Label ID="Label14" runat="server" Font-Size="Medium" Text="Latitude:" Width="195px"></asp:Label>
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 <asp:Label ID="Label15" runat="server" Font-Size="Medium" Text="Longitude:" Width="180px"></asp:Label>
                                  <br />
-                                 <asp:Panel ID="Panel6" runat="server" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="2px" CssClass="float-left" Height="165px" Width="395px">
-                                     <asp:TextBox ID="TextBox7" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox8" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                 <asp:Panel ID="Panel6" runat="server" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="2px" CssClass="float-left" Height="165px" Width="471px">
+                                     &nbsp;<asp:TextBox ID="TextBox7" runat="server" ClientIDMode="Static" Width="216px"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox8" runat="server" Width="216px" ClientIDMode="Static"></asp:TextBox>
                                      <br />
-                                     <asp:TextBox ID="TextBox9" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox10" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox9" runat="server" ClientIDMode="Static" Width="216px"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox10" runat="server" Width="216px" ClientIDMode="Static"></asp:TextBox>
                                      <br />
-                                     <asp:TextBox ID="TextBox11" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox12" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox11" runat="server" ClientIDMode="Static" Width="216px"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox12" runat="server" Width="216px" ClientIDMode="Static"></asp:TextBox>
                                      <br />
-                                     <asp:TextBox ID="TextBox13" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox14" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox13" runat="server" ClientIDMode="Static" Width="216px"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox14" runat="server" Width="216px" ClientIDMode="Static"></asp:TextBox>
                                  </asp:Panel>
-                                 <asp:Panel ID="Panel8" runat="server" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="2px" CssClass="float-left" Height="165px" Width="395px">
-                                     &nbsp;<asp:TextBox ID="TextBox15" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox16" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                 <asp:Panel ID="Panel8" runat="server" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="2px" CssClass="float-left" Height="165px" Width="471px">
+                                     &nbsp;<asp:TextBox ID="TextBox15" runat="server" Width="216px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox16" runat="server" Width="216px" ClientIDMode="Static"></asp:TextBox>
                                      <br />
-                                     <asp:TextBox ID="TextBox17" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox18" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox17" runat="server" ClientIDMode="Static" Width="216px"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox18" runat="server" Width="216px" ClientIDMode="Static"></asp:TextBox>
                                      <br />
-                                     <asp:TextBox ID="TextBox19" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox20" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox19" runat="server" ClientIDMode="Static" Width="216px"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox20" runat="server" Width="216px" ClientIDMode="Static"></asp:TextBox>
                                      <br />                                  
-                                     <asp:TextBox ID="TextBox21" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
-                                     &nbsp;<asp:TextBox ID="TextBox22" runat="server" Width="180px" ClientIDMode="Static"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox21" runat="server" ClientIDMode="Static" Width="216px"></asp:TextBox>
+                                     &nbsp;<asp:TextBox ID="TextBox22" runat="server" Width="216px" ClientIDMode="Static"></asp:TextBox>
                                  </asp:Panel>
                                  <br />
-                                 <asp:Button ID="Button11" runat="server" BackColor="Black" CssClass="float-left" Font-Size="Medium" ForeColor="White" Text="Submit" Width="49%" ClientIDMode="Static" OnClick="Button11_Click" />
-                                 <asp:Button ID="Button12" runat="server" BackColor="Black" CssClass="float-right" Font-Size="Medium" ForeColor="White" Text="Clear" Width="49%" ClientIDMode="Static" />
-                                 <br />
-                                 <br />
-                                 <br />
+                                 <asp:Button ID="Button11" runat="server" BackColor="Black" CssClass="float-left" Font-Size="Medium" ForeColor="White" Text="Submit" Width="465px" ClientIDMode="Static" OnClick="Button11_Click" />
+                                 <asp:Button ID="Button12" runat="server" BackColor="Black" CssClass="float-right" Font-Size="Medium" ForeColor="White" Text="Clear" Width="465px" ClientIDMode="Static" />
                                  <br />
                              </asp:Panel>
                              <br />
