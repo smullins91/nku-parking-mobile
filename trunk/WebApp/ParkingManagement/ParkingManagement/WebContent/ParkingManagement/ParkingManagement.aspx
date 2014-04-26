@@ -198,8 +198,8 @@
                                  <asp:DropDownList ID="DropDownList7" runat="server" Height="21px" Width="110px">
                                      <asp:ListItem Value="0">Designation</asp:ListItem>
                                      <asp:ListItem Value="1">Faculty</asp:ListItem>
-                                     <asp:ListItem Value="2">Guest</asp:ListItem>
-                                     <asp:ListItem Value="3">Student</asp:ListItem>
+                                     <asp:ListItem Value="2">Student</asp:ListItem>
+                                     <asp:ListItem Value="3">Guest</asp:ListItem>
                                  </asp:DropDownList>
                                  &nbsp;&nbsp;&nbsp;&nbsp;
                                  <asp:DropDownList ID="DropDownList8" runat="server" Width="110px">

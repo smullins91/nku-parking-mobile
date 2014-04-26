@@ -20,6 +20,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
         static string serverAddress = @"http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080";
         static string API_KEY = "3addbbc3d6a464eba3f57993411144158b0d312c";
         string key;
+        static int selectedLotId; //Used in the lot edit function. Held here because it can't be part of the lot object, but I still need it.
 
         string[] gotNames;
         public List<Class1> lotsObject; //need to set this, the AddLot function needs to check it
@@ -125,11 +126,15 @@ namespace ParkingManagement.WebContent.ParkingManagement
            // TextBox1.DataBind();
             
             Class1 selectedLot = lotsObject[Convert.ToInt32(DropDownList1.SelectedItem.Value)];
-            DropDownList2.SelectedIndex = selectedLot.type;    //DropDownList2.Items.IndexOf(DropDownList2.Items.FindByText(selectedLot.type));
-            DropDownList3.SelectedIndex = selectedLot.active; //0 means closed
+            DropDownList2.SelectedValue = selectedLot.type.ToString();
+          //  DropDownList2.SelectedIndex = selectedLot.type;    //DropDownList2.Items.IndexOf(DropDownList2.Items.FindByText(selectedLot.type));
+            DropDownList3.SelectedValue = selectedLot.active.ToString();
+          //  DropDownList3.SelectedIndex = selectedLot.active; //0 means closed
             TextBox1.Text = selectedLot.columns.ToString();
             TextBox2.Text = selectedLot.rows.ToString();
-            
+
+            selectedLotId = selectedLot.id;
+
             //Populate the boxes for editing a specific space
             //REMEMBER: These boxes start the numbering at 1, so I'll need to adjust accordingly when changing the space.
             DropDownList4.Items.Clear();
@@ -199,6 +204,17 @@ namespace ParkingManagement.WebContent.ParkingManagement
             public float[][] Points { get; set; }
         }
 
+        public class UpdatedLot  //used because the JSON to the server cannot have coordinates when updating the lot
+        {
+            public string LotNumber { get; set; }
+            public int TypeId { get; set; }
+            public int Active { get; set; }
+            public int Rows { get; set; }
+            public int Columns { get; set; }
+            //     public int Available { get; set; }
+            //  public float[][] Points { get; set; }
+        }
+
         public class Point
         {
             public float lat { get; set; }
@@ -215,9 +231,16 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         }
 
-        protected void Button7_Click(object sender, EventArgs e)
+        protected void Button7_Click(object sender, EventArgs e) //Save/update existing lot
         {
+            UpdatedLot tempLot = new UpdatedLot();
+            tempLot.LotNumber = DropDownList1.SelectedItem.ToString();
+            tempLot.TypeId = Convert.ToInt32(DropDownList2.SelectedValue);
+            tempLot.Active = Convert.ToInt32(DropDownList3.SelectedValue);
+            tempLot.Rows = Convert.ToInt32(TextBox2.Text);
+            tempLot.Columns = Convert.ToInt32(TextBox1.Text);
 
+            UpdateLot(tempLot);
         }
 
         protected void Button8_Click(object sender, EventArgs e)
@@ -372,24 +395,46 @@ namespace ParkingManagement.WebContent.ParkingManagement
             */
 
         }
-        protected void InsertLot(NewLot inLot)
+        protected void UpdateLot(UpdatedLot inLot)
         {
-          //  string fakeJSON = "{\"LotNumber\": \"X\",\"Active\": 1,\"TypeId\": 1,\"Rows\": 2,\"Columns\": 3,\"Points\": [[39.03219940027544,-84.46734882210876],[39.032432754013755,-84.46917272423889],[39.033516171991266,-84.46906543587829]]}";
-
-
-            //SEE KOMLAVI'S CODE FOR CREATING A NEW USER
-            HttpWebRequest req = WebRequest.Create(serverAddress + "/lots") as HttpWebRequest;
+            //HERE'S THE ISSUE: i NEED TO SEND LOT_ID TO THE SERVER, NOT LOTNUMBER. But I can't have Lot_ID as part of the JSON
+            HttpWebRequest req = WebRequest.Create(serverAddress + "/lots" + "/" + selectedLotId) as HttpWebRequest;
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Post;
 
-        //    req.Headers.Add("Authorization", API_KEY);
             req.Headers.Add("Authorization", key);
 
             using (var streamWriter = new StreamWriter(req.GetRequestStream()))
             {
                 string json = JsonConvert.SerializeObject(inLot);
                 streamWriter.Write(json);
-            //    streamWriter.Write(fakeJSON);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+
+            HttpWebResponse httpResponse = (HttpWebResponse)req.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+            }
+
+        }
+
+        protected void InsertLot(NewLot inLot)
+        {
+          //  string fakeJSON = "{\"LotNumber\": \"X\",\"Active\": 1,\"TypeId\": 1,\"Rows\": 2,\"Columns\": 3,\"Points\": [[39.03219940027544,-84.46734882210876],[39.032432754013755,-84.46917272423889],[39.033516171991266,-84.46906543587829]]}";
+
+            HttpWebRequest req = WebRequest.Create(serverAddress + "/lots") as HttpWebRequest;
+            req.ContentType = "application/json";
+            req.Method = WebRequestMethods.Http.Post;
+
+            req.Headers.Add("Authorization", key);
+
+            using (var streamWriter = new StreamWriter(req.GetRequestStream()))
+            {
+                string json = JsonConvert.SerializeObject(inLot);
+                streamWriter.Write(json);
                 streamWriter.Flush();
                 streamWriter.Close();
             }
@@ -400,7 +445,6 @@ namespace ParkingManagement.WebContent.ParkingManagement
             {
                 var result = streamReader.ReadToEnd();
             }
-            
         }
 
 
