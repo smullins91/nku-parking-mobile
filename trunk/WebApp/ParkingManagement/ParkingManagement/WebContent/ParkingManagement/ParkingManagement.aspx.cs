@@ -29,12 +29,9 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-        //    string key = ManageUsers.API_KEY;
-        //    string key = UsersManagement.ManageUsers.API_KEY;
             key = UsersManagement.ManageUsers.API_KEY;
             if (key == null || key.Length != 40)
                 Response.Redirect(ResolveUrl("~/index.aspx"));
-         //       Response.Redirect(ResolveUrl("~/login.aspx"));
 
 
             //FOR MAP VIEW
@@ -63,8 +60,6 @@ namespace ParkingManagement.WebContent.ParkingManagement
                 DropDownList1.DataSource = lotTable;
                 DropDownList1.DataTextField = "name";
                 DropDownList1.DataValueField = "value";
-              //      DropDownList1.DataSource = getLotNames(rootLots);
-         //       DropDownList1.DataBind();
             }
 
 
@@ -105,12 +100,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
         {
             MultiViewManage.ActiveViewIndex = (int)ViewSelected.AddLot;
         }
-        /*
-        protected void Button6_ClickCS(object sender, EventArgs e)
-        {
-            MultiViewManage.ActiveViewIndex = (int)ViewSelected.AddLot;
-        }
-        */
+
 
         protected void Button5_Click(object sender, EventArgs e)
         {
@@ -119,17 +109,9 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //I set appenddatabounds = true, which fixes some problems but causes others
-            //I set enableviewstate = false to try to fix that
-
-          //  TextBox1.Text = "test"; // selectedLot.columns.ToString();
-           // TextBox1.DataBind();
-            
             Class1 selectedLot = lotsObject[Convert.ToInt32(DropDownList1.SelectedItem.Value)];
             DropDownList2.SelectedValue = selectedLot.type.ToString();
-          //  DropDownList2.SelectedIndex = selectedLot.type;    //DropDownList2.Items.IndexOf(DropDownList2.Items.FindByText(selectedLot.type));
             DropDownList3.SelectedValue = selectedLot.active.ToString();
-          //  DropDownList3.SelectedIndex = selectedLot.active; //0 means closed
             TextBox1.Text = selectedLot.columns.ToString();
             TextBox2.Text = selectedLot.rows.ToString();
 
@@ -141,15 +123,11 @@ namespace ParkingManagement.WebContent.ParkingManagement
             for (int i = 1; i <= selectedLot.columns; i++)
             {
                 DropDownList4.Items.Add(new ListItem(i.ToString(), i.ToString()));
-               // DropDownList4.DataTextField = i.ToString();
-               // DropDownList4.DataValueField = i.ToString();
             }
             DropDownList5.Items.Clear();
             for (int i = 1; i <= selectedLot.rows; i++)
             {
                 DropDownList5.Items.Add(new ListItem(i.ToString(), i.ToString()));
-               // DropDownList5.DataTextField = i.ToString();
-               // DropDownList5.DataValueField = i.ToString();
             }
 
         }
@@ -200,7 +178,6 @@ namespace ParkingManagement.WebContent.ParkingManagement
             public int Active { get; set; }
             public int Rows { get; set; }
             public int Columns { get; set; }
-       //     public int Available { get; set; }
             public float[][] Points { get; set; }
         }
 
@@ -211,8 +188,6 @@ namespace ParkingManagement.WebContent.ParkingManagement
             public int Active { get; set; }
             public int Rows { get; set; }
             public int Columns { get; set; }
-            //     public int Available { get; set; }
-            //  public float[][] Points { get; set; }
         }
 
         public class Point
@@ -371,33 +346,19 @@ namespace ParkingManagement.WebContent.ParkingManagement
         //Create new lot
         protected void Button11_Click(object sender, EventArgs e)
         {
-            //BUILD NEW LOT AND SEND TO SERVER
             NewLot newLot = new NewLot();
-          //  newLot.Points = getPoints();
             newLot.Points = getPoints2();
             newLot.LotNumber = TextBox4.Text;
             newLot.TypeId = Convert.ToInt32(DropDownList7.SelectedValue);
             newLot.Active = Convert.ToInt32(DropDownList8.SelectedValue);
             newLot.Rows = Convert.ToInt32(TextBox5.Text);
             newLot.Columns = Convert.ToInt32(TextBox6.Text);
-        //    newLot.Available = newLot.Rows * newLot.Columns;
 
             InsertLot(newLot);
-            //Get all the coordinates, put them in a list, and finally convert to array and insert into newLot
-            /*
-            if (TextBox7.Text != "")
-            {
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox7.Text);
-                newPoint.lng = float.Parse(TextBox8.Text);
-                pointList.Add(newPoint);
-            }
-            */
 
         }
         protected void UpdateLot(UpdatedLot inLot)
         {
-            //HERE'S THE ISSUE: i NEED TO SEND LOT_ID TO THE SERVER, NOT LOTNUMBER. But I can't have Lot_ID as part of the JSON
             HttpWebRequest req = WebRequest.Create(serverAddress + "/lots" + "/" + selectedLotId) as HttpWebRequest;
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Post;
@@ -447,6 +408,32 @@ namespace ParkingManagement.WebContent.ParkingManagement
             }
         }
 
+        protected void DropDownList4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            showSpaceInfo(); //As admin needs the same update when either column or row is changed, have both use the same function
+        }
 
+        protected void DropDownList5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            showSpaceInfo(); //As admin needs the same update when either column or row is changed, have both use the same function
+        }
+
+        public void showSpaceInfo()
+        {
+            /*REMEMBER: Spaces are numbered in the server as numbers 0 through Rows*Columns-1. 
+             * I'll need to do the math to determine the row and column 
+             * (simple addition of 1 (can't have space 0) and then the modulus equation).
+             * DOWNLOAD the space info when user selects a lot.
+            */
+
+            //May have error sending reservation to server, if the JSON for that needs the type names to be capitalized
+        }
+
+        public class Space  
+        { 
+            public int space { get; set; }
+            public int time { get; set; }
+            public int user { get; set; }
+        }
     }
 }

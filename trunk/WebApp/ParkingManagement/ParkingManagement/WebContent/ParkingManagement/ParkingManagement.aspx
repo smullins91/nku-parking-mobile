@@ -142,10 +142,10 @@
                          <br />
                          <asp:Label ID="Label7" runat="server" Font-Size="Medium" Text="Edit Parking Space:"></asp:Label>
                          <br />
-                         <asp:DropDownList ID="DropDownList4" runat="server" Width="100px" ClientIDMode="Static">
+                         <asp:DropDownList ID="DropDownList4" runat="server" Width="100px" ClientIDMode="Static" OnSelectedIndexChanged="DropDownList4_SelectedIndexChanged">
                              <asp:ListItem Value="0">Column</asp:ListItem>
                          </asp:DropDownList>
-                         <asp:DropDownList ID="DropDownList5" runat="server" Width="100px" ClientIDMode="Static">
+                         <asp:DropDownList ID="DropDownList5" runat="server" Width="100px" ClientIDMode="Static" OnSelectedIndexChanged="DropDownList5_SelectedIndexChanged">
                              <asp:ListItem Value="0">Row</asp:ListItem>
                          </asp:DropDownList>
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

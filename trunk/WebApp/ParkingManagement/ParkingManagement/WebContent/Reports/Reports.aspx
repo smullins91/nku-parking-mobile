@@ -11,11 +11,11 @@
              <p>
                  <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="1">
                      <asp:View ID="View1" runat="server">
-                         <asp:GridView ID="gvLots" runat="server" AutoGenerateColumns="False" DataSourceID="AllLots" Height="140px" Width="827px">
-                             <Columns>
-                                 <asp:BoundField HeaderText="Lot Name" />
-                                 <asp:BoundField HeaderText="Designation" />
-                                 <asp:BoundField HeaderText="Usage" />
+                         <asp:GridView ID="gvLots" runat="server" AutoGenerateColumns="False" Height="140px" Width="827px" DataKeyNames="lotNumber">
+                                 <Columns>
+                                 <asp:BoundField DataField="lotNumber" HeaderText="Lot Name" />
+                                 <asp:BoundField DataField="type" HeaderText="Designation" />
+
                              </Columns>
                          </asp:GridView>
                          <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
