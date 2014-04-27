@@ -1,6 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LotReport.aspx.cs" Inherits="ParkingManagement.WebContent.Reports.Report1" %>
-
-<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LotReport.aspx.cs" Inherits="ParkingManagement.WebContent.Reports.LotReport" %>
 
 <!DOCTYPE html>
 
@@ -20,8 +18,10 @@
     </style>
 </head>
 <body>
+
+
     <form id="form1" runat="server">
-      <div class="header-image" style="margin-left:auto; margin-right:auto; width:970px; ">
+    <div class="header-image" style="margin-left:auto; margin-right:auto; width:970px; ">
              <asp:Image ID="Banner" runat="server" ImageUrl="~/Images/banner.jpg"/>
          </div>
           <div style="margin-top:10px">
@@ -31,22 +31,19 @@
            </div>
 
     <div>
-        <h2 style="text-align:center">User Parking Report</h2>
-         <asp:GridView ID="gvUsers" runat="server" HorizontalAlign="Center" Width="100%" AutoGenerateColumns="false" 
-                          CssClass="table table-hover table-striped" 
-                          >
-                         <Columns>
-                              <asp:BoundField DataField="UserName" HeaderText="UserName" />
-                              <asp:BoundField DataField="LastName" HeaderText="Last Name" />
-                              <asp:BoundField DataField="FirstName" HeaderText="First Name" />
-                              <asp:BoundField DataField="LotId" HeaderText="Lot Id" />
-                              <asp:BoundField DataField="DateTimeIn" HeaderText="Date Time In" />
-                              <asp:BoundField DataField="DateTimeOut" HeaderText="Date Time Out" />
-                              <asp:BoundField DataField="Duration" HeaderText="Duration" />
-                             
-                         </Columns>
+        <h2 style="text-align:center">Parking Lot Report</h2>
+        <asp:GridView ID="gvLots" runat="server" AutoGenerateColumns="False" HorizontalAlign="Center" Width="100%" DataKeyNames="lotNumber" CssClass="table table-hover table-striped" >
+                                 <Columns>
+                                 <asp:BoundField DataField="lotNumber" HeaderText="Lot Name" />
+                                 <asp:BoundField DataField="typeString" HeaderText="Designation" />
+                                 <asp:BoundField DataField="totalSpaces" HeaderText="Number of Spaces" />
+                                 <asp:BoundField DataField="available" HeaderText="Available Spaces" />
+                                 <asp:BoundField DataField="percentUsed" HeaderText="Percent Used" />
 
-                     </asp:GridView>
+                             </Columns>
+                         </asp:GridView>
+                         <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
+                         <asp:ObjectDataSource ID="AllLots" runat="server"></asp:ObjectDataSource>
     </div>
     </form>
 </body>
