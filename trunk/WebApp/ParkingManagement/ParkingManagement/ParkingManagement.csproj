@@ -57,6 +57,7 @@
       <HintPath>..\packages\GoogleMapsApi.0.30.0.0\lib\net45\GoogleMapsApi.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.8.3\Assemblies\v4.5\MySql.Data.dll</HintPath>
@@ -292,6 +293,7 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="WebContent\Reports\UserParkingReport.aspx" />
     <Content Include="WebContent\UsersManagement\ResetPassword.aspx" />
     <Content Include="WebContent\UsersManagement\EditUser.aspx" />
     <Content Include="WebContent\UsersManagement\AddUsers.aspx" />
@@ -413,6 +415,13 @@
     </Compile>
     <Compile Include="WebContent\ParkingManagement\ParkingManagement.aspx.designer.cs">
       <DependentUpon>ParkingManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebContent\Reports\UserParkingReport.aspx.cs">
+      <DependentUpon>UserParkingReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebContent\Reports\UserParkingReport.aspx.designer.cs">
+      <DependentUpon>UserParkingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebContent\Reports\Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
