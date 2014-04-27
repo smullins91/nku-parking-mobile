@@ -70,7 +70,7 @@ namespace ParkingManagement
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             ManageUsers.logout();
-            Response.Redirect(ResolveUrl("login.aspx"));
+            Response.Redirect(ResolveUrl("~/index.aspx"));
         }
 
        protected  void Page_Load(object source, EventArgs e)

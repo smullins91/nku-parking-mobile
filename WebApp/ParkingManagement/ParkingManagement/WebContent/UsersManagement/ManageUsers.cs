@@ -11,7 +11,7 @@ namespace ParkingManagement.WebContent.UsersManagement
 {
     public static class ManageUsers
     {
-        static string serverAddress = @"http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080";
+        public static string serverAddress = @"http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080";
         public static string API_KEY;
 
         public class Login
@@ -133,8 +133,7 @@ namespace ParkingManagement.WebContent.UsersManagement
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Get;
 
-            //TODO: api key should be replaced by the session info when the user log in
-            req.Headers.Add("Authorization", API_KEY);
+           req.Headers.Add("Authorization", API_KEY);
 
             string result;
             List<SuperUser> allUsers;
