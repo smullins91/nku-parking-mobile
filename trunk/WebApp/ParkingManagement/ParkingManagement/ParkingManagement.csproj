@@ -293,6 +293,7 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="WebContent\Reports\LotReport.aspx" />
     <Content Include="WebContent\Reports\UserParkingReport.aspx" />
     <Content Include="WebContent\UsersManagement\ResetPassword.aspx" />
     <Content Include="WebContent\UsersManagement\EditUser.aspx" />
@@ -415,6 +416,13 @@
     </Compile>
     <Compile Include="WebContent\ParkingManagement\ParkingManagement.aspx.designer.cs">
       <DependentUpon>ParkingManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebContent\Reports\LotReport.aspx.cs">
+      <DependentUpon>LotReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebContent\Reports\LotReport.aspx.designer.cs">
+      <DependentUpon>LotReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebContent\Reports\UserParkingReport.aspx.cs">
       <DependentUpon>UserParkingReport.aspx</DependentUpon>

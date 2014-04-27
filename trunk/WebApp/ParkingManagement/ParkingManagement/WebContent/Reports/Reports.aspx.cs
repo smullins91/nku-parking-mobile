@@ -22,10 +22,8 @@ namespace ParkingManagement.WebContent.Reports
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            populateUserGV();
             populateLotGV();
             //try using http://www.aspdotnet-suresh.com/2013/01/show-google-map-with-latitude-and.html as it has a clearer way of storing the coordinates
-
 
 
             //using http://www.aspsnippets.com/Articles/Show-Google-Maps-using-Latitude-and-Longitude-in-ASPNet.aspx
@@ -48,25 +46,18 @@ namespace ParkingManagement.WebContent.Reports
             return dt;
         }
 
-        public enum ViewSelected
+
+        public static string getType(int inNum)
         {
-            NotSet = -1,
-            ParkingLots = 0,
-            Users = 1
+            if (inNum == 1)
+                return "Faculty";
+            if (inNum == 2)
+                return "Student";
+            else
+                return "Guest";
+
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-           // MultiView1.ActiveViewIndex = (int)ViewSelected.ParkingLots;
-            MultiView1.ActiveViewIndex = 0;
-
-           // ViewSelected mViewSelected = (ViewSelected)MultiView1.ActiveViewIndex;
-        }
-
-        protected void Button2_Click(object sender, EventArgs e)
-        {
-            MultiView1.ActiveViewIndex = (int)ViewSelected.Users;
-        }
 
         private void populateLotGV()
         {
@@ -83,19 +74,6 @@ namespace ParkingManagement.WebContent.Reports
             gvLots.DataBind();
             Cache["Lot"] = gvLots.DataSource;
 
-            /*
-            //List<ParkingLot> dataLots = getParkingLots(); //new List<ParkingLot>();
-            AllParkingLots dataLots = getParkingLots();
-            gvLots.DataSource = dataLots;
-            gvLots.DataBind();
-             */
-        }
-        private void populateUserGV()
-        {
-            List<SuperUser> dtUsers = getUsers();
-            gvUserStatus.DataSource = dtUsers;
-            gvUserStatus.DataBind();
-            Cache["User"] = gvUserStatus.DataSource;
         }
 
 
@@ -150,7 +128,14 @@ namespace ParkingManagement.WebContent.Reports
             result.Trim();
 
             lotList = JsonConvert.DeserializeObject<List<Class1>>(result);
-            return lotList;
+            for (int i = 0; i < lotList.Count(); i++) //need to designate a string version of the lot type
+            {
+                lotList[i].typeString = getType(lotList[i].type);
+                lotList[i].totalSpaces = lotList[i].rows * lotList[i].columns;
+                lotList[i].percentUsed = 100 - (100 * (Convert.ToDecimal(lotList[i].available) / Convert.ToDecimal(lotList[i].totalSpaces)));
+                lotList[i].percentUsed = Math.Round(lotList[i].percentUsed, 2);
+            }
+                return lotList;
 
         }
 
@@ -262,6 +247,9 @@ namespace ParkingManagement.WebContent.Reports
             public int columns { get; set; }
             public int available { get; set; }
             public Point[] points { get; set; }
+            public string typeString { get; set; } //added for my own purposes
+            public int totalSpaces { get; set; } //added for my own purposes
+            public decimal percentUsed { get; set; }
         }
 
         #region "business object"

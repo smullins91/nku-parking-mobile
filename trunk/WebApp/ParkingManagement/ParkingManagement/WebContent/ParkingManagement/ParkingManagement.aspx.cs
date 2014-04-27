@@ -223,6 +223,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         }
 
+        /*
         public Point[] getPoints()
         {
             List<Point> pointList = new List<Point>(); //must convert to array and insert into newLot
@@ -285,7 +286,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
             Point[] allPoints = pointList.ToArray();
             return allPoints;
         }
-
+        */
 
         public float[][] getPoints2()
         {
@@ -384,8 +385,6 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         protected void InsertLot(NewLot inLot)
         {
-          //  string fakeJSON = "{\"LotNumber\": \"X\",\"Active\": 1,\"TypeId\": 1,\"Rows\": 2,\"Columns\": 3,\"Points\": [[39.03219940027544,-84.46734882210876],[39.032432754013755,-84.46917272423889],[39.033516171991266,-84.46906543587829]]}";
-
             HttpWebRequest req = WebRequest.Create(serverAddress + "/lots") as HttpWebRequest;
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Post;
