@@ -68,6 +68,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
 
 
+
         public String[] getLotNames(Rootobject inRoot)
         {
             List<String> names = new List<String>();
@@ -434,5 +435,21 @@ namespace ParkingManagement.WebContent.ParkingManagement
             public int time { get; set; }
             public int user { get; set; }
         }
+
+      //  Button12.Attributes.Add("onClick","document.forms[0].reset();return false;");
+
+        protected void Button12_Click(object sender, EventArgs e)
+        {
+            foreach (Control control in Panel3.Controls) //or just Panel3
+            {
+                if (control is TextBox)
+                {
+                    TextBox txt = (TextBox)control;
+                    txt.Text = "";
+                }
+            }
+        }
+
+
     }
 }
