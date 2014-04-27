@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.capstoneproject.app.MainActivity" >
 
+    <item android:id="@+id/action_search"
+        android:title="Search..."
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.widget.SearchView" />
+
 
     <item android:id="@+id/menu_settings"
         android:title="Settings"

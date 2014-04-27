@@ -1,26 +1,32 @@
 package com.capstoneproject.app;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
 
-public class MainActivity extends FragmentActivity implements ActionBar.TabListener
+public class MainActivity extends ActionBarActivity implements ActionBar.TabListener
 {
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
-    private String[] tabNames = {"Map", "Parking Lots"};
+    private String[] tabNames = {"Parking Lots","Map"};
+    private MenuItem mSearchItem;
+    private ParkingNavigationFragment mLotFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,6 +90,24 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        mSearchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) mSearchItem.getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(true);
+        searchView.setOnQueryTextListener(mLotFragment);
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean queryTextFocused) {
+                if(!queryTextFocused) {
+                    mSearchItem.collapseActionView();
+                   // searchView.setQuery("", false);
+                }
+            }
+        });
+
         return true;
     }
 
@@ -112,13 +136,27 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft)
     {
-        viewPager.setCurrentItem(tab.getPosition());  // on tab selected show respected fragment view
+
+        int pos = tab.getPosition();
+
+        if(mSearchItem != null) {
+            if (pos == 0)
+                mSearchItem.setVisible(true);
+            else
+                mSearchItem.setVisible(false);
+        }
+
+        viewPager.setCurrentItem(pos);  // on tab selected show respected fragment view
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft)
     {
 
+    }
+
+    public void setLotFragment(ParkingNavigationFragment fragment) {
+        mLotFragment = fragment;
     }
 
     /** A placeholder fragment containing a simple view.*/

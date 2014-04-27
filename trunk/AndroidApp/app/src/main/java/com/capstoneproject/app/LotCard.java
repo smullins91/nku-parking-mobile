@@ -3,11 +3,17 @@ package com.capstoneproject.app;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+
+import java.util.ArrayList;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardHeader;
@@ -31,6 +37,7 @@ public class LotCard extends Card {
     private View mStatusView;
     private Button mButtonShowMap;
     private Button mButtonViewLot;
+    private Button mButtonDirections;
 
     public LotCard(Context context, Lot lot) {
         super(context, R.layout.lot_card);
@@ -86,6 +93,7 @@ public class LotCard extends Card {
         mStatusTextView = (TextView) view.findViewById(R.id.lot_status_text);
         mButtonShowMap = (Button) view.findViewById(R.id.button_show_map);
         mButtonViewLot = (Button) view.findViewById(R.id.button_view_lot);
+        mButtonDirections = (Button) view.findViewById(R.id.button_directions);
 
         if(mTitle != null)
             mTitleView.setText(mTitle);
@@ -95,6 +103,18 @@ public class LotCard extends Card {
 
         mStatusView.setBackgroundColor(mColor);
 
+        mButtonShowMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, ParkingSpaces.class);
+                intent.putExtra("rows", mLot.getRows());
+                intent.putExtra("columns", mLot.getColumns());
+                intent.putExtra("title", mTitle);
+                intent.putExtra("id", mLot.getId());
+                mContext.startActivity(intent);
+            }
+        });
+
         mButtonViewLot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +123,23 @@ public class LotCard extends Card {
                 intent.putExtra("columns", mLot.getColumns());
                 intent.putExtra("title", mTitle);
                 intent.putExtra("id", mLot.getId());
+                mContext.startActivity(intent);
+            }
+        });
+
+        mButtonDirections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                LatLngBounds.Builder bounds = new LatLngBounds.Builder();
+                ArrayList<LatLng> points = mLot.getPoints();
+
+                for(int i = 0; i < points.size(); i++)
+                    bounds.include(points.get(i));
+
+                LatLng center = bounds.build().getCenter();
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + center.latitude + "," + center.longitude));
                 mContext.startActivity(intent);
             }
         });

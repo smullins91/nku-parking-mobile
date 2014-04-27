@@ -17,10 +17,10 @@ public class TabsPagerAdapter extends FragmentPagerAdapter
         switch (index)
         {
             case 0:
-                return new MapFragment(); // Fragment activity for the map
+                return new ParkingNavigationFragment(); // Fragment activity for the map
             case 1:
 
-                return new ParkingNavigationFragment(); // Fragment activity for the navigation
+                return new MapFragment(); // Fragment activity for the navigation
         }
         return null;
     }

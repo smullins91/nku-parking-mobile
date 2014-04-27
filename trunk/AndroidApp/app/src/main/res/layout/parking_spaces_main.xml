@@ -8,21 +8,35 @@
 
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fillViewport="true"
-        android:id="@+id/scrollView">
-
-        <GridLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/parking_spaces"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <HorizontalScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
-        </GridLayout>
+                <GridLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/parking_spaces"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+                </GridLayout>
+
+        </HorizontalScrollView>
     </ScrollView>
+
+
+ <!--   <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:id="@+id/scrollView"
+        android:background="#0000FF">
+
+
+
+    </ScrollView>-->
 
 </LinearLayout>

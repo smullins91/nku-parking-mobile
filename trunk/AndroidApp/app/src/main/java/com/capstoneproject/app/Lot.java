@@ -1,7 +1,13 @@
 package com.capstoneproject.app;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class Lot {
 
@@ -12,6 +18,7 @@ public class Lot {
     private int mRows;
     private int mColumns;
     private int mAvailable;
+    private ArrayList<LatLng> mPoints = new ArrayList<LatLng>();
 
     public Lot(JSONObject data) throws JSONException {
 
@@ -22,6 +29,14 @@ public class Lot {
         mRows = data.getInt("rows");
         mColumns = data.getInt("columns");
         mAvailable = data.getInt("available");
+
+        JSONArray coordinates = data.getJSONArray("points");
+
+        for(int j = 0; j < coordinates.length(); j++) {
+            JSONObject obj = (JSONObject)coordinates.get(j);
+            LatLng point = new LatLng(obj.getDouble("lat"), obj.getDouble("lng"));
+            mPoints.add(point);
+        }
 
     }
 
@@ -53,4 +68,9 @@ public class Lot {
     public int getAvailable() {
         return mAvailable;
     }
+
+    public ArrayList<LatLng> getPoints() {
+        return mPoints;
+    }
+
 }

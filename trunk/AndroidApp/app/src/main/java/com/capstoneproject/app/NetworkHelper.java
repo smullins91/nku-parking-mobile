@@ -64,11 +64,20 @@ public class NetworkHelper {
     }
 
     public static void getSpaces(Context context, int lotId, AsyncHttpResponseHandler callback) {
-        //get(API_SPACES + "/" + lotId, context, null, callback);
+        get(API_SPACES + "/" + lotId, context, null, callback);
     }
 
-    public static void reserveSpace(Context context, int lotId, int spaceId, AsyncHttpResponseHandler callback) {
-       // post(API_SPACES + "/" + lotId + "/" + spaceId, context, null, callback);
+    public static void reserveSpace(Context context, int lotId, int spaceId, int time, AsyncHttpResponseHandler callback) {
+
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("space", spaceId);
+            json.put("time", time);
+            post(API_SPACES + "/" + lotId, context, json, callback);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void get(String api, Context context, RequestParams params, AsyncHttpResponseHandler callback) {
