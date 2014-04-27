@@ -94,7 +94,7 @@
                  <asp:HyperLink ID="hplUsers" runat="server" NavigateUrl="~/WebContent/UsersManagement/UsersManagement.aspx">Users</asp:HyperLink>
                   <asp:HyperLink ID="hplParking" runat="server" NavigateUrl="~/WebContent/ParkingManagement/ParkingManagement.aspx">Manage Parking Lots</asp:HyperLink>
               <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/WebContent/Reports/UserParkingReport.aspx">User Parking Report</asp:HyperLink>
-                 <asp:HyperLink ID="hplReports" runat="server" NavigateUrl="~/WebContent/Reports/Reports.aspx">Parking Lot Reports</asp:HyperLink>
+                 <asp:HyperLink ID="hplReports" runat="server" NavigateUrl="~/WebContent/Reports/LotReport.aspx">Parking Lot Reports</asp:HyperLink>
                 
         </div>
   
