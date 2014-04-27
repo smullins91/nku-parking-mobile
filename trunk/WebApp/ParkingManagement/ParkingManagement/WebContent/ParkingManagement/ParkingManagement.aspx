@@ -13,7 +13,13 @@
     </script>
     <script type="text/javascript">
 
-
+        function ClearAll()
+        {
+            for (var i = 4; i < 22; i++) {
+                document.getElementById('TextBox' + i.toString()).value= ''
+            }
+            return false;
+        }
 
         function initialize() {
             var mapOptions = {
@@ -59,23 +65,7 @@
                 new google.maps.LatLng(39.03083, -84.46731),
             ];
 
-
-            /*
-            //Construct the polygon for lotB
-            lotB = new google.maps.Polygon({
-                paths: lotBCoords,
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35
-            });
-
-            lotB.setMap(map)
-            */
-            
-
-            
+     
         
             //Great, simple guide for onclick stuff is athttp://vikku.info/programming/google-maps-v3/get-lattitude-longitude-onclick-and-onmouseover-google-map-v3.htm
             //also using http://stackoverflow.com/questions/19087352/capture-coordinates-in-google-map-on-user-click
@@ -98,7 +88,6 @@
                         
                     }
                 }
-                //TO ADD: have a variable outside this function holding the arrays of coordinates, so we can build that into the new parking lot.
             })
         }
 
@@ -179,14 +168,14 @@
                                  &nbsp;&nbsp;
                                  <asp:Label ID="Label11" runat="server" Font-Size="Medium" Text="Name: "></asp:Label>
                                  &nbsp;&nbsp;
-                                 <asp:TextBox ID="TextBox4" runat="server" Width="80px"></asp:TextBox>
+                                 <asp:TextBox ID="TextBox4" runat="server" Width="80px" ClientIDMode="Static"></asp:TextBox>
                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label9" runat="server" Font-Size="Medium" Text="Rows:"></asp:Label>
                                  &nbsp;
-                                 <asp:TextBox ID="TextBox5" runat="server" Width="80px"></asp:TextBox>
+                                 <asp:TextBox ID="TextBox5" runat="server" Width="80px" ClientIDMode="Static"></asp:TextBox>
                                  &nbsp;&nbsp;
                                  <asp:Label ID="Label10" runat="server" Font-Size="Medium" Text="Columns:"></asp:Label>
                                  &nbsp;
-                                 <asp:TextBox ID="TextBox6" runat="server" Width="80px"></asp:TextBox>
+                                 <asp:TextBox ID="TextBox6" runat="server" Width="80px" ClientIDMode="Static"></asp:TextBox>
                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                  <asp:DropDownList ID="DropDownList7" runat="server" Height="26px" Width="140px" Font-Size="Medium">
                                      <asp:ListItem Value="0">Designation</asp:ListItem>
@@ -239,7 +228,8 @@
                                  </asp:Panel>
                                  <br />
                                  <asp:Button ID="Button11" runat="server" BackColor="Black" CssClass="float-left" Font-Size="Medium" ForeColor="White" Text="Submit" Width="465px" ClientIDMode="Static" OnClick="Button11_Click" />
-                                 <asp:Button ID="Button12" runat="server" BackColor="Black" CssClass="float-right" Font-Size="Medium" ForeColor="White" Text="Clear" Width="465px" ClientIDMode="Static" />
+                                 <asp:Button ID="Button12" runat="server" BackColor="Black" CssClass="float-right" Font-Size="Medium" ForeColor="White" Text="Clear" Width="465px" ClientIDMode="Static" OnClientClick="return ClearAll();" />
+                                
                                  <br />
                              </asp:Panel>
                              <br />
