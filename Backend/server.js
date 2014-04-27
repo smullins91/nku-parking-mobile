@@ -393,6 +393,38 @@ app.post('/lots/:id', function (request, response) {
 
 });
 
+
+/**
+ * HTTP GET /reservations
+ * Returns: Information about all the reservations.
+ */
+app.get('/reservations', function (request, response) {
+
+	verifyAdminSession(request, function (valid, key) {
+
+		if(!valid) {
+			response.send(403, {error: "You are not authorized to complete this request."});
+		} else {
+
+			var lot = request.params.lot;
+
+			db.query("SELECT * FROM v_user_parking", lot, function(err, rows, fields) {
+
+				if(err) {
+					console.log(err);
+					response.send(500, {error: "An error has occured."});
+				} else
+					response.json(rows);
+
+			});
+
+		}
+
+	});
+
+});
+
+
 /**
  * HTTP GET /spaces/LOT_ID
  * Returns: Information about all the spaces of a certian lot.
