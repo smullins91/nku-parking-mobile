@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Campus Maps and Directions</string>
-    <string name="hello_world">Campus Maps and Directions</string>
+    <string name="app_name">NKU Parking App</string>
     <string name="action_settings">Settings</string>
 
     <string name="map_view">Map View</string>

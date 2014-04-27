@@ -2,23 +2,19 @@ package com.capstoneproject.app;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ParkingSpaces extends Activity implements View.OnClickListener
@@ -34,6 +30,7 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
     private ScaleGestureDetector mScaleDetector;
     private int mActivePointerId = INVALID_POINTER_ID;
     private GridLayout mLayout;
+    private boolean[] mSpaces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,6 +49,7 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
             mId = extras.getInt("id");
             setTitle(extras.getString("title"));
 
+            mSpaces = new boolean[mRows * mColumns];
         }
 
         mLayout = (GridLayout) findViewById(R.id.parking_spaces);
@@ -64,7 +62,34 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
             }
         });
 
-        initializeParkingSpaces();
+        getSpaces();
+
+    }
+
+    private void getSpaces() {
+
+        NetworkHelper.getSpaces(this, mId, new HttpResponse(ParkingSpaces.this) {
+            @Override
+            public void onFailure(Throwable e, JSONObject result) {
+
+            }
+
+            @Override
+            public void onSuccess(JSONArray result) {
+
+                for(int i = 0; i < mSpaces.length; i++)
+                    mSpaces[i] = false;
+
+                try {
+                    for (int i = 0; i < result.length(); i++)
+                        mSpaces[result.getJSONObject(i).getInt("SpaceId")] = true;
+
+                    initializeParkingSpaces();
+                } catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void initializeParkingSpaces()
@@ -72,6 +97,7 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
         GridLayout buttonContainer = (GridLayout) findViewById(R.id.parking_spaces);
         buttonContainer.setColumnCount(mColumns);
         buttonContainer.setRowCount(mRows);
+        buttonContainer.removeAllViews();
 
         for (int row = 0; row < mRows; row++)
         {
@@ -79,14 +105,11 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
             {
                 ImageButton button = new ImageButton(getBaseContext());
 
-
-                //int key = (Integer.parseInt("" + rows + columns));
                 int key = mColumns * row + column;
                 button.setId(key);
-                //button.setText(rows + "," + columns);
                 button.setOnClickListener(this); //calls the onclick method of the interface
                // button.setTextColor(Color.WHITE);
-                int random = (int) (Math.random() * 4);
+                /*int random = (int) (Math.random() * 4);
                 if (random == 0)
                 {
                     button.setImageResource(R.drawable.available);
@@ -102,14 +125,24 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
                 else
                 {
                     button.setImageResource(R.drawable.unavailable);
-                }
+                }*/
+
+                if(mSpaces[key]) {
+                    button.setImageResource(R.drawable.reserved);
+                } else
+                    button.setImageResource(R.drawable.available);
 
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+               // params.topMargin = 10;
 
                 if ((column != 0) && (column % 2 != 0))
                 {
+                    button.setBackground(getResources().getDrawable(R.drawable.space_button_left));
                     params.rightMargin = 80;
-                }
+                } else
+                    button.setBackground(getResources().getDrawable(R.drawable.space_button_right));
+
+                button.setPadding(10,10,10,10);
 
                 buttonContainer.addView(button, params);
 
@@ -121,42 +154,29 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
     public void onClick(View view)
     {
         final ImageButton button = (ImageButton) view;
-        String buttonText = "" + button.getId();
 
-        if (buttonText.equals("0,0") || buttonText.equals("1,1") || buttonText.equals("2,2") || buttonText.equals("3,3") || buttonText.equals("4,4"))
-        {
-            String getValueFromDatabase = "Reserved";
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("RESERVED SPOT").setMessage("Sorry, this spot is : " + getValueFromDatabase + ". Please consider using another spot. Thank you!");
-            builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
-            });
-            builder.setIcon(R.drawable.ic_launcher).show();
-        }
-        else
-        {
-            new AlertDialog.Builder(this).setTitle("Reserve a spot")
-                    .setMessage("Are you sure that you want to reserve spot " + buttonText + "?")
+        if (mSpaces[button.getId()]) {
+           showReservedMessage();
+        } else {
+            new AlertDialog.Builder(this).setTitle("Reserve Space")
+                    .setMessage("Are you sure that you want to reserve space " + button.getId() + "?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            NetworkHelper.reserveSpace(ParkingSpaces.this, mId, button.getId(), new HttpResponse(ParkingSpaces.this) {
+                            NetworkHelper.reserveSpace(ParkingSpaces.this, mId, button.getId(), 0, new HttpResponse(ParkingSpaces.this) {
 
                                 @Override
                                 public void onFailure(Throwable e, JSONObject result) {
-
+                                    getSpaces();
+                                    showReservedMessage();
                                 }
 
                                 @Override
                                 public void onSuccess(JSONObject result) {
-
-
+                                    Toast.makeText(getBaseContext(), "You have reserved a spot. Your reservation is valid for 1 hour. Thank you!", Toast.LENGTH_LONG).show();
+                                    getSpaces();
                                 }
                             });
-                            Toast.makeText(getBaseContext(), "You have reserved a spot. Your reservation is valid for 1 hour. Thank you!", Toast.LENGTH_LONG).show();
                         }
 
             }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -244,6 +264,21 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
         }
 
         return true;
+    }
+
+    private void showReservedMessage() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Reserved").setMessage("Sorry, this space is reserved. Please choose another. Thank you!");
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.setIcon(R.drawable.ic_launcher).show();
+
     }
 
 
