@@ -140,8 +140,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         int pos = tab.getPosition();
 
         if(mSearchItem != null) {
+
+            mSearchItem.collapseActionView(); //Close the search box
+
             if (pos == 0)
-                mSearchItem.setVisible(true);
+                mSearchItem.setVisible(true); //Only show icon on the first tab
             else
                 mSearchItem.setVisible(false);
         }

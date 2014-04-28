@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -25,6 +26,7 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
     private int mId = 0;
     private int mRows = 0;
     private int mColumns = 0;
+    private int mType = 1;
     private float mLastTouchX, mPosX;
     private float mLastTouchY, mPosY;
     private ScaleGestureDetector mScaleDetector;
@@ -47,6 +49,7 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
             mRows = extras.getInt("rows");
             mColumns = extras.getInt("columns");
             mId = extras.getInt("id");
+            mType = extras.getInt("type");
             setTitle(extras.getString("title"));
 
             mSpaces = new boolean[mRows * mColumns];
@@ -99,6 +102,10 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
         buttonContainer.setRowCount(mRows);
         buttonContainer.removeAllViews();
 
+        SettingsHelper settings = new SettingsHelper(getApplicationContext());
+        String lot = settings.getReservationLot();
+        int space = settings.getReservationSpace();
+
         for (int row = 0; row < mRows; row++)
         {
             for (int column = 0; column < mColumns; column++)
@@ -127,10 +134,23 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
                     button.setImageResource(R.drawable.unavailable);
                 }*/
 
-                if(mSpaces[key]) {
-                    button.setImageResource(R.drawable.reserved);
-                } else
-                    button.setImageResource(R.drawable.available);
+                float scale = getApplicationContext().getResources().getDisplayMetrics().density;
+                int width = (int) (56 * scale + 0.5f);
+                int height = (int) (35 * scale + 0.5f);
+                button.setLayoutParams(new LinearLayout.LayoutParams(50, 20));
+                button.setMaxWidth(width);
+                button.setMaxHeight(height);
+                button.setMinimumWidth(width);
+                button.setMinimumHeight(height);
+                //button.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+                button.setAdjustViewBounds(true);
+
+                button.setImageResource(R.drawable.reserved);
+
+                if(!mSpaces[key]) {
+                    button.setImageAlpha(0);
+                } else if(space == key && lot.equals(getTitle()))
+                    button.setImageResource(R.drawable.user_reserved);
 
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                // params.topMargin = 10;
@@ -155,9 +175,39 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
     {
         final ImageButton button = (ImageButton) view;
 
-        if (mSpaces[button.getId()]) {
+        SettingsHelper settings = new SettingsHelper(getApplicationContext());
+        int userType = settings.getType();
+
+        if(userType < mType) {
+            showPermissionMessage();
+        } else if (mSpaces[button.getId()]) {
            showReservedMessage();
         } else {
+
+            long time = settings.getReservationTime();
+
+            if(time < System.currentTimeMillis()) {
+                showReserveDialog(button.getId());
+            } else {
+
+                new AlertDialog.Builder(this).setTitle("Reserve Space")
+                        .setMessage("You currently have a reservation in " + settings.getReservationLot() + ". Do you want to reserve this space instead?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                showReserveDialog(button.getId());
+                            }
+
+                        }).setNegativeButton(android.R.string.no, null)
+                        .show();
+            }
+
+        }
+
+
+
+/*
             new AlertDialog.Builder(this).setTitle("Reserve Space")
                     .setMessage("Are you sure that you want to reserve space " + button.getId() + "?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -184,8 +234,46 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
                     //No selected. So, do nothing, go back to the activity
                 }
 
-            }).setIcon(R.drawable.ic_launcher).show();
-        }
+            }).setIcon(R.drawable.ic_launcher).show();*/
+    }
+
+    private void showReserveDialog(final int id) {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("Reserve Space " + id);
+        final String[] intervals = {"2 hours", "4 hours", "6 hours", "12 hours", "24 hours"};
+        b.setItems(intervals, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, final int which) {
+
+                dialog.dismiss();
+                NetworkHelper.reserveSpace(ParkingSpaces.this, mId, id, which, new HttpResponse(ParkingSpaces.this) {
+
+                    @Override
+                    public void onFailure(Throwable e, JSONObject result) {
+                        getSpaces();
+                        showReservedMessage();
+                    }
+
+                    @Override
+                    public void onSuccess(JSONObject result) {
+                        Toast.makeText(getBaseContext(), "Space reserved! Your reservation is valid for " + intervals[which] + ".", Toast.LENGTH_LONG).show();
+                        SettingsHelper settings = new SettingsHelper(ParkingSpaces.this.getApplicationContext());
+                        settings.setReservationLot(ParkingSpaces.this.getTitle().toString());
+                        settings.setReservationSpace(id);
+
+                        int hours = Integer.parseInt(intervals[which].split(" ")[0]);
+                        long time = 3600000 * hours;
+
+                        settings.setReservationTime(System.currentTimeMillis() + time);
+                        getSpaces();
+                    }
+                });
+            }
+
+        });
+
+        b.show();
     }
 
 
@@ -269,13 +357,18 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
     private void showReservedMessage() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Reserved").setMessage("Sorry, this space is reserved. Please choose another. Thank you!");
-        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        builder.setTitle("Reserved").setMessage("Sorry, this space is reserved. Please choose another.");
+        builder.setNeutralButton("OK", null);
 
-            }
-        });
+        builder.setIcon(R.drawable.ic_launcher).show();
+
+    }
+
+    private void showPermissionMessage() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Error").setMessage("Sorry, you don't have permission to park in this lot.");
+        builder.setNeutralButton("OK", null);
 
         builder.setIcon(R.drawable.ic_launcher).show();
 

@@ -176,6 +176,13 @@ public class ParkingNavigationFragment extends Fragment implements SearchView.On
         else
             card.setStatus(LotCard.Status.FULL);
 
+        switch(lot.getType()) {
+            case 1: card.setType("Faculty"); break;
+            case 2: card.setType("Student"); break;
+            case 3: card.setType("Visitor"); break;
+            default: card.setType("Student");
+        }
+
         mCardAdapter.add(card);
 
     }
@@ -205,13 +212,16 @@ public class ParkingNavigationFragment extends Fragment implements SearchView.On
                     if(!added[j]) {
                         Lot lot = mLots.get(j);
 
-                        if (lot.getNumber().toLowerCase().equals(t)) {
+                        if(lot.getNumber().toLowerCase().equals(t)) {
                             addLot(lot);
                             added[j] = true;
-                        } else if (lot.getAvailable() > 0 && t.equals("open")) {
+                        } else if(lot.getAvailable() > 0 && t.equals("open")) {
                             addLot(lot);
                             added[j] = true;
-                        } else if (lot.getAvailable() == 0 && (t.equals("closed") || t.equals("full"))) {
+                        } else if(lot.getAvailable() == 0 && t.equals("full")) {
+                            addLot(lot);
+                            added[j] = true;
+                        } else if(!lot.isActive() && t.equals("closed")) {
                             addLot(lot);
                             added[j] = true;
                         }

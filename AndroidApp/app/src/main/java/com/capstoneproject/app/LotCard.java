@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +32,11 @@ public class LotCard extends Card {
     private Lot mLot;
     private String mTitle;
     private String mStatus;
+    private String mType;
     private int mColor = 0;
     private TextView mTitleView;
     private TextView mStatusTextView;
+    private TextView mTypeView;
     private View mStatusView;
     private Button mButtonShowMap;
     private Button mButtonViewLot;
@@ -43,14 +46,13 @@ public class LotCard extends Card {
         super(context, R.layout.lot_card);
         mContext = context;
         mLot = lot;
-        init();
     }
 
-    private void init() {
+   // private void init() {
        // mHeader = new LotCardHeader(mContext);
        // addCardHeader(mHeader);
 
-    }
+   // }
 
 
     public void setStatus(Status status) {
@@ -77,6 +79,10 @@ public class LotCard extends Card {
             mStatusTextView.setText(mStatus);
     }
 
+    public void setType(String type) {
+        mType = type + " lot";
+    }
+
     @Override
     public void setTitle(String title) {
 
@@ -88,9 +94,11 @@ public class LotCard extends Card {
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
+
         mTitleView = (TextView) view.findViewById(R.id.lot_card_title);
         mStatusView = view.findViewById(R.id.lot_header_status);
         mStatusTextView = (TextView) view.findViewById(R.id.lot_status_text);
+        mTypeView = (TextView) view.findViewById(R.id.lot_card_type);
         mButtonShowMap = (Button) view.findViewById(R.id.button_show_map);
         mButtonViewLot = (Button) view.findViewById(R.id.button_view_lot);
         mButtonDirections = (Button) view.findViewById(R.id.button_directions);
@@ -98,8 +106,17 @@ public class LotCard extends Card {
         if(mTitle != null)
             mTitleView.setText(mTitle);
 
-        if(mStatus != null)
+        if(mStatus != null) {
             mStatusTextView.setText(mStatus);
+
+            if(mStatus.equals("CLOSED")) {
+                mButtonViewLot.setEnabled(false);
+            } else
+                mButtonViewLot.setEnabled(true);
+        }
+
+        if(mType != null)
+            mTypeView.setText(mType);
 
         mStatusView.setBackgroundColor(mColor);
 
@@ -123,6 +140,7 @@ public class LotCard extends Card {
                 intent.putExtra("columns", mLot.getColumns());
                 intent.putExtra("title", mTitle);
                 intent.putExtra("id", mLot.getId());
+                intent.putExtra("type", mLot.getType());
                 mContext.startActivity(intent);
             }
         });
