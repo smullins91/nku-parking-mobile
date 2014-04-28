@@ -111,9 +111,6 @@ public class SignInFragment extends Fragment {
                 ft.addToBackStack(null);
                 ft.commit();
 
-
-
-
             }
         });
 
@@ -193,8 +190,23 @@ public class SignInFragment extends Fragment {
             public void onSuccess(JSONObject response) {
                 try {
                     String key = response.getString("key");
+                    int type = response.getInt("type");
+
+                    //Set the account type to match the lot types
+                    switch (type) {
+                        case 2:
+                        case 3:
+                            type = 1; break; //Faculty/Staff
+                        case 4:
+                            type = 2; break; //Student
+                        case 5:
+                            type = 3; break; //Visitor
+                        default: type = 3;
+                    }
+
                     SettingsHelper settings = new SettingsHelper(getActivity());
                     settings.setSessionKey(key);
+                    settings.setType(type);
 
                     Intent i = new Intent(getActivity(), MainActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -1,5 +1,5 @@
 <resources>
-        <string name="title_activity_login">Parking App - Sign in</string>
+    <string name="title_activity_login">NKU Parking - Sign in</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Username</string>
