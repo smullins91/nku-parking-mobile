@@ -44,7 +44,7 @@ app.post('/login', function (request, response) {
     var username = request.body.username;
     var password = request.body.password;
 
-    db.query("SELECT UserId, Password, Salt FROM Users WHERE UserName = ? AND Active = 1", username, function(err, rows, fields) {
+    db.query("SELECT UserId, Password, Salt, RoleId FROM Users WHERE UserName = ? AND Active = 1", username, function(err, rows, fields) {
 
     	if(err) {
 
@@ -74,8 +74,8 @@ app.post('/login', function (request, response) {
 			        				console.log(err);
 			        				response.send(500, {error:'An error has occured.'});
 			        			} else {
-			        				console.log("Session created: " + key);
-			        				response.send(200, {key: key});
+			        				//console.log("Session created: " + key);
+			        				response.send(200, {key: key, type: parseInt(rows[0].RoleId, 10)});
 			        			}
 
 			        		});
