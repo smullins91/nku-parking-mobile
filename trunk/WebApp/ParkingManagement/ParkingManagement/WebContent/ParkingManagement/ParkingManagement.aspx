@@ -142,20 +142,19 @@
                          &nbsp;
                          <asp:Label ID="Label21" runat="server" Font-Size="Small" Text="Row:"></asp:Label>
                          &nbsp;&nbsp;
-                         <asp:DropDownList ID="DropDownList5" runat="server" ClientIDMode="Static" OnSelectedIndexChanged="DropDownList5_SelectedIndexChanged" Width="100px">
+                         <asp:DropDownList ID="DropDownList5" runat="server" ClientIDMode="Static" OnSelectedIndexChanged="DropDownList5_SelectedIndexChanged" Width="100px" AutoPostBack="True" >
                              <asp:ListItem Value="0">Row</asp:ListItem>
                          </asp:DropDownList>
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                          <asp:Label ID="Label20" runat="server" Font-Size="Small" Text="Column:"></asp:Label>
                          &nbsp;
-                         <asp:DropDownList ID="DropDownList4" runat="server" ClientIDMode="Static" OnSelectedIndexChanged="DropDownList4_SelectedIndexChanged" Width="100px">
+                         <asp:DropDownList ID="DropDownList4" runat="server" ClientIDMode="Static" OnSelectedIndexChanged="DropDownList4_SelectedIndexChanged" Width="100px" AutoPostBack="True" >
                              <asp:ListItem Value="0">Column</asp:ListItem>
                          </asp:DropDownList>
                          &nbsp;&nbsp;&nbsp;&nbsp;
                          <asp:Label ID="Label22" runat="server" Font-Size="Small" Text="Status:"></asp:Label>
                          &nbsp;
-                         <asp:DropDownList ID="DropDownList6" runat="server" ClientIDMode="Static" Width="100px">
-                             <asp:ListItem Value="0">Status</asp:ListItem>
+                         <asp:DropDownList ID="DropDownList6" runat="server" ClientIDMode="Static" Width="100px" AutoPostBack="True" >
                              <asp:ListItem Value="0">Available</asp:ListItem>
                              <asp:ListItem Value="1">Reserved</asp:ListItem>
                              <asp:ListItem Value="2">In Use</asp:ListItem>

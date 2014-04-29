@@ -18,8 +18,8 @@ namespace ParkingManagement.WebContent.ParkingManagement
     public partial class ParkingManagement : System.Web.UI.Page
     {
         static string serverAddress = @"http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080";
-        static string API_KEY = "3addbbc3d6a464eba3f57993411144158b0d312c";
-        string key;
+       // static string API_KEY = "key";
+        static string key;
         static int selectedLotId; //Used in the lot edit function. Held here because it can't be part of the lot object, but I still need it.
         public List<SuperSpace> lotSpaces;
 
@@ -135,7 +135,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
             //Get the spaces in the lot
             lotSpaces = getSpaces(selectedLot.id);
-
+            showSpaceInfo();
         }
 
 
@@ -145,7 +145,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
             HttpWebRequest req = WebRequest.Create(serverAddress + "/lots") as HttpWebRequest;
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Get;
-            req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
+            req.Headers.Add("Authorization", key);
 
             string result;
             List<Class1> lotList = new List<Class1>();
@@ -338,21 +338,25 @@ namespace ParkingManagement.WebContent.ParkingManagement
         {
             Class1 selectedLot = lotsObject[Convert.ToInt32(DropDownList1.SelectedItem.Value)];
             // Will fill DropDownList6 and TextBox3
-            int columnSelected = Convert.ToInt32(DropDownList4.SelectedItem.Value);
-            int rowSelected = Convert.ToInt32(DropDownList5.SelectedItem.Value);
+            List<SuperSpace> theSpaces = new List<SuperSpace>();
+            selectedLotId = selectedLot.id;
+            theSpaces = getSpaces(selectedLotId);
+            int columnSelected = Convert.ToInt32(DropDownList4.Text);
+            int rowSelected = Convert.ToInt32(DropDownList5.Text);
+            int spaceSelected = (columnSelected - 1) * selectedLot.rows + (rowSelected - 1);
 
-            int spaceSelected = columnSelected * selectedLot.rows + rowSelected;
+            if (spaceSelected < theSpaces.Count() && theSpaces.Count() != 0)
+            {
+                DropDownList6.SelectedValue = "1"; //in use
+                TextBox3.Text = Convert.ToString(theSpaces[spaceSelected].UserId);
+            }
 
-            TextBox3.Text = Convert.ToString(lotSpaces[spaceSelected].UserId);
-            
-            TextBox3.Text = "Test passed"; //TESTNG
-            /*REMEMBER: Spaces are numbered in the server as numbers 0 through Rows*Columns-1. 
-             * I'll need to do the math to determine the row and column 
-             * (simple addition of 1 (can't have space 0) and then the modulus equation).
-             * DOWNLOAD the space info when user selects a lot.
-            */
+            else
+            {
+                DropDownList6.SelectedValue = "0"; //available
+                TextBox3.Text = "";
+            }
 
-            //May have error sending reservation to server, if the JSON for that needs the type names to be capitalized
         }
 
         public List<SuperSpace> getSpaces(int LOT_ID)
@@ -360,7 +364,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
             HttpWebRequest req = WebRequest.Create(serverAddress + "/spaces/" + LOT_ID) as HttpWebRequest;
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Get;
-            req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
+            req.Headers.Add("Authorization", key);
 
             string result;
             List<SuperSpace> spaceList = new List<SuperSpace>();
