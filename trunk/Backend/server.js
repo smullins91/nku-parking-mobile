@@ -503,18 +503,28 @@ app.post('/spaces/:lot', function (request, response) {
 				} else {
 
 
-					//Possible issue: It might be possible for clients to reserve the same space.
+					db.query("UPDATE Reservations SET TimeOut = NOW() WHERE TimeOut > NOW() AND UserId = ?", userId, function(err, result) {
 
-					db.query("INSERT INTO Reservations (SpaceId, UserId, TimeIn, TimeOut, LotId) VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? HOUR), ?)", 
-						[space, userId, time, lot], function(err) {
+						if(err) {
+							console.log(err);
+							response.send(500, {error: "Error reserving space."});
+						} else {
 
-							if(err) {
-								response.send(500, {error: "Error reserving space."});
-							} else {
-								response.send(200, {message: "Space reserved!"});
-							}
+							db.query("INSERT INTO Reservations (SpaceId, UserId, TimeIn, TimeOut, LotId) VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL ? HOUR), ?)", 
+								[space, userId, time, lot], function(err) {
 
-						});
+									if(err) {
+										response.send(500, {error: "Error reserving space."});
+									} else {
+										response.send(200, {message: "Space reserved!"});
+									}
+
+							});
+						}
+
+
+					});
+
 
 				}
 
@@ -628,15 +638,28 @@ app.post('/register', function (request, response) {
 
     var username = request.body.username;
     var password = request.body.password;
+    var firstname = request.body.firstname;
+    var lastname = request.body.lastname;
+    var role = parseInt(request.body.role, 10);
+
+    switch(role) {
+    	case 0:
+    	case 1:
+    	case 2:
+    	case 3:
+    		role++; break;
+    	default: role = 5;
+    }
+    
 
     //To-do: Validate username and password.
-
+    if(validateUserDetails(username, firstname, lastname, password))
 	bcrypt.genSalt(10, function(err, salt) {
 
 	    bcrypt.hash(password, salt, function(err2, hash) {
 	        // Store user/hash/salt
 	        //console.log(password + " -> " + hash + " : " + salt);
-	        var user = {UserName: username, Password: hash, Salt: salt, RoleId: 4, Email:'', FirstName: '', LastName: ''};
+	        var user = {UserName: username, Password: hash, Salt: salt, RoleId: role, Email: '', FirstName: firstname, LastName: lastname};
 
 	        if(err || err2) {
 				console.log(err);
@@ -956,3 +979,17 @@ function verifyAdminSession(request, callback) {
 
 }
 
+
+function validateUserDetails(username, firstname, lastname, password) {
+
+	username = username.replace(/\s/g,'');
+	firstname = firstname.replace(/\s/g,'');
+	lastname = lastname.replace(/\s/g,'');
+
+	if(username.length > 0 && username.length <= 16)
+	if(firstname.length > 0 && firstname.length <= 50)
+	if(lastname.length > 0 && lastname.length <= 50)
+		return true;
+
+	return false;
+}
