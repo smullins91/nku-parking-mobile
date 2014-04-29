@@ -108,20 +108,20 @@
                      <asp:View ID="View1" runat="server">
                          <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Width="120px" AppendDataBoundItems="True" AutoPostBack="True" ClientIDMode="Static">
                          </asp:DropDownList>
-                         <asp:DropDownList ID="DropDownList2" runat="server" Width="100px" ClientIDMode="Static">
+                         <asp:DropDownList ID="DropDownList2" runat="server" Width="120px" ClientIDMode="Static">
                              <asp:ListItem Value="1">Faculty</asp:ListItem>
                              <asp:ListItem Value="2">Student</asp:ListItem>
                              <asp:ListItem Value="3">Guest</asp:ListItem>
                          </asp:DropDownList>
-                         <asp:DropDownList ID="DropDownList3" runat="server" Width="100px" ClientIDMode="Static">
+                         <asp:DropDownList ID="DropDownList3" runat="server" Width="120px" ClientIDMode="Static">
                              <asp:ListItem Value="1">Open</asp:ListItem>
                              <asp:ListItem Value="0">Closed</asp:ListItem>
                          </asp:DropDownList>
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                         <asp:Label ID="Label5" runat="server" Font-Size="Small" Text="Columns"></asp:Label>
+                         <asp:Label ID="Label5" runat="server" Font-Size="Small" Text="Columns: "></asp:Label>
                          <asp:TextBox ID="TextBox1" runat="server" Height="16px" Width="50px" ClientIDMode="Static"></asp:TextBox>
                          &nbsp;&nbsp;&nbsp;
-                         <asp:Label ID="Label6" runat="server" Font-Size="Small" Text="Rows"></asp:Label>
+                         <asp:Label ID="Label6" runat="server" Font-Size="Small" Text="Rows: "></asp:Label>
                          <asp:TextBox ID="TextBox2" runat="server" Width="50px" ClientIDMode="Static"></asp:TextBox>
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                          <asp:Button ID="Button7" runat="server" BackColor="Black" ForeColor="White" OnClick="Button7_Click" Text="Save" Width="100px" />
@@ -129,20 +129,21 @@
                          <asp:Button ID="Button8" runat="server" BackColor="Black" ForeColor="White" OnClick="Button8_Click" Text="Undo" Width="100px" />
                          <br />
                          <br />
+                         <br />
                          <asp:Label ID="Label7" runat="server" Font-Size="Medium" Text="Edit Parking Space:"></asp:Label>
                          <br />
-                         <asp:DropDownList ID="DropDownList4" runat="server" Width="100px" ClientIDMode="Static" OnSelectedIndexChanged="DropDownList4_SelectedIndexChanged">
+                         <asp:DropDownList ID="DropDownList4" runat="server" Width="120px" ClientIDMode="Static" OnSelectedIndexChanged="DropDownList4_SelectedIndexChanged">
                              <asp:ListItem Value="0">Column</asp:ListItem>
                          </asp:DropDownList>
-                         <asp:DropDownList ID="DropDownList5" runat="server" Width="100px" ClientIDMode="Static" OnSelectedIndexChanged="DropDownList5_SelectedIndexChanged">
+                         <asp:DropDownList ID="DropDownList5" runat="server" Width="120px" ClientIDMode="Static" OnSelectedIndexChanged="DropDownList5_SelectedIndexChanged">
                              <asp:ListItem Value="0">Row</asp:ListItem>
                          </asp:DropDownList>
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                         <asp:DropDownList ID="DropDownList6" runat="server" Width="100px" ClientIDMode="Static">
+                         <asp:DropDownList ID="DropDownList6" runat="server" Width="120px" ClientIDMode="Static">
                              <asp:ListItem Value="0">Status</asp:ListItem>
-                             <asp:ListItem>Available</asp:ListItem>
-                             <asp:ListItem>Reserved</asp:ListItem>
-                             <asp:ListItem>In Use</asp:ListItem>
+                             <asp:ListItem Value="0">Available</asp:ListItem>
+                             <asp:ListItem Value="1">Reserved</asp:ListItem>
+                             <asp:ListItem Value="2">In Use</asp:ListItem>
                          </asp:DropDownList>
                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                          <asp:Label ID="Label8" runat="server" Font-Size="Small" Text="User:"></asp:Label>
