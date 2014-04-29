@@ -107,9 +107,17 @@ namespace ParkingManagement.WebContent.Reports
                 lotList[i].typeString = getType(lotList[i].type);
                 lotList[i].totalSpaces = lotList[i].rows * lotList[i].columns;
                 lotList[i].percentUsed = 100 - (100 * (Convert.ToDecimal(lotList[i].available) / Convert.ToDecimal(lotList[i].totalSpaces)));
+                lotList[i].available = lotList[i].available;
                 lotList[i].percentUsed = Math.Round(lotList[i].percentUsed, 2);
             }
-                return lotList;
+            /*
+            for (int i = 0; i < lotList.Count(); i++ )
+            {
+                lotList[i].available = (lotList[i].rows * lotList[i].columns) - 1;//(getSpaces(lotList[i].id).Count());
+            }
+            */
+            
+            return lotList;
 
         }
 
@@ -251,6 +259,50 @@ namespace ParkingManagement.WebContent.Reports
         }
         
         #endregion
+
+        public static List<SuperSpace> getSpaces(int LOT_ID)
+        {
+            HttpWebRequest req = WebRequest.Create(serverAddress + "/spaces/" + LOT_ID) as HttpWebRequest;
+            req.ContentType = "application/json";
+            req.Method = WebRequestMethods.Http.Get;
+            req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
+
+            string result;
+            List<SuperSpace> spaceList = new List<SuperSpace>();
+
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            StreamReader reader = new StreamReader(resp.GetResponseStream());
+            result = reader.ReadToEnd();
+            result.Trim();
+
+            spaceList = JsonConvert.DeserializeObject<List<SuperSpace>>(result);
+            Console.WriteLine(result);
+            Console.ReadLine();
+            return spaceList;
+        }
+
+        public class Space
+        {
+            public int space { get; set; }
+            public int time { get; set; }
+            public int user { get; set; }
+        }
+
+
+        public class RootSpace
+        {
+            public SuperSpace[] Property1 { get; set; }
+        }
+
+        public class SuperSpace
+        {
+            public int ReservationId { get; set; }
+            public int SpaceId { get; set; }
+            public int UserId { get; set; }
+            public DateTime TimeIn { get; set; }
+            public DateTime TimeOut { get; set; }
+            public int LotId { get; set; }
+        }
         
     }
 }
