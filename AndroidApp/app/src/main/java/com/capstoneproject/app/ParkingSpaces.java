@@ -104,6 +104,7 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
 
         SettingsHelper settings = new SettingsHelper(getApplicationContext());
         String lot = settings.getReservationLot();
+        long time = settings.getReservationTime();
         int space = settings.getReservationSpace();
 
         for (int row = 0; row < mRows; row++)
@@ -135,9 +136,8 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
                 }*/
 
                 float scale = getApplicationContext().getResources().getDisplayMetrics().density;
-                int width = (int) (56 * scale + 0.5f);
-                int height = (int) (35 * scale + 0.5f);
-                button.setLayoutParams(new LinearLayout.LayoutParams(50, 20));
+                int width = (int) (76 * scale + 0.5f);
+                int height = (int) (55 * scale + 0.5f);
                 button.setMaxWidth(width);
                 button.setMaxHeight(height);
                 button.setMinimumWidth(width);
@@ -149,7 +149,7 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
 
                 if(!mSpaces[key]) {
                     button.setImageAlpha(0);
-                } else if(space == key && lot.equals(getTitle()))
+                } else if(space == key && lot.equals(getTitle()) && time > System.currentTimeMillis())
                     button.setImageResource(R.drawable.user_reserved);
 
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
@@ -358,9 +358,9 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Reserved").setMessage("Sorry, this space is reserved. Please choose another.");
-        builder.setNeutralButton("OK", null);
+        builder.setNeutralButton("OK", null).show();
 
-        builder.setIcon(R.drawable.ic_launcher).show();
+       // builder.setIcon(R.drawable.ic_launcher).show();
 
     }
 
@@ -368,9 +368,9 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Error").setMessage("Sorry, you don't have permission to park in this lot.");
-        builder.setNeutralButton("OK", null);
+        builder.setNeutralButton("OK", null).show();
 
-        builder.setIcon(R.drawable.ic_launcher).show();
+       // builder.setIcon(R.drawable.ic_launcher).show();
 
     }
 

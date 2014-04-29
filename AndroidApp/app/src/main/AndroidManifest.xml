@@ -50,6 +50,7 @@
         <activity
             android:name="com.capstoneproject.app.LoginActivity"
             android:label="@string/title_activity_login"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
 
