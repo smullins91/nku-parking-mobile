@@ -21,6 +21,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
         static string API_KEY = "3addbbc3d6a464eba3f57993411144158b0d312c";
         string key;
         static int selectedLotId; //Used in the lot edit function. Held here because it can't be part of the lot object, but I still need it.
+        public List<SuperSpace> lotSpaces;
 
         string[] gotNames;
         public List<Class1> lotsObject; //need to set this, the AddLot function needs to check it
@@ -131,6 +132,10 @@ namespace ParkingManagement.WebContent.ParkingManagement
                 DropDownList5.Items.Add(new ListItem(i.ToString(), i.ToString()));
             }
 
+
+            //Get the spaces in the lot
+            lotSpaces = getSpaces(selectedLot.id);
+
         }
 
 
@@ -224,125 +229,36 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         }
 
-        /*
-        public Point[] getPoints()
-        {
-            List<Point> pointList = new List<Point>(); //must convert to array and insert into newLot
-            if (TextBox7.Text != "")
-            {
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox7.Text);
-                newPoint.lng = float.Parse(TextBox8.Text);
-                pointList.Add(newPoint);
-            }
-            if (TextBox9.Text != "")
-            {
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox9.Text);
-                newPoint.lng = float.Parse(TextBox10.Text);
-                pointList.Add(newPoint);
-            }
-            if (TextBox11.Text != "")
-            {
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox11.Text);
-                newPoint.lng = float.Parse(TextBox12.Text);
-                pointList.Add(newPoint);
-            }
-            if (TextBox13.Text != "")
-            {
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox13.Text);
-                newPoint.lng = float.Parse(TextBox14.Text);
-                pointList.Add(newPoint);
-            }
-            if (TextBox15.Text != "")
-            {
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox15.Text);
-                newPoint.lng = float.Parse(TextBox16.Text);
-                pointList.Add(newPoint);
-            }
-            if (TextBox17.Text != "")
-            {
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox17.Text);
-                newPoint.lng = float.Parse(TextBox18.Text);
-                pointList.Add(newPoint);
-            }
-            if (TextBox19.Text != "")
-            {
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox19.Text);
-                newPoint.lng = float.Parse(TextBox20.Text);
-                pointList.Add(newPoint);
-            }
-            if (TextBox21.Text != "")
-            {
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox21.Text);
-                newPoint.lng = float.Parse(TextBox22.Text);
-                pointList.Add(newPoint);
-            }
-            Point[] allPoints = pointList.ToArray();
-            return allPoints;
-        }
-        */
-
         public float[][] getPoints2()
         {
             List<float[]> pointList = new List<float[]>();
             
-            //Must create points as an array of arrays of numbers. The server cannot accept them as objects (which hold 2 numbers each)
-         //   List<Point> pointList = new List<Point>(); //must convert to array and insert into newLot
-            if (TextBox7.Text != "")
-            {
+            if (TextBox7.Text != ""){
                 pointList.Add(new float[]{Convert.ToSingle(TextBox7.Text), Convert.ToSingle(TextBox8.Text)});
-                /*
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox7.Text);
-                newPoint.lng = float.Parse(TextBox8.Text);
-                pointList.Add(newPoint);
-                 */
             }
-            if (TextBox9.Text != "")
-            {
+            if (TextBox9.Text != ""){
                 pointList.Add(new float[]{Convert.ToSingle(TextBox9.Text), Convert.ToSingle(TextBox10.Text)});
-                /*
-                Point newPoint = new Point();
-                newPoint.lat = float.Parse(TextBox9.Text);
-                newPoint.lng = float.Parse(TextBox10.Text);
-                pointList.Add(newPoint);
-                */
             }
-            if (TextBox11.Text != "")
-            {
+            if (TextBox11.Text != ""){
                 pointList.Add(new float[]{Convert.ToSingle(TextBox11.Text), Convert.ToSingle(TextBox12.Text)});
             }
-            if (TextBox13.Text != "")
-            {
+            if (TextBox13.Text != ""){
                 pointList.Add(new float[]{Convert.ToSingle(TextBox13.Text), Convert.ToSingle(TextBox14.Text)});
             }
-            if (TextBox15.Text != "")
-            {
+            if (TextBox15.Text != ""){
                 pointList.Add(new float[]{Convert.ToSingle(TextBox15.Text), Convert.ToSingle(TextBox16.Text)});
             }
-            if (TextBox17.Text != "")
-            {
+            if (TextBox17.Text != ""){
                 pointList.Add(new float[]{Convert.ToSingle(TextBox17.Text), Convert.ToSingle(TextBox18.Text)});
             }
-            if (TextBox19.Text != "")
-            {
+            if (TextBox19.Text != ""){
                 pointList.Add(new float[]{Convert.ToSingle(TextBox19.Text), Convert.ToSingle(TextBox20.Text)});
             }
-            if (TextBox21.Text != "")
-            {
+            if (TextBox21.Text != ""){
                 pointList.Add(new float[]{Convert.ToSingle(TextBox21.Text), Convert.ToSingle(TextBox22.Text)});
             }
 
             return pointList.ToArray();
-        //    Point[] allPoints = pointList.ToArray();
-        //    return allPoints;
         }
 
         //Create new lot
@@ -420,6 +336,16 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         public void showSpaceInfo()
         {
+            Class1 selectedLot = lotsObject[Convert.ToInt32(DropDownList1.SelectedItem.Value)];
+            // Will fill DropDownList6 and TextBox3
+            int columnSelected = Convert.ToInt32(DropDownList4.SelectedItem.Value);
+            int rowSelected = Convert.ToInt32(DropDownList5.SelectedItem.Value);
+
+            int spaceSelected = columnSelected * selectedLot.rows + rowSelected;
+
+            TextBox3.Text = Convert.ToString(lotSpaces[spaceSelected].UserId);
+            
+            TextBox3.Text = "Test passed"; //TESTNG
             /*REMEMBER: Spaces are numbered in the server as numbers 0 through Rows*Columns-1. 
              * I'll need to do the math to determine the row and column 
              * (simple addition of 1 (can't have space 0) and then the modulus equation).
@@ -429,6 +355,25 @@ namespace ParkingManagement.WebContent.ParkingManagement
             //May have error sending reservation to server, if the JSON for that needs the type names to be capitalized
         }
 
+        public List<SuperSpace> getSpaces(int LOT_ID)
+        {
+            HttpWebRequest req = WebRequest.Create(serverAddress + "/spaces/" + LOT_ID) as HttpWebRequest;
+            req.ContentType = "application/json";
+            req.Method = WebRequestMethods.Http.Get;
+            req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
+
+            string result;
+            List<SuperSpace> spaceList = new List<SuperSpace>();
+
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            StreamReader reader = new StreamReader(resp.GetResponseStream());
+            result = reader.ReadToEnd();
+            result.Trim();
+
+            spaceList = JsonConvert.DeserializeObject<List<SuperSpace>>(result);
+            return spaceList;
+        }
+
         public class Space  
         { 
             public int space { get; set; }
@@ -436,20 +381,20 @@ namespace ParkingManagement.WebContent.ParkingManagement
             public int user { get; set; }
         }
 
-      //  Button12.Attributes.Add("onClick","document.forms[0].reset();return false;");
+        
+    public class RootSpace
+    {
+        public SuperSpace[] Property1 { get; set; }
+    }
 
-        protected void Button12_Click(object sender, EventArgs e)
-        {
-            foreach (Control control in Panel3.Controls) //or just Panel3
-            {
-                if (control is TextBox)
-                {
-                    TextBox txt = (TextBox)control;
-                    txt.Text = "";
-                }
-            }
-        }
-
-
+    public class SuperSpace
+    {
+        public int ReservationId { get; set; }
+        public int SpaceId { get; set; }
+        public int UserId { get; set; }
+        public DateTime TimeIn { get; set; }
+        public DateTime TimeOut { get; set; }
+        public int LotId { get; set; }
+    }
     }
 }
