@@ -80,6 +80,24 @@ public class NetworkHelper {
         }
     }
 
+    public static void register(Context context, String username, String firstname, String lastname, String password, int role, AsyncHttpResponseHandler callback) {
+
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("username", username);
+            json.put("firstname", firstname);
+            json.put("lastname", lastname);
+            json.put("password", password);
+            json.put("role", role);
+
+            post(API_REGISTER, context, json, callback);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void get(String api, Context context, RequestParams params, AsyncHttpResponseHandler callback) {
 
         AsyncHttpClient client = createClient(context);

@@ -33,18 +33,28 @@
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background">
+        android:background="@drawable/login">
 
         <LinearLayout style="@style/LoginFormContainer"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Sign in"
+                android:textSize="24sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center_horizontal" />
 
             <EditText
                 android:id="@+id/email"
                 android:background="@drawable/login_field"
-                android:fontFamily="sans-serif-thin"
+                android:fontFamily="sans-serif-thick"
                 android:textColor="#555555"
                 android:singleLine="true"
                 android:maxLines="1"
+                android:textSize="24sp"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -55,10 +65,11 @@
             <EditText
                 android:id="@+id/password"
                 android:background="@drawable/login_field"
-                android:fontFamily="sans-serif-thin"
+                android:fontFamily="sans-serif-thick"
                 android:textColor="#555555"
                 android:singleLine="true"
                 android:maxLines="1"
+                android:textSize="24sp"
                 android:layout_marginTop="4dp"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -70,30 +81,37 @@
                 android:imeActionId="@+id/login"
                 android:imeOptions="actionUnspecified" />
 
-            <Button android:id="@+id/sign_in_button"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:layout_gravity="right"/>
+                android:gravity="center"
+                android:layout_marginTop="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Don't have an account?"
-                android:id="@+id/textView"
-                android:layout_gravity="right"
-                android:layout_marginTop="15dp" />
+                <Button android:id="@+id/sign_in_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/action_sign_in"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/signin_button"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginRight="10dp"/>
 
-            <Button android:id="@+id/register_button1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/action_register"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:layout_gravity="right"/>
+                <Button android:id="@+id/register_button1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_register"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/register_button"
+                    android:textColor="#FFFFFF"/>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
