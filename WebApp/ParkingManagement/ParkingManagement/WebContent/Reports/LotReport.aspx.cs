@@ -13,12 +13,13 @@ namespace ParkingManagement.WebContent.Reports
 {
     public partial class LotReport : System.Web.UI.Page
     {
+        public static string key;
         static string serverAddress = @"http://ec2-54-200-98-161.us-west-2.compute.amazonaws.com:8080";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // Ensure user has logged in!!!
-            string key = ManageUsers.API_KEY;
+            key = ManageUsers.API_KEY;
             if (key == null || key.Length != 40)
                 Response.Redirect(ResolveUrl("~/index.aspx"));
 
@@ -43,6 +44,20 @@ namespace ParkingManagement.WebContent.Reports
         private void populateLotGV()
         {
             List<Class1> allLots = getParkingLots();
+            
+            List<SuperSpace> reservations = new List<SuperSpace>();
+            
+            for (int i = 0; i < allLots.Count(); i++)
+            {
+                
+                    
+                    reservations = getSpaces(allLots[i].id);
+                    allLots[i].available = allLots[i].available - reservations.Count();
+                    allLots[i].percentUsed = 100 - (100 * Convert.ToDecimal((Convert.ToDecimal(allLots[i].available) / Convert.ToDecimal(allLots[i].totalSpaces))));
+                    allLots[i].percentUsed = Math.Round(allLots[i].percentUsed, 2);
+                
+            }
+            
             gvLots.DataSource = allLots;
             gvLots.DataBind();
             Cache["Lot"] = gvLots.DataSource;
@@ -54,8 +69,8 @@ namespace ParkingManagement.WebContent.Reports
             HttpWebRequest req = WebRequest.Create(serverAddress + "/lots") as HttpWebRequest;
             req.ContentType = "application/json";
             req.Method = WebRequestMethods.Http.Get;
-            req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
-
+         //   req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
+            req.Headers.Add("Authorization", key);
             string result;
             List<Class1> lotList = new List<Class1>();
 
@@ -69,7 +84,7 @@ namespace ParkingManagement.WebContent.Reports
             {
                 lotList[i].typeString = getType(lotList[i].type);
                 lotList[i].totalSpaces = lotList[i].rows * lotList[i].columns;
-                lotList[i].percentUsed = 100 - (100 * (Convert.ToDecimal(lotList[i].available) / Convert.ToDecimal(lotList[i].totalSpaces)));
+                lotList[i].percentUsed = 100 - (100 * Convert.ToDecimal((Convert.ToDecimal(lotList[i].available) / Convert.ToDecimal(lotList[i].totalSpaces))));
                 lotList[i].percentUsed = Math.Round(lotList[i].percentUsed, 2);
             }
             return lotList;
@@ -101,5 +116,50 @@ namespace ParkingManagement.WebContent.Reports
             public float lat { get; set; }
             public float lng { get; set; }
         }
+
+        
+        public static List<SuperSpace> getSpaces(int LOT_ID)
+        {
+            HttpWebRequest req = WebRequest.Create(serverAddress + "/spaces/" + LOT_ID) as HttpWebRequest;
+            req.ContentType = "application/json";
+            req.Method = WebRequestMethods.Http.Get;
+            //   req.Headers.Add("Authorization", "3addbbc3d6a464eba3f57993411144158b0d312c");
+            req.Headers.Add("Authorization", key);
+
+            string result;
+            List<SuperSpace> spaceList = new List<SuperSpace>();
+
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            StreamReader reader = new StreamReader(resp.GetResponseStream());
+            result = reader.ReadToEnd();
+            result.Trim();
+
+            spaceList = JsonConvert.DeserializeObject<List<SuperSpace>>(result);
+            return spaceList;
+        }
+
+        public class Space
+        {
+            public int space { get; set; }
+            public int time { get; set; }
+            public int user { get; set; }
+        }
+
+
+        public class RootSpace
+        {
+            public SuperSpace[] Property1 { get; set; }
+        }
+
+        public class SuperSpace
+        {
+            public int ReservationId { get; set; }
+            public int SpaceId { get; set; }
+            public int UserId { get; set; }
+            public DateTime TimeIn { get; set; }
+            public DateTime TimeOut { get; set; }
+            public int LotId { get; set; }
+        }
+         
     }
 }
