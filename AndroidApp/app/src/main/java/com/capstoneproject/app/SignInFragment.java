@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.FragmentManager;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -58,6 +59,7 @@ public class SignInFragment extends Fragment {
     private View mLoginFormView;
     private View mLoginStatusView;
     private TextView mLoginStatusMessageView;
+    private ProgressDialog mProgress;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -169,7 +171,10 @@ public class SignInFragment extends Fragment {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
-            showProgress(true);
+            //showProgress(true);
+
+            mProgress = ProgressDialog.show(getActivity(), "", "Signing in...", true);
+            mProgress.show();
 
             login();
         }
@@ -295,7 +300,8 @@ public class SignInFragment extends Fragment {
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
+            //showProgress(false);
+            mProgress.dismiss();
 
             if (success) {
                 getActivity().finish();
@@ -308,7 +314,8 @@ public class SignInFragment extends Fragment {
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false);
+            mProgress.dismiss();
+            //showProgress(false);
         }
 
 

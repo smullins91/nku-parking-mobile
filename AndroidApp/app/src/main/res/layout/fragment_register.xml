@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/login">
+    android:background="@drawable/bg">
 
     <ScrollView
         android:id="@+id/register_form"
@@ -11,17 +11,31 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal">
 
+        <LinearLayout
+            style="@style/LoginFormContainer"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/logo" />
+
         <LinearLayout style="@style/LoginFormContainer"
             android:orientation="vertical"
-            android:layout_marginTop="120dp"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:paddingBottom="120dp">
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Register"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 android:textColor="#FFFFFF"
                 android:gravity="center_horizontal" />
 
@@ -140,9 +154,9 @@
                 android:paddingRight="32dp"
                 android:layout_gravity="center"
                 android:background="@drawable/signin_button"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="120dp"/>
+                android:textColor="#FFFFFF" />
 
+        </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

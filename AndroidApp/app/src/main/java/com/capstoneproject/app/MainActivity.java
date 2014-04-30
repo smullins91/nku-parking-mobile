@@ -16,7 +16,14 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener
@@ -27,6 +34,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     private String[] tabNames = {"Parking Lots","Map"};
     private MenuItem mSearchItem;
     private ParkingNavigationFragment mLotFragment;
+    private MapFragment mMapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -118,7 +126,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         int id = item.getItemId();
 
         switch(id) {
-            case R.id.menu_settings: break;
+            case R.id.menu_refresh: refresh(); break;
             case R.id.menu_logout: logout(); break;
         }
 
@@ -162,9 +170,40 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         mLotFragment = fragment;
     }
 
+    public void setMapFragment(MapFragment fragment) {
+        mMapFragment = fragment;
+    }
+
     /** A placeholder fragment containing a simple view.*/
     public static class PlaceholderFragment
     {
+
+    }
+
+    public void showMap(String lot) {
+
+        viewPager.setCurrentItem(1);
+        ArrayList<Marker> markers = mMapFragment.getMarkers();
+
+        for(int i = 0; i < markers.size(); i++) {
+
+            Marker marker = markers.get(i);
+
+            if(marker.getTitle().toLowerCase().contains(lot.toLowerCase())) {
+                CameraUpdate cam = CameraUpdateFactory.newLatLng(marker.getPosition());
+                mMapFragment.getMyMap().animateCamera(cam);
+                marker.showInfoWindow();
+                break;
+            }
+
+        }
+
+    }
+
+    public void refresh() {
+
+        mLotFragment.updateLotInfo();
+        mMapFragment.updateLotInfo();
 
     }
 

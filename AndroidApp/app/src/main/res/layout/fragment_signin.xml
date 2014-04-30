@@ -31,19 +31,35 @@
 
     <ScrollView
         android:id="@+id/login_form"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login">
+        android:fillViewport="true"
+        android:background="@drawable/bg">
 
         <LinearLayout style="@style/LoginFormContainer"
             android:orientation="vertical"
-            android:layout_gravity="center">
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingBottom="120dp">
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Sign in"
-                android:textSize="24sp"
+                android:textSize="28sp"
+                android:layout_marginBottom="4dp"
                 android:textColor="#FFFFFF"
                 android:gravity="center_horizontal" />
 
@@ -111,7 +127,7 @@
 
             </LinearLayout>
 
-
+        </LinearLayout>
 
         </LinearLayout>
 

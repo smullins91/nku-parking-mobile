@@ -3,21 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.capstoneproject.app.MainActivity" >
 
+
     <item android:id="@+id/action_search"
         android:title="Search..."
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.widget.SearchView" />
 
+    <item android:id="@+id/menu_refresh"
+        android:title="Refresh"
+        android:orderInCategory="101"
+        app:showAsAction="never" />
 
+<!--
     <item android:id="@+id/menu_settings"
         android:title="Settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
-
+-->
     <item android:id="@+id/menu_logout"
         android:title="Sign out"
-        android:orderInCategory="101"
+        android:orderInCategory="102"
         app:showAsAction="never" />
 
     <!--<item android:id="@+id/reserve_spot"

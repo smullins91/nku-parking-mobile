@@ -178,7 +178,7 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
         SettingsHelper settings = new SettingsHelper(getApplicationContext());
         int userType = settings.getType();
 
-        if(userType < mType) {
+        if(mType < userType) {
             showPermissionMessage();
         } else if (mSpaces[button.getId()]) {
            showReservedMessage();
@@ -275,7 +275,7 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
 
         b.show();
     }
-
+/*
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
@@ -353,7 +353,7 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
 
         return true;
     }
-
+*/
     private void showReservedMessage() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
