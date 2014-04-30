@@ -642,13 +642,13 @@ app.post('/register', function (request, response) {
     var lastname = request.body.lastname;
     var role = parseInt(request.body.role, 10);
 
+    //Role must match the ones in the database
     switch(role) {
-    	case 0:
-    	case 1:
-    	case 2:
-    	case 3:
-    		role++; break;
-    	default: role = 5;
+    	case 0: role = 4; break;
+    	case 1: role = 2; break;
+    	case 2: role = 3; break;
+    	case 3: role = 5; break;
+    	default: role = 5; 
     }
     
 
