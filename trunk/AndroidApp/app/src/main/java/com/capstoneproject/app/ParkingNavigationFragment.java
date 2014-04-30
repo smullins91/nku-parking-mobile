@@ -98,45 +98,15 @@ public class ParkingNavigationFragment extends Fragment implements SearchView.On
         //return true;
     }
 */
-    public boolean onMenuOptionSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case R.id.Availability:
-                String getValueFromDatabase = "Available";
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Lot Status").setMessage("The lot status is : " + getValueFromDatabase);
-                builder.setNeutralButton("OK", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i)
-                    {
 
-                    }
-                });
-                builder.setIcon(R.drawable.ic_launcher).show();
-                break;
-
-            case R.id.DirectionToLot:
-                Toast.makeText(getActivity(), "Direction to lot has been selected", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.ReserveASpot:
-                Intent intent = new Intent(getActivity(), ParkingSpaces.class);
-                startActivity(intent);
-                break;
-            default:
-                break;
-        }
-        //Toast.makeText(getActivity(), "Clicked on " + item.getTitle(), Toast.LENGTH_SHORT).show();
-        return true;
-    }
-
-    private void updateLotInfo() {
+    public void updateLotInfo() {
 
         NetworkHelper.getLots(getActivity(), new HttpResponse(getActivity()) {
 
             @Override
             public void onSuccess(JSONArray response) {
+
+                mCards.clear();
 
                 //JSONArray array = new JSONArray();
                 mLots = new ArrayList<Lot>();
@@ -155,6 +125,7 @@ public class ParkingNavigationFragment extends Fragment implements SearchView.On
                     e.printStackTrace();
                 }
 
+                mCardAdapter.notifyDataSetChanged();
 
             }
 

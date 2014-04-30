@@ -172,13 +172,6 @@ public class RegisterFragment extends Fragment {
         final ProgressDialog progress = ProgressDialog.show(getActivity(), "", "Registering...", true);
         progress.show();
 
-        switch(mRole) {
-            case 0: mRole = 4; break;
-            case 1: mRole = 2; break;
-            case 2: mRole = 3; break;
-            case 4: mRole = 5; break;
-        }
-
         NetworkHelper.register(getActivity(), mEmail, mFname, mLname, mPassword, mRole, new HttpResponse(getActivity()) {
 
             @Override
@@ -205,13 +198,13 @@ public class RegisterFragment extends Fragment {
                     int type;
                     //Set the account type to match the lot types
                     switch (mRole) {
+                        case 1:
                         case 2:
-                        case 3:
                             type = 1; break; //Faculty/Staff
-                        case 4:
+                        case 0:
                             type = 2; break; //Student
-                        case 5:
-                            type = 3; break;
+                        case 3:
+                            type = 3; break; //visitor
                         default: type = 3;
                     }
 

@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.LatLngBoundsCreator;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolygonOptions;
 
@@ -28,11 +29,14 @@ public class MapFragment extends SupportMapFragment
     private GoogleMap map;
     static final LatLng CENTER_OF_MAP = new LatLng(39.031136, -84.464629);
     private ArrayList<PolygonOptions> polys = new ArrayList<PolygonOptions>();
+    private ArrayList<Marker> markers = new ArrayList<Marker>();
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
+
+        ((MainActivity)getActivity()).setMapFragment(this);
 
         try
         {
@@ -40,7 +44,6 @@ public class MapFragment extends SupportMapFragment
             map.setMyLocationEnabled(true);
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(CENTER_OF_MAP, 16));
 
-            loadBuildingImages();
             updateLotInfo();
         }
         catch(Exception e)
@@ -66,12 +69,20 @@ public class MapFragment extends SupportMapFragment
         return myMap;
     }
 
-    private void updateLotInfo() {
+    public ArrayList<Marker> getMarkers() {
+        return markers;
+    }
+
+    public void updateLotInfo() {
 
         NetworkHelper.getLots(getActivity(), new HttpResponse(getActivity()) {
 
             @Override
             public void onSuccess(JSONArray response) {
+
+                map.clear();
+                markers.clear();
+                loadBuildingImages();
 
                 //JSONArray array = new JSONArray();
 
@@ -98,11 +109,13 @@ public class MapFragment extends SupportMapFragment
                         poly = poly.strokeColor(Color.BLACK).fillColor(0x7Fffa500);
                         LatLng center = bounds.build().getCenter();
 
-                        map.addPolygon(poly);
-                        map.addMarker(new MarkerOptions()
+                        MarkerOptions marker = new MarkerOptions()
                                 .position(center)
                                 .title("Parking Lot " + lot.getString("lotNumber"))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin)));
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.red_pin));
+
+                        map.addPolygon(poly);
+                        markers.add(map.addMarker(marker));
                     }
 
                 } catch (JSONException e) {

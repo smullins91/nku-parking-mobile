@@ -123,12 +123,7 @@ public class LotCard extends Card {
         mButtonShowMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, ParkingSpaces.class);
-                intent.putExtra("rows", mLot.getRows());
-                intent.putExtra("columns", mLot.getColumns());
-                intent.putExtra("title", mTitle);
-                intent.putExtra("id", mLot.getId());
-                mContext.startActivity(intent);
+                ((MainActivity)mContext).showMap(mTitle);
             }
         });
 
