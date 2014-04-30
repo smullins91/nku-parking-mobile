@@ -204,7 +204,24 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         protected void Button9_Click(object sender, EventArgs e)
         {
+            if (DropDownList6.SelectedValue == "0")
+            {
+                freeSpace();
+            }
+        }
 
+        public void freeSpace()
+        {
+            Class1 selectedLot = lotsObject[Convert.ToInt32(DropDownList1.SelectedItem.Value)];
+            int columnSelected = Convert.ToInt32(DropDownList4.Text);
+            int rowSelected = Convert.ToInt32(DropDownList5.Text);
+            int selectedSpace = (columnSelected - 1) * selectedLot.rows + (rowSelected - 1);
+            HttpWebRequest req = WebRequest.Create(serverAddress + "/" + selectedLotId + "/" + selectedSpace) as HttpWebRequest;
+            req.ContentType = "application/json";
+            req.Method = "DELETE";
+
+            req.Headers.Add("Authorization", key);
+           
         }
 
         protected void Button10_Click(object sender, EventArgs e)
