@@ -426,6 +426,39 @@ app.get('/reservations', function (request, response) {
 
 
 /**
+ * HTTP GET /status
+ * Returns: Information about the logged-in user.
+ */
+app.get('/status', function (request, response) {
+
+	verifySessionKey(request, function (valid, key, user) {
+
+		if(!valid) {
+			response.send(403, {error: "Your session has expired."});
+		} else {
+
+			db.query("SELECT RoleId,LotId,SpaceId,unix_timestamp(TimeOut) AS TimeOut FROM Users LEFT JOIN Reservations ON Reservations.UserId = Users.UserId AND TimeOut > NOW() WHERE Users.UserId = ? LIMIT 1", 
+				user, function(err, rows, fields) {
+
+					if(err || rows.length === 0) {
+						console.log(err);
+						response.send(500, {error: "An error has occured."});
+					} else {
+
+						response.json(rows[0]);
+
+					}
+
+			});
+
+		}
+
+	});
+
+});
+
+
+/**
  * HTTP GET /spaces/LOT_ID
  * Returns: Information about all the spaces of a certian lot.
  */
