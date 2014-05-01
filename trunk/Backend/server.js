@@ -669,10 +669,10 @@ app.get('/verify', function (request, response) {
  */
 app.post('/register', function (request, response) {
 
-    var username = request.body.username;
+    var username = request.body.username.trim();
     var password = request.body.password;
-    var firstname = request.body.firstname;
-    var lastname = request.body.lastname;
+    var firstname = request.body.firstname.trim();
+    var lastname = request.body.lastname.trim();
     var role = parseInt(request.body.role, 10);
 
     //Role must match the ones in the database
@@ -705,7 +705,7 @@ app.post('/register', function (request, response) {
 
 		        	if(err) {
 		        		console.log(err);
-		        		response.send(500, {error:'An error has occured.'});
+		        		response.send(500, {error:'Username is unavailable.'});
 		        	} else {
 		        		//Generate the session key
 		        		var key = generateSessionKey(username);
@@ -888,12 +888,13 @@ app.post('/users', function (request, response) {
 
 			   				json.Password = hash;
 			   				json.Salt = salt;
+			   				json.UserName = json.UserName.trim();
 
 							db.query("INSERT INTO Users SET ?", json, function(err) {
 
 								if(err) {
 									console.log(err);
-									response.send(500, {error: "An error has occured."});
+									response.send(500, {error: "Username is unavailable."});
 								} else {
 									response.send(200, {message: "The user, " + json.UserName + ", has been added."});
 								}		
