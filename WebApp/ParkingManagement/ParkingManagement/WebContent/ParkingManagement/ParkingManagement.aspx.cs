@@ -216,12 +216,12 @@ namespace ParkingManagement.WebContent.ParkingManagement
             int columnSelected = Convert.ToInt32(DropDownList4.Text);
             int rowSelected = Convert.ToInt32(DropDownList5.Text);
             int selectedSpace = (columnSelected - 1) * selectedLot.rows + (rowSelected) - 1;
-            HttpWebRequest req = WebRequest.Create(serverAddress + "/" + selectedLotId + "/" + selectedSpace) as HttpWebRequest;
+            HttpWebRequest req = WebRequest.Create(serverAddress + "/spaces/" + selectedLotId + "/" + selectedSpace) as HttpWebRequest;
      //       req.ContentType = "application/json";
             req.Method = "DELETE";
 
             req.Headers.Add("Authorization", key);
-           
+            HttpWebResponse response = (HttpWebResponse)req.GetResponse();
         }
 
         protected void Button10_Click(object sender, EventArgs e)
