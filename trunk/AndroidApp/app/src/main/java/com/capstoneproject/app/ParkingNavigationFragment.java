@@ -195,6 +195,15 @@ public class ParkingNavigationFragment extends Fragment implements SearchView.On
                         } else if(!lot.isActive() && t.equals("closed")) {
                             addLot(lot);
                             added[j] = true;
+                        } else if(lot.getType() == 1 && (t.equals("faculty") || t.equals("staff"))) {
+                            addLot(lot);
+                            added[j] = true;
+                        } else if(lot.getType() == 2 && (t.equals("student"))) {
+                            addLot(lot);
+                            added[j] = true;
+                        } else if(lot.getType() == 3 && (t.equals("visitor"))) {
+                            addLot(lot);
+                            added[j] = true;
                         }
                     }
 

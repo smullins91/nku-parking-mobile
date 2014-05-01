@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -69,6 +71,35 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.lot, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch(id) {
+            case R.id.menu_lot_refresh: refresh(); break;
+        }
+
+        return true;
+    }
+
+    public void refresh() {
+
+        Toast.makeText(this, "Refreshing...", Toast.LENGTH_SHORT).show();
+        getSpaces();
+
+    }
+
     private void getSpaces() {
 
         NetworkHelper.getSpaces(this, mId, new HttpResponse(ParkingSpaces.this) {
@@ -116,24 +147,6 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
                 int key = mColumns * row + column;
                 button.setId(key);
                 button.setOnClickListener(this); //calls the onclick method of the interface
-               // button.setTextColor(Color.WHITE);
-                /*int random = (int) (Math.random() * 4);
-                if (random == 0)
-                {
-                    button.setImageResource(R.drawable.available);
-                }
-                else if (random == 1)
-                {
-                    button.setImageResource(R.drawable.closed);
-                }
-                else if (random == 2)
-                {
-                    button.setImageResource(R.drawable.reserved);
-                }
-                else
-                {
-                    button.setImageResource(R.drawable.unavailable);
-                }*/
 
                 float scale = getApplicationContext().getResources().getDisplayMetrics().density;
                 int width = (int) (76 * scale + 0.5f);
@@ -257,15 +270,22 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
 
                     @Override
                     public void onSuccess(JSONObject result) {
+
                         Toast.makeText(getBaseContext(), "Space reserved! Your reservation is valid for " + intervals[which] + ".", Toast.LENGTH_LONG).show();
                         SettingsHelper settings = new SettingsHelper(ParkingSpaces.this.getApplicationContext());
                         settings.setReservationLot(ParkingSpaces.this.getTitle().toString());
                         settings.setReservationSpace(id);
 
                         int hours = Integer.parseInt(intervals[which].split(" ")[0]);
-                        long time = 3600000 * hours;
+                        long time = System.currentTimeMillis() + 3600000 * hours;
 
-                        settings.setReservationTime(System.currentTimeMillis() + time);
+                        settings.setReservationTime(time);
+
+                        SpaceNotification notification = new SpaceNotification(ParkingSpaces.this.getApplicationContext(),
+                                ParkingSpaces.this.getTitle().toString(), time);
+
+                        notification.show();
+
                         getSpaces();
                     }
                 });

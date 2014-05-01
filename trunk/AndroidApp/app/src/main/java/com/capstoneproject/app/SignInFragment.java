@@ -187,7 +187,7 @@ public class SignInFragment extends Fragment {
 
             @Override
             public void onFailure(Throwable e, JSONObject errorResponse) {
-                showProgress(false);
+                mProgress.dismiss();
                 super.onFailure(e, errorResponse);
             }
 
@@ -212,6 +212,9 @@ public class SignInFragment extends Fragment {
                     SettingsHelper settings = new SettingsHelper(getActivity());
                     settings.setSessionKey(key);
                     settings.setType(type);
+
+                    mProgress.dismiss();
+                    mProgress = null;
 
                     Intent i = new Intent(getActivity(), MainActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -318,11 +321,6 @@ public class SignInFragment extends Fragment {
             //showProgress(false);
         }
 
-
-        public boolean onMenuOptionSelected(MenuItem item) {
-
-            return true;
-        }
 
     }
 }

@@ -34,9 +34,9 @@ public class NetworkHelper {
     public static final String API_LOGIN = "login";
     public static final String API_LOGOUT = "logout";
     public static final String API_REGISTER = "register";
-    public static final String API_VERIFY = "verify";
     public static final String API_LOTS = "lots";
     public static final String API_SPACES = "spaces";
+    public static final String API_STATUS = "status";
     public static final String HEADER_AUTH = "Authorization";
     public static final String TYPE_JSON = "application/json";
     public static final String USER_AGENT = "ParkingApp v1.0";
@@ -65,6 +65,10 @@ public class NetworkHelper {
 
     public static void getSpaces(Context context, int lotId, AsyncHttpResponseHandler callback) {
         get(API_SPACES + "/" + lotId, context, null, callback);
+    }
+
+    public static void getStatus(Context context, AsyncHttpResponseHandler callback) {
+        get(API_STATUS, context, null, callback);
     }
 
     public static void reserveSpace(Context context, int lotId, int spaceId, int time, AsyncHttpResponseHandler callback) {
