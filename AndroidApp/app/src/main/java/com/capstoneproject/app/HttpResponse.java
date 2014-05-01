@@ -23,17 +23,21 @@ public class HttpResponse extends JsonHttpResponseHandler {
 
 
         try {
-            String error = errorResponse.getString("error");
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setTitle("Error").setMessage(error);
-            builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
-            builder.create().show();
+            if(!errorResponse.isNull("error")) {
+
+                String error = errorResponse.getString("error");
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Error").setMessage(error);
+                builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.create().show();
+            }
 
         } catch (JSONException e1) {
             e1.printStackTrace();
