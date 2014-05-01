@@ -437,7 +437,7 @@ app.get('/status', function (request, response) {
 			response.send(403, {error: "Your session has expired."});
 		} else {
 
-			db.query("SELECT RoleId,LotId,SpaceId,unix_timestamp(TimeOut) AS TimeOut FROM Users LEFT JOIN Reservations ON Reservations.UserId = Users.UserId AND TimeOut > NOW() WHERE Users.UserId = ? LIMIT 1", 
+			db.query("SELECT RoleId,LotNumber,SpaceId,unix_timestamp(TimeOut) AS TimeOut FROM Users u LEFT JOIN Reservations r ON r.UserId = u.UserId AND TimeOut > NOW() LEFT JOIN ParkingLots p ON r.LotId = p.LotId WHERE u.UserId = ? LIMIT 1", 
 				user, function(err, rows, fields) {
 
 					if(err || rows.length === 0) {
