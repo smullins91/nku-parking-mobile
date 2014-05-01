@@ -204,7 +204,7 @@ namespace ParkingManagement.WebContent.ParkingManagement
 
         protected void Button9_Click(object sender, EventArgs e)
         {
-            if (DropDownList6.SelectedValue == "0")
+            if (DropDownList6.SelectedValue.ToString() == "0")
             {
                 freeSpace();
             }
@@ -215,9 +215,9 @@ namespace ParkingManagement.WebContent.ParkingManagement
             Class1 selectedLot = lotsObject[Convert.ToInt32(DropDownList1.SelectedItem.Value)];
             int columnSelected = Convert.ToInt32(DropDownList4.Text);
             int rowSelected = Convert.ToInt32(DropDownList5.Text);
-            int selectedSpace = (columnSelected - 1) * selectedLot.rows + (rowSelected - 1);
+            int selectedSpace = (columnSelected - 1) * selectedLot.rows + (rowSelected) - 1;
             HttpWebRequest req = WebRequest.Create(serverAddress + "/" + selectedLotId + "/" + selectedSpace) as HttpWebRequest;
-            req.ContentType = "application/json";
+     //       req.ContentType = "application/json";
             req.Method = "DELETE";
 
             req.Headers.Add("Authorization", key);
@@ -360,20 +360,23 @@ namespace ParkingManagement.WebContent.ParkingManagement
             theSpaces = getSpaces(selectedLotId);
             int columnSelected = Convert.ToInt32(DropDownList4.Text);
             int rowSelected = Convert.ToInt32(DropDownList5.Text);
-            int spaceSelected = (columnSelected - 1) * selectedLot.rows + (rowSelected - 1);
-
-            if (spaceSelected < theSpaces.Count() && theSpaces.Count() != 0)
+            int spaceSelected = (columnSelected - 1) * selectedLot.rows + (rowSelected) - 1;
+            SuperSpace thisReservation = new SuperSpace();
+            
+            //Set the default value for the dropdownbox and user name box
+            DropDownList6.SelectedValue = "0"; //available
+            TextBox3.Text = "";
+            //Go through the list of reservations, find the one with the correct number - saved as thisReservation
+            for (int i = 0; i < theSpaces.Count(); i++ )
             {
-                DropDownList6.SelectedValue = "1"; //in use
-                TextBox3.Text = Convert.ToString(theSpaces[spaceSelected].UserId);
+                if (Convert.ToInt32(theSpaces[i].SpaceId) == spaceSelected)
+                {
+                    thisReservation = theSpaces[i];
+                    TextBox3.Text = Convert.ToString(thisReservation.UserId);
+                    DropDownList6.SelectedValue = "1"; //in use
+                    break;
+                }
             }
-
-            else
-            {
-                DropDownList6.SelectedValue = "0"; //available
-                TextBox3.Text = "";
-            }
-
         }
 
         public List<SuperSpace> getSpaces(int LOT_ID)
