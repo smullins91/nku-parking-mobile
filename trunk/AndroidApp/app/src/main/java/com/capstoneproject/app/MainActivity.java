@@ -227,7 +227,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             @Override
             public void onFailure(Throwable e, JSONObject result) {
                 super.onFailure(e, result);
-                logout();
+
+                if(!result.isNull("error"))
+                    logout();
             }
 
             @Override
@@ -343,7 +345,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 if(mProgress != null && mProgress.isShowing()) {
                     mProgress.dismiss();
                 }
-                super.onFailure(e, result);
+//                super.onFailure(e, result);
             }
 
             @Override

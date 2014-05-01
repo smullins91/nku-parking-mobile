@@ -2,6 +2,7 @@ package com.capstoneproject.app;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
@@ -260,16 +261,28 @@ public class ParkingSpaces extends Activity implements View.OnClickListener
             public void onClick(DialogInterface dialog, final int which) {
 
                 dialog.dismiss();
+
+                final ProgressDialog progress = ProgressDialog.show(ParkingSpaces.this, "",
+                        "Reserving space...", true);
+
+
                 NetworkHelper.reserveSpace(ParkingSpaces.this, mId, id, which, new HttpResponse(ParkingSpaces.this) {
 
                     @Override
                     public void onFailure(Throwable e, JSONObject result) {
+
+                        if(progress != null && progress.isShowing())
+                            progress.dismiss();
+
                         getSpaces();
                         showReservedMessage();
                     }
 
                     @Override
                     public void onSuccess(JSONObject result) {
+
+                        if(progress != null && progress.isShowing())
+                            progress.dismiss();
 
                         Toast.makeText(getBaseContext(), "Space reserved! Your reservation is valid for " + intervals[which] + ".", Toast.LENGTH_LONG).show();
                         SettingsHelper settings = new SettingsHelper(ParkingSpaces.this.getApplicationContext());
