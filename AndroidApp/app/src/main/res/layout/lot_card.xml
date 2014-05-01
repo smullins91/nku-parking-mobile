@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/card_relative_layout">
 
-
-    <RelativeLayout
-        android:layout_width="10dp"
-        android:layout_height="fill_parent"
+    <TextView
+        android:layout_width="8dp"
+        android:layout_height="match_parent"
         android:id="@+id/lot_header_status"
         android:background="#00FF00" />
 
@@ -18,6 +19,7 @@
         android:id="@+id/lot_card_title"
         android:layout_marginLeft="12dp"
         android:textStyle="bold" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,45 +43,60 @@
         android:textAlignment="gravity"
         android:layout_gravity="right" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Map"
-        android:id="@+id/button_show_map"
-        android:background="@drawable/card_button"
-        android:layout_below="@+id/lot_card_title"
-        android:layout_marginLeft="10dp"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="40dp"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp" />
+        android:layout_alignParentLeft="true"
+        android:weightSum="3">
 
-    <!--         android:layout_alignStart="@+id/lot_card_title" -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Map"
+            android:id="@+id/button_show_map"
+            android:textColor="@drawable/card_button_text"
+            android:background="@drawable/card_button"
+            android:layout_below="@+id/lot_card_title"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="40dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/card_button"
-        android:text="View Lot"
-        android:id="@+id/button_view_lot"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/button_show_map"
-        android:layout_below="@+id/lot_card_title"
-        android:layout_marginTop="40dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@drawable/card_button_text"
+            android:background="@drawable/card_button_middle"
+            android:text="View Lot"
+            android:id="@+id/button_view_lot"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/button_show_map"
+            android:layout_below="@+id/lot_card_title"
+            android:layout_marginTop="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Directions"
-        android:id="@+id/button_directions"
-        android:background="@drawable/card_button"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/lot_card_title"
-        android:layout_toRightOf="@+id/button_view_lot"
-        android:layout_marginTop="40dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Directions"
+            android:id="@+id/button_directions"
+            android:textColor="@drawable/card_button_text"
+            android:background="@drawable/card_button"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/lot_card_title"
+            android:layout_toRightOf="@+id/button_view_lot"
+            android:layout_marginTop="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="#0099FF"/>
 
-    <solid android:color="#006CFF"/>
+            <padding android:left="4dp"
+                android:top="8dp"
+                android:right="8dp"
+                android:bottom="8dp"/>
 
-    <padding android:left="4dp"
-        android:top="8dp"
-        android:right="8dp"
-        android:bottom="8dp"/>
+            <corners android:bottomRightRadius="5dp" android:bottomLeftRadius="5dp"
+                android:topLeftRadius="5dp" android:topRightRadius="5dp"/>
 
-    <corners android:bottomRightRadius="5dp" android:bottomLeftRadius="5dp"
-        android:topLeftRadius="5dp" android:topRightRadius="5dp"/>
+        </shape>
+    </item>
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-</shape>
+            <solid android:color="#006CFF"/>
+
+            <padding android:left="4dp"
+                android:top="8dp"
+                android:right="8dp"
+                android:bottom="8dp"/>
+
+            <corners android:bottomRightRadius="5dp" android:bottomLeftRadius="5dp"
+                android:topLeftRadius="5dp" android:topRightRadius="5dp"/>
+
+        </shape>
+    </item>
+</selector>
